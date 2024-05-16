@@ -1,6 +1,7 @@
 package com.dongyoung.noAlone.member.entity;
 
-import com.dongyoung.common.entity.DateTime;
+import com.dongyoung.noAlone.common.entity.DateTime;
+import com.dongyoung.noAlone.mbti.entity.Mbti;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -55,4 +56,7 @@ public class Member {
     @Embedded
     private DateTime dateTime;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MBTI_ID")
+    private Mbti mbti;
 }

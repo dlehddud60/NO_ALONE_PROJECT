@@ -1,4 +1,4 @@
-package com.dongyoung.common.entity;
+package com.dongyoung.noAlone.common.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
