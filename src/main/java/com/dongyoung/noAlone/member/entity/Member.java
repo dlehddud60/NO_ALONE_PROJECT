@@ -1,5 +1,6 @@
 package com.dongyoung.noAlone.member.entity;
 
+import com.dongyoung.common.entity.DateTime;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -49,11 +50,9 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "ROLE")
-    private ROLE role;
+    private Role role;
 
-    @Column(name = "INPUT_DT")
-    private String inputDt;
+    @Embedded
+    private DateTime dateTime;
 
-    @Column(name = "UPDATE_DT")
-    private String updateDt;
 }

@@ -1,0 +1,30 @@
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/test1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 1234
+  thymeleaf:
+    prefix: classpath:/templates/
+    encoding: UTF-8
+    suffix: .html
+    mode: HTML
+    cache: false
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: false
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    open-in-view: false
+
+logging.level:
+  org.hibernate.SQL: debug
+  org.hibernate.orm.jdbc.bind: trace #d??? ?? 3.x, hibernate6
