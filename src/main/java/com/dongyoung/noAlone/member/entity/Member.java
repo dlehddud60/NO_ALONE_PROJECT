@@ -22,6 +22,9 @@ public class Member {
     @Column(name = "ID",unique = true)
     private String id;
 
+    @Column(name = "PW")
+    private String pw;
+
     @Column(name = "NICKNAME")
     private String nickname;
 
