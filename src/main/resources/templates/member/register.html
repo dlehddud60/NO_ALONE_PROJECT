@@ -6,9 +6,9 @@
     <title>회원가입</title>
 </head>
 <body>
-<form action="/member/save11" method="post"  id="frm">
+<form th:action="@{/member/save}" method="post"  id="frm">
     아이디 <input type="text" name="id"><br>
-    비밀번호 <input type="password" name="pw"><br>
+    비밀번호 <input type="password" name="password"><br>
     닉네임 <input type="text" name="nickname"><br>
     이름 <input type="text" name="name"><br>
     이메일 <input type="email" name="email"><br>
