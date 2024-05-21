@@ -4,7 +4,7 @@ import jakarta.persistence.Column;
 
 public record FindRequestMemberModel(
         String id,
-        String pw,
+        String password,
         String nickname,
         String name,
         String email,

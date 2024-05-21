@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>홈</title>
+</head>
+<body>
+<th:block th:if="${not #strings.isEmpty(session.member)}">
+    <p th:text="${session.member.getName() + '님 환영합니다.'}"></p>
+</th:block>
+<th:block th:if="${#strings.isEmpty(session.member)}">
+   <p>로그인을 해주시길 바랍니다.</p>
+</th:block>
+
+<li class="nav-item">
+  <a class="nav-link"  th:href="@{/member/login}">로그인</a>
+  <a class="nav-link"  th:href="@{/member/logout}">로그아웃</a>
+</li>
+</body>
+</html>
