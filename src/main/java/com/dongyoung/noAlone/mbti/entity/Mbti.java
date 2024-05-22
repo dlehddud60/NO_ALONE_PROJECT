@@ -32,6 +32,6 @@ public class Mbti {
     @Embedded
     private DateTime dateTime;
 
-    @OneToMany(mappedBy = "mbti")
+    @OneToMany(mappedBy = "mbti",cascade = CascadeType.PERSIST)
     private final List<Member> members = new ArrayList<>();
 }
