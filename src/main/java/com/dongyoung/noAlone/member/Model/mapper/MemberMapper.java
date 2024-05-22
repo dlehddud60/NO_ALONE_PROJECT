@@ -1,4 +1,4 @@
-package com.dongyoung.noAlone.member.entity.mapper;
+package com.dongyoung.noAlone.member.Model.mapper;
 
 import com.dongyoung.noAlone.member.Model.FindResponseLoginMemberModel;
 import com.dongyoung.noAlone.member.entity.Member;
