@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MBTI검사</title>
+  <link rel="stylesheet" th:href="@{/css/mbti/mbtiCheck.css}">
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script th:src="@{/js/mbti/mbtiCheck.js}"></script>
+</head>
+<th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
+<body>
+    <form th:action="@{/mbti/mbtiCheck}" method="post" id="frm">
+        <div class="wrap">
+
+            <div class="mbtiArea">
+                <div class="question e" >
+                    <p class="value1"></p>
+                </div>
+                <div class="question i" >
+                    <p class="value2"></p>
+                </div>
+                <div class="question n" style="display: none">
+                    <p class="value1">d</p>
+                </div>
+                <div class="question s" style="display: none">
+                    <p class="value2">sdafa</p>
+                </div>
+                <div class="question t" style="display: none">
+                    <p class="value1"></p>
+                </div>
+                <div class="question f" style="display: none">
+                    <p class="value2"></p>
+                </div>
+                <div class="question p" style="display: none">
+                    <p class="value1"></p>
+                </div>
+                <div class="question j" style="display: none">
+                    <p class="value2"></p>
+                </div>
+                <div class="mbtiSave" style="display: none" >저장하기</div>
+            </div>
+
+        </div>
+    </form>
+</body>
+<th:block th:replace="/include/header.html :: footerFragment"></th:block>
+</html>

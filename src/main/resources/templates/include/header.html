@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th ="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+  <body>
+  <th:block th:fragment="headerFragment">
+    <header>
+      <link rel="stylesheet" th:href="@{/css/include/header.css}">
+      <p class="hTitle">혼자는 싫어</p>
+      <div class="loginArea">
+        <th:block th:if="${not #strings.isEmpty(session.member)}">
+          <p class="login" th:text="${session.member.getName() + '님 환영합니다.'}"></p>
+          <p class="login"><a href="/member/logout">로그아웃</a></p>
+
+        </th:block>
+        <th:block th:if="${ #strings.isEmpty(session.member)}">
+          <p class="login"><a href="/member/login">로그인</a></p>
+        </th:block>
+      </div>
+
+
+    </header>
+    <nav>
+      <div>
+        <p class="menu">자</p>
+        <ul class="sub">
+          <li><a href="">사원</a></li>
+          <li><a href="">회사정보</a></li>
+          <li><a href="">사원정보</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="menu">커뮤니티</p>
+        <ul class="sub">
+          <li><a href="#">공지사항</a></li>
+          <li><a href="#">자유게시판</a></li>
+          <li><a href="#">자유게시판</a></li>
+          <li><a href="#">자유게시판</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="menu">메뉴1</p>
+        <ul class="sub">
+          <li><a href="#">메뉴2</a></li>
+          <li><a href="#">메뉴2</a></li>
+          <li><a href="#">메뉴2</a></li>
+          <li><a href="#">메뉴2</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="menu">마이페이지</p>
+        <ul class="sub">
+          <li><a href="#">메뉴2</a></li>
+          <li><a href="#">메뉴2</a></li>
+          <li><a href="#">메뉴2</a></li>
+          <li><a href="#">메뉴2</a></li>
+        </ul>
+      </div>
+    </nav>
+  </th:block>
+
+    <th:block th:fragment="footerFragment">
+      <footer>
+        <nav>
+          <a href='https://velog.io/@dlehddud60/posts' target='_blank'>Blog</a> |
+          <a href='https://github.com/dlehddud60' target='_blank'>Github</a>
+        </nav>
+        <p>
+          <span>저자 : 이동영</span><br/>
+          <span>이메일 : dlehddud60@naver.com</span><br/>
+          <span>Copyright 2024. cocoder. All Rights Reserved.</span>
+        </p>
+      </footer>
+    </th:block>
+  </body>
+</html>

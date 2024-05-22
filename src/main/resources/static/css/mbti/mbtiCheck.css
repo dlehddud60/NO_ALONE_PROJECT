@@ -1,0 +1,112 @@
+@font-face {
+    font-family: 'SUITE-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'KBO-Dia-Gothic_bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'WavvePADO-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2404@1.0/WavvePADO-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+*{
+    text-decoration: none;
+    list-style: none;
+}
+a {
+    color: white;
+    font-family: SUITE-Regular;
+}
+p{
+    font-family: SUITE-Regular;
+}
+.wrap {
+    /*background: #484e6e;*/
+    height: 100%;
+    margin-top: 100px;
+}
+div {
+    line-height : 2.5rem;
+
+}
+input  {
+    font-family: SUITE-Regular;
+    font-size: 1.5vw;
+    border-radius: 5px;
+    height: 15%; width: 50%;
+}
+
+.wrap {
+    border: 1px solid black;
+    height: 100vh;
+    width: 70%;
+    margin: 5% auto auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mbtiArea {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    /*border: 1px solid black;*/
+    height: 80%;
+    width: 80%;
+}
+
+.question {
+    border: 1px solid black;
+    background: #ecccff;
+    height: 30%;
+    width: 90%;
+    margin-bottom: 5%;
+    border-radius: 20px;
+    display: flex; /* Flexbox for centering text */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.question:hover {
+    background: #d88cff;
+}
+
+.question p{
+    text-align: center;
+    line-height: 30%;
+}
+.mbtiSave {
+    font-family: WavvePADO-Regular;
+    font-size: 2rem;
+    color: white;
+    border: 1px solid black;
+    width: 60%;
+    height: 20%;
+    border-radius: 20px;
+    display: flex; /* Flexbox for centering text */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: center;
+    background: #a6a6ff;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+.mbtiSave:hover {
+    background: #9494ff;
+
+}
+

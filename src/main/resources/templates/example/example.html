@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>예제</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<!--  <link rel="stylesheet" th:href="@{/css/.../list.css}">-->
+
+
+</head>
+<body>
+<th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
+<th:block th:replace="/include/header.html :: footerFragment"></th:block>
+</body>
+</html>
