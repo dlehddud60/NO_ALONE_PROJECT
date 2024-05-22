@@ -23,7 +23,7 @@ public class Mbti {
     @Column(name = "MBTI_ID")
     private Long mbtiId;
 
-    @Column(name = "NAME", unique = true)
+    @Column(name = "NAME")
     private String name;
 
     @Column(name = "DESCRIPTION")

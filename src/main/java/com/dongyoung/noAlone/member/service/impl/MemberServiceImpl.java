@@ -10,19 +10,11 @@ import com.dongyoung.noAlone.member.service.MemberService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 @Log4j2
 @Service
@@ -58,11 +50,9 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public String login(FindRequestLoginModel loginModel, HttpSession session) {
-        log.info("============loginModel================={}",loginModel);
         Member member = memberRepository.findMemberById(loginModel.id());
-        log.info("============member================={}",member);
-        if(member != null && passwordEncoder.matches(loginModel.password(), member.getPassword())){
-            session.setAttribute("member",member);
+        if (member != null && passwordEncoder.matches(loginModel.password(), member.getPassword())) {
+            session.setAttribute("member", member);
         }
         return "redirect:/member/";
     }

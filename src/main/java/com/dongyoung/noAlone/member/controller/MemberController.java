@@ -30,7 +30,6 @@ public class MemberController {
 
     @PostMapping("/save")
     public String save(FindRequestMemberModel findRequestMemberModel) {
-        log.info("=================save=================");
         memberService.save(findRequestMemberModel);
         return "redirect:/member/register";
     }
@@ -42,12 +41,11 @@ public class MemberController {
 
     @PostMapping("/login")
     public String login(FindRequestLoginModel loginModel, HttpSession session) {
-        return memberService.login(loginModel,session);
+        return memberService.login(loginModel, session);
     }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        log.info("============로그아웃==============");
         session.invalidate();
         return "redirect:/member/";
     }

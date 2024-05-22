@@ -20,7 +20,6 @@ public record FindResponseLoginMemberModel(
         String profileImage,
         String birthyear,
         String mobile,
-        Role role,
-        DateTime dateTime
+        Role role
 ) {
 }
