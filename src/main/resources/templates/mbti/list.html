@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>mbti 등록</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" th:href="@{/css/mbti/list.css}">
+
+
+</head>
+<body>
+<th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
+
+<form action="" method="get">
+  <div class="wrap">
+    <div class="searchArea">
+      <div class="searchAreaChild">
+        <input type="text" name="name" placeholder="이름을 입력해주세요." th:value="${param.name}">
+        <button type="submit">search</button>
+      </div>
+    </div>
+
+    <div class="boardArea">
+      <div class="listArea">
+        <table>
+          <thead>
+          <tr>
+            <th class="num">번호</th>
+            <th class="title">MBTI</th>
+            <th class="writer">설명</th>
+          </tr>
+          </thead>
+          <tbody>
+          <th:block th:each="list : ${list}">
+            <tr>
+              <td th:text="${list.mbtiId}"></td>
+              <td>
+                <a th:href="@{/mbti/find/{mbtiId}( mbtiId = ${list.mbtiId})}"
+                   th:text="${list.name}" style="color: #2b48dc"></a>
+              </td>
+              <td th:text="${list.description}"></td>
+            </tr>
+          </th:block>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="buttonArea">
+      <div class="updateBtn Btn"><a th:href="@{/mbti/write}" style="color: white">작성</a></div>
+
+    </div>
+
+<th:block th:replace="/include/header.html :: footerFragment"></th:block>
+</body>
+</html>

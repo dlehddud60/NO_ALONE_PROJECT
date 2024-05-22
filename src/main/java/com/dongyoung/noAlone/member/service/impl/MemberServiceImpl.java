@@ -1,6 +1,10 @@
 package com.dongyoung.noAlone.member.service.impl;
 
 import com.dongyoung.noAlone.common.entity.DateTime;
+import com.dongyoung.noAlone.mbti.entity.Mbti;
+import com.dongyoung.noAlone.mbti.model.FindRequestMbtiDataModel;
+import com.dongyoung.noAlone.mbti.model.mapper.MbtiMapper;
+import com.dongyoung.noAlone.mbti.repository.MbtiRepository;
 import com.dongyoung.noAlone.member.Model.FindRequestLoginModel;
 import com.dongyoung.noAlone.member.Model.FindRequestMemberModel;
 import com.dongyoung.noAlone.member.entity.Member;
@@ -23,6 +27,8 @@ import java.time.LocalDate;
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final MbtiRepository mbtiRepository;
+    private final MbtiMapper mbtiMapper;
 
     @Override
     public void save(FindRequestMemberModel findRequestMemberModel) {
@@ -56,4 +62,6 @@ public class MemberServiceImpl implements MemberService {
         }
         return "redirect:/member/";
     }
+
+
 }
