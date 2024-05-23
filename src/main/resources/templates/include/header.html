@@ -9,11 +9,12 @@
   <th:block th:fragment="headerFragment">
     <header>
       <link rel="stylesheet" th:href="@{/css/include/header.css}">
+      <script th:src="@{/js/include/header.js}"></script>
       <p class="hTitle">혼자는 싫어</p>
       <div class="loginArea">
         <th:block th:if="${not #strings.isEmpty(session.member)}">
-          <p class="login" th:text="${session.member.getName() + '님 환영합니다.'}"></p>
-          <p class="login"><a href="/member/logout">로그아웃</a></p>
+          <p class="nickName" onclick="myInfo()" th:text="${session.member.getName() + '님'}"></p>
+          <p class="logout"><a href="/member/logout">로그아웃</a></p>
 
         </th:block>
         <th:block th:if="${ #strings.isEmpty(session.member)}">
@@ -24,30 +25,21 @@
 
     </header>
     <nav>
+
       <div>
-        <p class="menu">자</p>
-        <ul class="sub">
-          <li><a href="">사원</a></li>
-          <li><a href="">회사정보</a></li>
-          <li><a href="">사원정보</a></li>
-        </ul>
-      </div>
-      <div>
-        <p class="menu">커뮤니티</p>
+        <p class="menu">게시판</p>
         <ul class="sub">
           <li><a href="#">공지사항</a></li>
-          <li><a href="#">자유게시판</a></li>
-          <li><a href="#">자유게시판</a></li>
-          <li><a href="#">자유게시판</a></li>
+          <li><a href="#">Q&A</a></li>
+          <li><a href="#">자유 게시판</a></li>
         </ul>
       </div>
       <div>
-        <p class="menu">메뉴1</p>
+        <p class="menu">모임</p>
         <ul class="sub">
-          <li><a href="#">메뉴2</a></li>
-          <li><a href="#">메뉴2</a></li>
-          <li><a href="#">메뉴2</a></li>
-          <li><a href="#">메뉴2</a></li>
+          <li><a href="#">모임등록</a></li>
+          <li><a href="#">모임 리스트</a></li>
+          <li><a href="#">모임 커뮤니티</a></li>
         </ul>
       </div>
       <div>
@@ -55,6 +47,7 @@
         <ul class="sub">
           <li><a href="/member/update">회원정보 수정</a></li>
           <li><a href="/mbti/mbtiCheckForm">MBTI 등록</a></li>
+          <li><a href="#">나의 MBTI</a></li>
         </ul>
       </div>
     </nav>

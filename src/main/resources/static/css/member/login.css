@@ -26,19 +26,18 @@
 
 
 .formArea {
-    height: 80vh;
-    width: 70%;
+    width: 50%;
+    height: 50vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: auto;
+    margin: 5% auto auto;
 
 }
 
 .viewArea {
     padding-bottom: 3%;
     padding-top: 3%;
-    height: 83%;
     width: 90%;
     display: flex;
     justify-content:center;
@@ -52,13 +51,12 @@ table {
 
 
 table tr th {
-    background: #a2a2a2;
+    background: #ffd493;
     height: 6vh;
-    width: 10%;
-    color: white;
+    width: 20%;
 }
 table tbody tr td {
-    background: #a2a2a2;
+    background: #ffd493;
     height: 4vh;
     text-indent: 15px;
 }
@@ -82,8 +80,8 @@ select[name='mbtiName'] {
 }
 
 .buttonArea {
-    margin: auto auto 5%;
-    width: 50%;height: 5vh;
+    margin: auto auto 1%;
+    width: 35%;height: 5vh;
     display: flex;
     justify-content: right;
     align-items: center;

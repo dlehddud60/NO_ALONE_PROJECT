@@ -63,7 +63,7 @@ public class MemberServiceImpl implements MemberService {
         if (member != null && passwordEncoder.matches(loginModel.password(), member.getPassword())) {
             session.setAttribute("member", member);
         }
-        return "redirect:/member/";
+        return "redirect:/member/update";
     }
 
     @Override

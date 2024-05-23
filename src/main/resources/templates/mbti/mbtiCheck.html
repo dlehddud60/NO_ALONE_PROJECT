@@ -11,12 +11,12 @@
 <body>
     <form th:action="@{/mbti/mbtiCheck}" method="post" id="frm">
         <div class="wrap">
-
             <div class="mbtiResult" th:if="${not #strings.isEmpty(mbtiResult)}">
                 <p th:text="${session.member.getName() + '님의 MBTI는 ' + mbtiResult.name + '입니다.'}"></p>
             </div>
 
             <div th:if="${#strings.isEmpty(mbtiResult)}" class="mbtiArea">
+                <p class="title">MBTI 검사</p>
                 <div class="question e" >
                     <p class="value1"></p>
                 </div>
@@ -24,10 +24,10 @@
                     <p class="value2"></p>
                 </div>
                 <div class="question n" style="display: none">
-                    <p class="value1">d</p>
+                    <p class="value1"></p>
                 </div>
                 <div class="question s" style="display: none">
-                    <p class="value2">sdafa</p>
+                    <p class="value2"></p>
                 </div>
                 <div class="question t" style="display: none">
                     <p class="value1"></p>

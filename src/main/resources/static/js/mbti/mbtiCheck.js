@@ -42,11 +42,6 @@ $(()=> {
 
       }
     }
-
-    console.log("=====E=======",E);
-    console.log("=====I=======",I);
-    console.log("====clickValue=====",clickValue);
-
   });
 
   $(".n, .s").on("click", function () {
@@ -80,11 +75,6 @@ $(()=> {
 
       }
     }
-
-    console.log("=====E=======",E);
-    console.log("=====I=======",I);
-    console.log("=====N=======",N);
-    console.log("=====S=======",S);
   });
 
   $(".t, .f").on("click", function () {
@@ -118,14 +108,6 @@ $(()=> {
 
       }
     }
-
-    console.log("=====E=======",E);
-    console.log("=====I=======",I);
-    console.log("=====N=======",N);
-    console.log("=====S=======",S);
-    console.log("=====T=======",T);
-    console.log("=====F=======",F);
-
   });
 
   $(".p, .j").on("click", function () {
@@ -157,15 +139,6 @@ $(()=> {
 
       }
     }
-
-    console.log("=====E=======",E)
-    console.log("=====I=======",I)
-    console.log("=====N=======",N)
-    console.log("=====S=======",S)
-    console.log("=====T=======",T)
-    console.log("=====F=======",F)
-    console.log("=====P=======",P)
-    console.log("=====J=======",J)
   });
   $(".mbtiSave").on("click", function() {
     $("#frm").append("<input type=\"text\" name=\"E\" value=\"" + E + "\">")
@@ -177,7 +150,4 @@ $(()=> {
     .append("<input type=\"hidden\" name=\"P\" value=\"" + P + "\">")
     .append("<input type=\"hidden\" name=\"J\" value=\"" + J + "\">").submit();
   });
-
-
-
 });
