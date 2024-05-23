@@ -62,12 +62,6 @@ public class MbtiController {
         return "redirect:/mbti/list";
     }
 
-
-    @GetMapping("/mbtiTestForm")
-    public String mbtiTestFrom() {
-        return null;
-    }
-
     @GetMapping("/mbtiCheckForm")
     public String mbtiCheckFrom() {
         return "/mbti/mbtiCheck";

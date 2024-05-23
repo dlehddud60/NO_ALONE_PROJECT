@@ -18,7 +18,24 @@
     font-style: normal;
 }
 
-
+@font-face {
+    font-family: 'HSSanTokki20-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405@1.0/HSSanTokki20-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'TTLaundryGothicB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'BagelFatOne-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_JAMO@1.0/BagelFatOne-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
 *{
     text-decoration: none;
     list-style: none;
@@ -30,32 +47,21 @@ a {
 p{
     font-family: SUITE-Regular;
 }
-/*.wrap {*/
-/*    !*background: #484e6e;*!*/
-/*    height: 100%;*/
-/*}*/
-div {
-    line-height : 2.5rem;
-
-}
-input  {
-    font-family: SUITE-Regular;
-    font-size: 1.5vw;
-    border-radius: 5px;
-    height: 15%; width: 50%;
-}
-
 .wrap {
-    /*border: 1px solid black;*/
-    height: 100vh;
-    width: 70%;
-    margin: 5% auto auto;
+    height: 80vh;
+    width: 65%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 100px;
+    margin: 1% auto auto;
 
 }
+.wrap .title {
+    font-size: 2rem;
+    margin-bottom: 5%;
+    font-family: BagelFatOne-Regular;
+}
+
 
 .mbtiArea {
     display: flex;
@@ -69,8 +75,7 @@ input  {
 }
 
 .question {
-    border: 1px solid black;
-    background: #ecccff;
+    background: #a2a2a2;
     height: 30%;
     width: 90%;
     margin-bottom: 5%;
@@ -83,8 +88,12 @@ input  {
     transition: all 0.5s;
 }
 .question:hover {
-    background: #d88cff;
+    background: #707070;
 }
+.question p{
+    color: white;
+}
+
 
 .question p{
     text-align: center;
