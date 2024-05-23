@@ -72,15 +72,9 @@ public class MbtiServiceImpl implements MbtiService {
 
         String userMbti = mbtiResult1 + mbtiResult2 + mbtiResult3 + mbtiResult4;
 
-        Mbti mbti = Mbti.builder()
-                .name(userMbti)
-                .dateTime(DateTime.builder()
-                        .inputDt(LocalDate.now())
-                        .build())
-                .build();
-        mbtiRepository.save(mbti);
+        Mbti mbtiName = mbtiRepository.findByName(userMbti);
         Member member = (Member) session.getAttribute("member");
-        memberRepository.findMemberById(member.getId()).setMbti(mbti);
+        memberRepository.findMemberById(member.getId()).setMbti(mbtiName);
         FindResponseMbtiModel mbtiModel = mbtiMapper.toMbtiModel(memberRepository.findMemberById(member.getId()).getMbti());
         return mbtiModel;
     }

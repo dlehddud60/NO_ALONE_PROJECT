@@ -15,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
+@ToString
 public class Mbti {
 
 
@@ -23,7 +24,7 @@ public class Mbti {
     @Column(name = "MBTI_ID")
     private Long mbtiId;
 
-    @Column(name = "NAME")
+    @Column(name = "NAME",unique = true)
     private String name;
 
     @Column(name = "DESCRIPTION")

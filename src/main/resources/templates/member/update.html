@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>예제</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <link rel="stylesheet" th:href="@{/css/member/update.css}">
+  <script th:src="@{/js/member/update.js}"></script>
+
+
+</head>
+<body>
+<th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
+<form action="/member/update" method="post" id="frm">
+  <input type="hidden" name="id" th:value="${memberInfo.id()}">
+  <div class="wrap">
+    <div class="formArea">
+      <div class="viewArea">
+        <table>
+          <tbody>
+          <tr>
+            <th>아이디</th>
+            <td colspan="3" th:text="${memberInfo.id()}"></td>
+          </tr>
+          <tr>
+            <th>닉네임</th>
+            <td colspan="3"><input type="text" name="nickname" th:value="${memberInfo.nickname()}"></td>
+          </tr>
+          <tr>
+            <th>이름</th>
+            <td colspan="3"><input type="text" name="name" th:value="${memberInfo.name()}"></td>
+          </tr>
+          <tr>
+            <th>이메일</th>
+            <td colspan="3"><input type="text" name="email" th:value="${memberInfo.email()}"></td>
+          </tr>
+          <tr>
+            <th>성별</th>
+            <td colspan="3"><input type="text" name="gender" th:value="${memberInfo.gender()}"></td>
+          </tr>
+          <tr>
+            <th>나이</th>
+            <td colspan="3"><input type="text" name="age" th:value="${memberInfo.age()}"></td>
+          </tr>
+          <tr>
+            <th>생년</th>
+            <td colspan="3"><input type="text" name="birthyear" th:value="${memberInfo.birthyear()}"></td>
+          </tr>
+          <tr>
+            <th>월일</th>
+            <td colspan="3"><input type="text" name="birthday" th:value="${memberInfo.birthday()}"></td>
+          </tr>
+          <tr>
+            <th>핸드폰</th>
+            <td colspan="3"><input type="text" name="mobile" th:value="${memberInfo.mobile()}"></td>
+          </tr>
+          <tr>
+            <th style="width: 15%;">MBTI</th>
+            <td style="width: 15%;">
+              <select name="mbtiName">
+                <option value="">--선택--</option>
+                <th:block th:each="list : ${mbtiList}">
+                  <option th:value="${list.name()}" th:text="${list.name}"  th:selected="${list.mbtiId()} == ${mbtiInfo.mbtiId()}"></option>
+                </th:block>
+              </select>
+            </td>
+            <th:block th:each="list : ${mbtiList}">
+            </th:block>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+
+    </div>
+    <div class="buttonArea">
+      <div class="listBtn Btn" onclick="mbtiLink()">MBTI검사</div>
+      <div class="updateBtn Btn">수정</div>
+    </div>
+  </div>
+</form>
+<th:block th:replace="/include/header.html :: footerFragment"></th:block>
+</body>
+</html>
