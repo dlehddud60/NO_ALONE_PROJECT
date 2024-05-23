@@ -11,11 +11,7 @@
 <body>
     <form th:action="@{/mbti/mbtiCheck}" method="post" id="frm">
         <div class="wrap">
-            <div class="mbtiResult" th:if="${not #strings.isEmpty(mbtiResult)}">
-                <p th:text="${session.member.getName() + '님의 MBTI는 ' + mbtiResult.name + '입니다.'}"></p>
-            </div>
-
-            <div th:if="${#strings.isEmpty(mbtiResult)}" class="mbtiArea">
+            <div class="mbtiArea">
                 <p class="title">MBTI 검사</p>
                 <div class="question e" >
                     <p class="value1"></p>
@@ -41,7 +37,7 @@
                 <div class="question j" style="display: none">
                     <p class="value2"></p>
                 </div>
-                <div class="mbtiSave" style="display: none" >저장하기</div>
+                <div class="mbtiSave" style="display: none" >저장후 결과 확인하기</div>
             </div>
         </div>
     </form>

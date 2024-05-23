@@ -24,6 +24,9 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face{
+    font-family:'DNFBitBitv2';
+    font-style:normal;font-weight:400;src:url('//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf')format('opentype')}
 @font-face {
     font-family: 'TTLaundryGothicB';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
@@ -37,12 +40,42 @@
     font-style: normal;
 }
 @font-face {
-    font-family: 'TTLaundryGothicB';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
-    font-weight: 700;
+    font-family: 'MoiraiOne-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_JAMO@1.0/MoiraiOne-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Giants-Inline';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Giants-Inline.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Gisangchung Dalcomgihu';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405@1.0/Gisangchung Dalcomgihu.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'Tenada';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'GongGothicMedium';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 @font-face {
     font-family: 'Freesentation-9Black';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2') format('woff2');
@@ -61,7 +94,7 @@ p{
     font-family: SUITE-Regular;
 }
 .wrap {
-    height: 80vh;
+    height: 100vh;
     width: 65%;
     display: flex;
     justify-content: center;
@@ -69,13 +102,6 @@ p{
     margin: 1% auto auto;
 
 }
-.wrap .title {
-    font-size: 3rem;
-    margin-bottom: 5%;
-    font-family: Freesentation-9Black;
-}
-
-
 .mbtiArea {
     display: flex;
     flex-direction: column;
@@ -83,67 +109,32 @@ p{
     align-items: center;
     text-align: center;
     /*border: 1px solid black;*/
-    height: 80%;
+    height: 90%;
     width: 80%;
 }
 
-.question {
-    background: #a2a2a2;
-    height: 30%;
-    width: 90%;
-    margin-bottom: 5%;
-    border-radius: 20px;
-    display: flex; /* Flexbox for centering text */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.5s;
-}
-.question:hover {
-    background: #707070;
-}
-.question p{
-    color: white;
-}
-
-
-.question p{
-    text-align: center;
-    line-height: 30%;
-}
-.mbtiSave {
-    font-family: WavvePADO-Regular;
-    font-size: 2rem;
-    color: white;
-    width: 60%;
-    height: 20%;
-    border-radius: 20px;
-    display: flex; /* Flexbox for centering text */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    text-align: center;
-    background: #a2a2a2;
-    cursor: pointer;
-    transition: all 0.5s;
-}
-.mbtiSave:hover {
-    background: #9494ff;
-
-}
-
 .mbtiResult {
-    width: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
     height: 60%;
-    display: flex; /* Flexbox for centering text */
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
     text-align: center;
     border-radius: 20px;
-    background: rgba(68, 255, 227, 0.53);
+    background: rgb(162, 162, 162);
 }
-.mbtiResult p {
-    font-size: 1.5rem;
-    font-family: KBO-Dia-Gothic_bold;
+.mbtiResult .mbtiResultText{
+    color: white;
+    font-size: 3rem;
+    font-family:Freesentation-9Black;
 }
+
+.mbtiResult .description {
+    margin-top: 5%;
+    color : white;
+    font-size: 1.2rem;
+    width: 90%;
+}
+
 

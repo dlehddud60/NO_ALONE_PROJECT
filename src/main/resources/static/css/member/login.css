@@ -51,12 +51,13 @@ table {
 
 
 table tr th {
-    background: #ffd493;
+    color: white;
+    background: #a2a2a2;
     height: 6vh;
     width: 20%;
 }
 table tbody tr td {
-    background: #ffd493;
+    background: #a2a2a2;
     height: 4vh;
     text-indent: 15px;
 }

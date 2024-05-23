@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MBTI검사</title>
+  <link rel="stylesheet" th:href="@{/css/mbti/myMbti.css}">
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script th:src="@{/js/mbti/mbtiCheck.js}"></script>
+</head>
+<th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
+<body>
+        <div class="wrap">
+            <div class="mbtiResult">
+                <div class="mbtiResultText" th:text="${memberInfo.name() + '님의 MBTI는 [' +memberInfo.mbtiWithMemberModel().name() +  '] 입니다.'}"></div>
+                <div class="description" th:text="${memberInfo.mbtiWithMemberModel().description()}"></div>
+            </div>
+        </div>
+</body>
+<th:block th:replace="/include/header.html :: footerFragment"></th:block>
+</html>

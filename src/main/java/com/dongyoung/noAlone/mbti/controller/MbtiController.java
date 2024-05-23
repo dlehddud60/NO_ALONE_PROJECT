@@ -70,6 +70,6 @@ public class MbtiController {
     @PostMapping("/mbtiCheck")
     public String mbtiCheck(@ModelAttribute @Validated FindRequestMbtiDataModel mbtiData, HttpSession session, RedirectAttributes rttr) {
         rttr.addFlashAttribute("mbtiResult", mbtiService.mbtiCheck(mbtiData,session));
-        return "redirect:/mbti/mbtiCheckForm";
+        return "redirect:/member/myMbti";
     }
 }
