@@ -7,6 +7,9 @@ import com.dongyoung.noAlone.mbti.model.mapper.MbtiMapper;
 import com.dongyoung.noAlone.mbti.repository.MbtiRepository;
 import com.dongyoung.noAlone.member.Model.FindRequestLoginModel;
 import com.dongyoung.noAlone.member.Model.FindRequestMemberModel;
+import com.dongyoung.noAlone.member.Model.FindRequestMemberUpdateModel;
+import com.dongyoung.noAlone.member.Model.FindResponseMemberWithMbtiModel;
+import com.dongyoung.noAlone.member.Model.mapper.MemberMapper;
 import com.dongyoung.noAlone.member.entity.Member;
 import com.dongyoung.noAlone.member.entity.Role;
 import com.dongyoung.noAlone.member.repository.MemberRepository;
@@ -27,8 +30,8 @@ import java.time.LocalDate;
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final MemberMapper memberMapper;
     private final MbtiRepository mbtiRepository;
-    private final MbtiMapper mbtiMapper;
 
     @Override
     public void save(FindRequestMemberModel findRequestMemberModel) {
@@ -63,5 +66,23 @@ public class MemberServiceImpl implements MemberService {
         return "redirect:/member/";
     }
 
+    @Override
+    public FindResponseMemberWithMbtiModel find(String id) {
+        FindResponseMemberWithMbtiModel memberDTO = memberMapper.toMemberWithMbti(memberRepository.findMemberById(id));
+        return memberDTO;
+    }
 
+    @Override
+    public void update(FindRequestMemberUpdateModel memberUpdateModel) {
+        Member member = memberRepository.findMemberById(memberUpdateModel.id());
+        member.setNickname(memberUpdateModel.nickname());
+        member.setName(memberUpdateModel.name());
+        member.setEmail(memberUpdateModel.email());
+        member.setGender(memberUpdateModel.gender());
+        member.setAge(memberUpdateModel.age());
+        member.setBirthyear(memberUpdateModel.birthyear());
+        member.setBirthday(memberUpdateModel.birthday());
+        member.setMobile(memberUpdateModel.mobile());
+        member.setMbti(mbtiRepository.findByName(memberUpdateModel.mbtiName()));
+    }
 }

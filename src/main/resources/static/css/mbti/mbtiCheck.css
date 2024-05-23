@@ -30,11 +30,10 @@ a {
 p{
     font-family: SUITE-Regular;
 }
-.wrap {
-    /*background: #484e6e;*/
-    height: 100%;
-    margin-top: 100px;
-}
+/*.wrap {*/
+/*    !*background: #484e6e;*!*/
+/*    height: 100%;*/
+/*}*/
 div {
     line-height : 2.5rem;
 
@@ -54,6 +53,8 @@ input  {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 100px;
+
 }
 
 .mbtiArea {
