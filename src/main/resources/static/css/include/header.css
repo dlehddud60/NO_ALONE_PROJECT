@@ -74,7 +74,10 @@ header .loginArea {
 header .nickName {
   cursor: pointer;
 }
-header .nickName, header .logout , header .login{
+header .myMbti {
+  cursor: pointer;
+}
+header .nickName, header .logout , header .login, header .myMbti {
   font-family: TTLaundryGothicB;
   color: white;
   margin-right: 20px;

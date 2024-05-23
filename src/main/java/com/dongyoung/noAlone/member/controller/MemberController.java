@@ -71,4 +71,12 @@ public class MemberController {
         memberService.update(memberUpdateModel);
         return "redirect:/member/update";
     }
+
+    @GetMapping("/myMbti")
+    public String myMbti(Model model,HttpSession session) {
+        Member member = (Member) session.getAttribute("member");
+        FindResponseMemberWithMbtiModel memberWithMbtiModel = memberService.find(member.getId());
+        model.addAttribute("memberInfo",memberWithMbtiModel);
+        return "/mbti/myMbti";
+    }
 }

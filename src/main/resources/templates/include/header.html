@@ -13,6 +13,7 @@
       <p class="hTitle">혼자는 싫어</p>
       <div class="loginArea">
         <th:block th:if="${not #strings.isEmpty(session.member)}">
+          <p class="myMbti" onclick="myMbti()"> 나의 MBTI</p>
           <p class="nickName" onclick="myInfo()" th:text="${session.member.getName() + '님'}"></p>
           <p class="logout"><a href="/member/logout">로그아웃</a></p>
 
@@ -47,7 +48,7 @@
         <ul class="sub">
           <li><a href="/member/update">회원정보 수정</a></li>
           <li><a href="/mbti/mbtiCheckForm">MBTI 등록</a></li>
-          <li><a href="#">나의 MBTI</a></li>
+          <li><a href="/member/myMbti">나의 MBTI</a></li>
         </ul>
       </div>
     </nav>
