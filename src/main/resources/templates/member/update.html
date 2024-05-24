@@ -2,83 +2,73 @@
 <html lang="ko"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>예제</title>
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <link rel="stylesheet" th:href="@{/css/member/update.css}">
-  <script th:src="@{/js/member/update.js}"></script>
+    <meta charset="UTF-8">
+    <title>예제</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" th:href="@{/css/member/update.css}">
+    <script th:src="@{/js/member/update.js}"></script>
 
 
 </head>
 <body>
 <th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
-<form action="/member/update" method="post" id="frm">
-  <input type="hidden" name="id" th:value="${memberInfo.id()}">
-  <div class="wrap">
-    <div class="formArea">
-      <div class="viewArea">
-        <table>
-          <tbody>
-          <tr>
-            <th>아이디</th>
-            <td colspan="3" th:text="${memberInfo.id()}"></td>
-          </tr>
-          <tr>
-            <th>닉네임</th>
-            <td colspan="3"><input type="text" name="nickname" th:value="${memberInfo.nickname()}"></td>
-          </tr>
-          <tr>
-            <th>이름</th>
-            <td colspan="3"><input type="text" name="name" th:value="${memberInfo.name()}"></td>
-          </tr>
-          <tr>
-            <th>이메일</th>
-            <td colspan="3"><input type="text" name="email" th:value="${memberInfo.email()}"></td>
-          </tr>
-          <tr>
-            <th>성별</th>
-            <td colspan="3"><input type="text" name="gender" th:value="${memberInfo.gender()}"></td>
-          </tr>
-          <tr>
-            <th>나이</th>
-            <td colspan="3"><input type="text" name="age" th:value="${memberInfo.age()}"></td>
-          </tr>
-          <tr>
-            <th>생년</th>
-            <td colspan="3"><input type="text" name="birthyear" th:value="${memberInfo.birthyear()}"></td>
-          </tr>
-          <tr>
-            <th>월일</th>
-            <td colspan="3"><input type="text" name="birthday" th:value="${memberInfo.birthday()}"></td>
-          </tr>
-          <tr>
-            <th>핸드폰</th>
-            <td colspan="3"><input type="text" name="mobile" th:value="${memberInfo.mobile()}"></td>
-          </tr>
-          <tr>
-            <th style="width: 15%;">MBTI</th>
-            <td style="width: 15%;">
-              <select name="mbtiName">
-                <option value="">--선택--</option>
-                <th:block th:each="list : ${mbtiList}">
-                  <option th:value="${list.name()}" th:text="${list.name}"  th:selected="${list.mbtiId()} == ${mbtiInfo.mbtiId()}"></option>
-                </th:block>
-              </select>
-            </td>
-            <th:block th:each="list : ${mbtiList}">
-            </th:block>
-          </tr>
-          </tbody>
-        </table>
+<form action="/member/update" id="frm" method="post">
+    <input name="id" th:value="${memberInfo.id()}" type="hidden">
+    <div class="wrap">
+        <span class="title">Edit-Info</span>
+        <div class="formArea">
+            <div class="viewArea">
 
-      </div>
 
+                <p>아이디</p>
+                <input th:value="${memberInfo.id()}" type="text" disabled>
+
+                <p>이름</p>
+                <input name="name" th:value="${memberInfo.name()}" type="text">
+
+                <p>닉네임</p>
+                <input name="nickname" th:value="${memberInfo.nickname()}" type="text">
+
+                <p>E-Mail</p>
+                <input name="email" th:value="${memberInfo.email()}" type="email">
+
+                <p>핸드폰</p>
+                <input name="mobile" th:value="${memberInfo.mobile()}" type="text">
+
+                <p>성별</p>
+                <div class="select">
+                    <input id="select" name="gender" type="radio" value="남자" th:checked="${memberInfo.gender() eq '남자'}"><label for="select">남자</label>
+                    <input id="select2" name="gender" type="radio" value="여자" th:checked="${memberInfo.gender() eq '여자'}"><label for="select2">여자</label>
+                </div>
+
+                <p>나이</p>
+                <input name="age" th:value="${memberInfo.age()}" type="number">
+
+                <p>생년</p>
+                <input name="birthyear" th:value="${memberInfo.birthyear()}" type="number">
+
+                <p>월일</p>
+                <input name="birthday" th:value="${memberInfo.birthday()}" type="number">
+
+                <p>사용자 MBTI</p>
+                <select name="mbtiName">-->
+                    <option value="">&#45;&#45;선택&#45;&#45;</option>
+                    <th:block th:each="list : ${mbtiList}">-->
+                        <option th:selected="${list.mbtiId()} == ${mbtiInfo.mbtiId()}" th:text="${list.name}"
+                                th:value="${list.name()}"></option>
+                    </th:block>
+                </select>
+
+                <div class="updateBtn Btn">수정</div>
+                <div class="mbtiBtn Btn"  onclick="mbtiLink()">MBTI 검사</div>
+            </div>
+
+        </div>
+        <!--    <div class="buttonArea">-->
+        <!--      <div class="listBtn Btn" onclick="mbtiLink()">MBTI검사</div>-->
+        <!--      <div class="updateBtn Btn">수정</div>-->
+        <!--    </div>-->
     </div>
-    <div class="buttonArea">
-      <div class="listBtn Btn" onclick="mbtiLink()">MBTI검사</div>
-      <div class="updateBtn Btn">수정</div>
-    </div>
-  </div>
 </form>
 <th:block th:replace="/include/header.html :: footerFragment"></th:block>
 </body>

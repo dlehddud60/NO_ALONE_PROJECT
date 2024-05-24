@@ -19,6 +19,7 @@
 
         </th:block>
         <th:block th:if="${ #strings.isEmpty(session.member)}">
+          <p class="myMbti" onclick="register()"> 회원가입</p>
           <p class="login"><a href="/member/login">로그인</a></p>
         </th:block>
       </div>
@@ -38,12 +39,12 @@
       <div>
         <p class="menu">모임</p>
         <ul class="sub">
-          <li><a href="#">모임등록</a></li>
+          <li th:if="${not #strings.isEmpty(session.member)}"><a href="#">모임등록</a></li>
           <li><a href="#">모임 리스트</a></li>
           <li><a href="#">모임 커뮤니티</a></li>
         </ul>
       </div>
-      <div>
+      <div th:if="${not #strings.isEmpty(session.member)}">
         <p class="menu">마이페이지</p>
         <ul class="sub">
           <li><a href="/member/update">회원정보 수정</a></li>

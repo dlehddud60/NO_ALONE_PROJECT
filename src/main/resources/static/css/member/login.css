@@ -17,6 +17,12 @@
     font-weight: normal;
     font-style: normal;
 }
+@font-face {
+    font-family: 'Freesentation-9Black';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+}
 
 
 *{
@@ -24,96 +30,66 @@
     list-style: none;
 }
 
-
+p {
+    margin-bottom: 1.5%;
+    font-size: 1.2rem;
+    font-family: SUITE-Regular, serif;
+    color: #7c7c7c;
+}
 .formArea {
-    width: 50%;
     height: 50vh;
+    width: 70%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 5% auto auto;
+    margin: auto;
 
 }
-
 .viewArea {
-    padding-bottom: 3%;
-    padding-top: 3%;
-    width: 90%;
+    padding-left: 5%;
+    height:60%;
+    width: 55%;
     display: flex;
-    justify-content:center;
-    align-items : center;
+    flex-direction: column;
+    align-items: flex-start; /* 요소들을 왼쪽 정렬 */
+    border-radius: 10px;
+
 }
 
-table {
-    font-family: SUITE-Regular;
-    width: 80%;
+.title {
+    font-family: Freesentation-9Black;
+    font-size: 2.5rem;
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-
-
-table tr th {
-    color: white;
-    background: #a2a2a2;
-    height: 6vh;
-    width: 20%;
-}
-table tbody tr td {
-    background: #a2a2a2;
-    height: 4vh;
-    text-indent: 15px;
-}
-
-
 .detail {
     height: 30vh;
 }
 input {
-    border-radius: 5px;
-    height: 3vh; width: 20vw;
+    height: 4vh; width: 35vw;
     font-family: SUITE-Regular, serif;
     font-size: 1rem;
+    margin-bottom: 3%;
 }
 
-select[name='mbtiName'] {
-    border-radius: 5px;
-    height: 4vh; width: 20vw;
-    font-family: SUITE-Regular, serif;
-    font-size: 1rem;
-}
-
-.buttonArea {
-    margin: auto auto 1%;
-    width: 35%;height: 5vh;
-    display: flex;
-    justify-content: right;
-    align-items: center;
-
-}
 .Btn {
+    margin-top: 3%;
     border-radius: 7px;
     text-align: center;
-    line-height: 4vh;
-    width: 6vw; height: 4vh;
+    line-height: 6vh;
+    width: 35.5vw; height: 6vh;
     color: white;
+    font-size: 1.4rem;
     font-family: SUITE-Regular;
     cursor: pointer;
 }
-.listBtn {
-    display: inline;
-    background: #2b48dc;
-}
-.listBtn:hover{
-    background: #516eff;
-}
+
 .updateBtn {
-    background: #56a654;
+    background: #a2a2a2;
+    transition: all 0.5s;
 }
 .updateBtn:hover {
-    background: #95de94;
-}
-
-.deleteBtn {
-    background: #ff6b6b;
-}
-.deleteBtn:hover {
-    background: #ffacac;
+    background: #8f8f8f;
 }
