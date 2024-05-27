@@ -10,7 +10,7 @@
 </head>
 <body>
 <th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
-<form th:action="@{/member/save}" method="post"  id="frm">
+<form th:action="@{/member/save}" th:object="${memberDTO}" method="post" id="frm">
     <div class="wrap">
         <span class="title">Sing-in</span>
         <div class="formArea">
@@ -18,37 +18,66 @@
 
 
                 <p>아이디</p>
-                <input type="text" name="id">
+                <input type="text" name="id" th:field="*{id}" th:errorclass="field-error">
+                <div class="field-error" th:errors="*{id}">
+                    아이디 오류
+                </div>
 
                 <p>비밀번호</p>
-                <input type="password" name="password">
+                <input type="password" name="password" th:field="*{password}" th:errorclass="field-error">
+                <div class="field-error" th:errors="*{password}">
+                   비밀번호 오류
+                </div>
 
                 <p>이름</p>
-                <input type="text" name="nickName">
+                <input type="text" name="name" th:field="*{name}" th:errorclass="field-error">
+                <div class="field-error" th:errors="*{name}">
+                    이름 오류
+                </div>
 
                 <p>닉네임</p>
-                <input type="text" name="nickname">
+                <input type="text" name="nickname" th:field="*{nickname}" th:errorclass="field-error">
 
                 <p>E-Mail</p>
-                <input type="email" name="email">
+                <input type="email" name="email" th:field="*{email}" th:errorclass="field-error">
+                <div class="field-error" th:errors="*{email}">
+                    이메일 오류
+                </div>
+
 
                 <p>핸드폰</p>
-                <input type="text" name="mobile" >
+                <input type="text" name="mobile" th:field="*{mobile}" th:errorclass="field-error">
+                <div class="field-error" th:errors="*{mobile}">
+                    핸드폰 오류
+                </div>
 
                 <p>성별</p>
                 <div class="select">
-                    <input type="radio" id="select" name="gender" value="남자"><label for="select">남자</label>
-                    <input type="radio" id="select2" name="gender" value="여자"><label for="select2">여자</label>
+                    <input type="radio" id="select" name="gender" value="남자"  th:field="*{gender}" th:errorclass="field-error"><label for="select">남자</label>
+                    <input type="radio" id="select2" name="gender" value="여자"  th:field="*{gender}" th:errorclass="field-error"><label for="select2">여자</label>
+                </div>
+                <div class="field-error" th:errors="*{gender}">
+                    성별 오류
                 </div>
 
                 <p>나이</p>
-                <input type="number" name="age">
+                <input type="number" name="age" th:field="*{age}" th:errorclass="field-error">
+                <div class="field-error" th:errors="*{age}">
+                    나이 오류
+                </div>
 
                 <p>생년</p>
-                <input type="number" name="birthyear">
+                <input type="number" name="birthyear" th:field="*{birthyear}" th:errorclass="field-error">
+                <div class="field-error" th:errors="*{age}">
+                    생년 오류
+                </div>
 
                 <p>월일</p>
-                <input type="number" name="birthday">
+                <input type="number" name="birthday" th:field="*{birthday}" th:errorclass="field-error">
+                <div class="field-error" th:errors="*{birthday}">
+                    월일 오류
+                </div>
+
 
                 <div class="updateBtn Btn">회원가입</div>
 
