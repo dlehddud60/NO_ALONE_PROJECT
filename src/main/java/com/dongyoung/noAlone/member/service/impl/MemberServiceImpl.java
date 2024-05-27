@@ -70,7 +70,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void update(FindRequestMemberUpdateModel memberUpdateModel) {
+    public void update(FindRequestMemberUpdateModel memberUpdateModel,HttpSession session) {
         Member member = memberRepository.findMemberById(memberUpdateModel.id());
         member.setNickname(memberUpdateModel.nickname());
         member.setName(memberUpdateModel.name());
@@ -81,5 +81,6 @@ public class MemberServiceImpl implements MemberService {
         member.setBirthday(memberUpdateModel.birthday());
         member.setMobile(memberUpdateModel.mobile());
         member.setMbti(mbtiRepository.findByName(memberUpdateModel.mbtiName()));
+        session.setAttribute("member",member);
     }
 }

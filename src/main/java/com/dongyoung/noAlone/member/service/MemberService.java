@@ -12,7 +12,7 @@ public interface MemberService {
     String login(FindRequestLoginModel loginModel, HttpSession session);
 
 
-    void update(FindRequestMemberUpdateModel id);
+    void update(FindRequestMemberUpdateModel id,HttpSession session);
 
     FindResponseMemberWithMbtiModel find(String id);
 }

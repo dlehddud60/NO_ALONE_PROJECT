@@ -100,7 +100,6 @@ input {
     height: 4vh; width: 35vw;
     font-family: SUITE-Regular, serif;
     font-size: 1rem;
-    margin-bottom: 3%;
 }
 select[name='mbtiName'] {
     height: 5vh; width: 35.5vw;
@@ -133,4 +132,9 @@ select[name='mbtiName'] {
 .select input[type=radio]:checked+label{
     background-color: #333;
     color: #fff;
+}
+.field-error {
+    border-color: #dc3545;
+    color: #dc3545;
+    margin-bottom: 3%;
 }

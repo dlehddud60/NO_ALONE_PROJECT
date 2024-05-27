@@ -68,17 +68,27 @@ public class MemberController {
 
     @GetMapping("/update")
     public String update(Model model,HttpSession session) {
+
         Member member = (Member) session.getAttribute("member");
         FindResponseMemberWithMbtiModel memberWithMbtiModel = memberService.find(member.getId());
-        model.addAttribute("memberInfo",memberWithMbtiModel);
+        model.addAttribute("memberDTO",memberWithMbtiModel);
         model.addAttribute("mbtiInfo",memberWithMbtiModel.mbtiWithMemberModel());
         model.addAttribute("mbtiList",mbtiService.findAll());
+
+
         return "/member/update";
     }
 
     @PostMapping("/update")
-    public String update(FindRequestMemberUpdateModel memberUpdateModel) {
-        memberService.update(memberUpdateModel);
+    public String update(@ModelAttribute("memberDTO") @Validated FindRequestMemberUpdateModel memberUpdateModel, BindingResult bindingResult,Model model,HttpSession session) {
+        Member member = (Member) session.getAttribute("member");
+        if (bindingResult.hasErrors()) {
+            log.info("errors={} ", bindingResult);
+            model.addAttribute("mbtiInfo1",member.getMbti().getMbtiId());
+            model.addAttribute("mbtiList1",mbtiService.findAll());
+            return "/member/update";
+        }
+        memberService.update(memberUpdateModel,session);
         return "redirect:/member/update";
     }
 
