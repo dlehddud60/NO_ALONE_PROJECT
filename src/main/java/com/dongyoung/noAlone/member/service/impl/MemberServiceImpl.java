@@ -1,12 +1,9 @@
 package com.dongyoung.noAlone.member.service.impl;
 
 import com.dongyoung.noAlone.common.entity.DateTime;
-import com.dongyoung.noAlone.mbti.entity.Mbti;
-import com.dongyoung.noAlone.mbti.model.FindRequestMbtiDataModel;
-import com.dongyoung.noAlone.mbti.model.mapper.MbtiMapper;
 import com.dongyoung.noAlone.mbti.repository.MbtiRepository;
 import com.dongyoung.noAlone.member.Model.FindRequestLoginModel;
-import com.dongyoung.noAlone.member.Model.FindRequestMemberModel;
+import com.dongyoung.noAlone.member.Model.FindRequestRegisterMemberModel;
 import com.dongyoung.noAlone.member.Model.FindRequestMemberUpdateModel;
 import com.dongyoung.noAlone.member.Model.FindResponseMemberWithMbtiModel;
 import com.dongyoung.noAlone.member.Model.mapper.MemberMapper;
@@ -34,21 +31,21 @@ public class MemberServiceImpl implements MemberService {
     private final MbtiRepository mbtiRepository;
 
     @Override
-    public void save(FindRequestMemberModel findRequestMemberModel) {
+    public void save(FindRequestRegisterMemberModel findRequestRegisterMemberModel) {
 
-        String encode = passwordEncoder.encode(findRequestMemberModel.password());
+        String encode = passwordEncoder.encode(findRequestRegisterMemberModel.password());
 
         Member memberEntity = Member.builder()
-                .id(findRequestMemberModel.id())
+                .id(findRequestRegisterMemberModel.id())
                 .password(encode)
-                .nickname(findRequestMemberModel.nickname())
-                .name(findRequestMemberModel.name())
-                .email(findRequestMemberModel.email())
-                .gender(findRequestMemberModel.gender())
-                .age(findRequestMemberModel.age())
-                .birthday(findRequestMemberModel.birthday())
-                .birthyear(findRequestMemberModel.birthyear())
-                .mobile(findRequestMemberModel.mobile())
+                .nickname(findRequestRegisterMemberModel.nickname())
+                .name(findRequestRegisterMemberModel.name())
+                .email(findRequestRegisterMemberModel.email())
+                .gender(findRequestRegisterMemberModel.gender())
+                .age(findRequestRegisterMemberModel.age())
+                .birthday(findRequestRegisterMemberModel.birthday())
+                .birthyear(findRequestRegisterMemberModel.birthyear())
+                .mobile(findRequestRegisterMemberModel.mobile())
                 .role(Role.ADMIN)
                 .dateTime(DateTime.builder()
                         .inputDt(LocalDate.now())

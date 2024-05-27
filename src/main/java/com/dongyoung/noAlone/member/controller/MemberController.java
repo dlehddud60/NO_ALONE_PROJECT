@@ -1,20 +1,26 @@
 package com.dongyoung.noAlone.member.controller;
 
 import com.dongyoung.noAlone.mbti.service.MbtiService;
-import com.dongyoung.noAlone.member.Model.FindRequestLoginModel;
-import com.dongyoung.noAlone.member.Model.FindRequestMemberModel;
-import com.dongyoung.noAlone.member.Model.FindRequestMemberUpdateModel;
-import com.dongyoung.noAlone.member.Model.FindResponseMemberWithMbtiModel;
+import com.dongyoung.noAlone.member.Model.*;
 import com.dongyoung.noAlone.member.entity.Member;
 import com.dongyoung.noAlone.member.service.MemberService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Log4j2
 @Controller
@@ -30,13 +36,17 @@ public class MemberController {
     }
 
     @GetMapping("/register")
-    public String save() {
+    public String save(@ModelAttribute("memberDTO") FindRequestRegisterMemberModel memberDTO) {
         return "member/register";
     }
 
     @PostMapping("/save")
-    public String save(FindRequestMemberModel findRequestMemberModel) {
-        memberService.save(findRequestMemberModel);
+    public String save(@ModelAttribute("memberDTO") @Validated  FindRequestRegisterMemberModel memberDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            log.info("errors={} ", bindingResult);
+            return "/member/register";
+        }
+        memberService.save(memberDTO);
         return "redirect:/member/register";
     }
 

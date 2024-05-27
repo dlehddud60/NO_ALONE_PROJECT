@@ -1,5 +1,6 @@
 package com.dongyoung.noAlone.member.Model.mapper;
 
+import com.dongyoung.noAlone.member.Model.FindRequestRegisterMemberModel;
 import com.dongyoung.noAlone.member.Model.FindResponseMemberWithMbtiModel;
 import com.dongyoung.noAlone.member.entity.Member;
 import org.mapstruct.Mapper;

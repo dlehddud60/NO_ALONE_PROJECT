@@ -69,13 +69,11 @@ public class MbtiServiceImpl implements MbtiService {
         String mbtiResult2 = mbtiData.N() > mbtiData.S() ? "N" : "S";
         String mbtiResult3 = mbtiData.T() > mbtiData.F() ? "T" : "F";
         String mbtiResult4 = mbtiData.P() > mbtiData.J() ? "P" : "J";
-
         String userMbti = mbtiResult1 + mbtiResult2 + mbtiResult3 + mbtiResult4;
 
-        Mbti mbtiName = mbtiRepository.findByName(userMbti);
         Member member = (Member) session.getAttribute("member");
-        memberRepository.findMemberById(member.getId()).setMbti(mbtiName);
-        FindResponseMbtiModel mbtiModel = mbtiMapper.toMbtiModel(memberRepository.findMemberById(member.getId()).getMbti());
-        return mbtiModel;
+        Member findMember = memberRepository.findMemberById(member.getId());
+        findMember.setMbti(mbtiRepository.findByName(userMbti));
+        return mbtiMapper.toMbtiModel(findMember.getMbti());
     }
 }
