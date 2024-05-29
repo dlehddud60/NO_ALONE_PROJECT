@@ -39,8 +39,8 @@
       <div>
         <p class="menu">모임</p>
         <ul class="sub">
-          <li th:if="${not #strings.isEmpty(session.member)}"><a href="#">모임등록</a></li>
-          <li><a href="#">모임 리스트</a></li>
+          <li th:if="${not #strings.isEmpty(session.member)}"><a href="/meeting/write">모임등록</a></li>
+          <li><a href="/meeting/list">모임 리스트</a></li>
           <li><a href="#">모임 커뮤니티</a></li>
         </ul>
       </div>

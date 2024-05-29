@@ -3,13 +3,14 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>mbti 등록</title>
+  <title>예제</title>
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <link rel="stylesheet" th:href="@{/css/mbti/list.css}">
+  <link rel="stylesheet" th:href="@{/css/meeting/list.css}">
+
+
 </head>
 <body>
 <th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
-
 <form action="" method="get">
   <div class="wrap">
     <div class="searchArea">
@@ -25,19 +26,21 @@
           <thead>
           <tr>
             <th class="num">번호</th>
-            <th class="title">MBTI</th>
-            <th class="writer">설명</th>
+            <th class="title">모임명</th>
+            <th class="writer">방장</th>
+            <th class="writer">개설일</th>
           </tr>
           </thead>
           <tbody>
           <th:block th:each="list : ${list}">
             <tr>
-              <td th:text="${list.mbtiId}"></td>
+              <td th:text="${list.meetingId()}"></td>
               <td>
-                <a th:href="@{/mbti/find/{mbtiId}( mbtiId = ${list.mbtiId})}"
-                   th:text="${list.name}" style="color: #2b48dc"></a>
+                <a th:href="@{/meeting/find/{meetingId}( meetingId = ${list.meetingId()})}"
+                   th:text="${list.name()}" style="color: #ffffff"></a>
               </td>
-              <td th:text="${list.description}"></td>
+              <td th:text="${list.owner()}"></td>
+              <td th:text="${list.inputDt()}"></td>
             </tr>
           </th:block>
           </tbody>
@@ -45,10 +48,11 @@
       </div>
     </div>
     <div class="buttonArea">
-      <div class="updateBtn Btn"><a th:href="@{/mbti/write}" style="color: white">작성</a></div>
+      <div class="updateBtn Btn"><a th:href="@{/meeting/write}" style="color: white">작성</a></div>
     </div>
   </div>
 </form>
+
 <th:block th:replace="/include/header.html :: footerFragment"></th:block>
 </body>
 </html>

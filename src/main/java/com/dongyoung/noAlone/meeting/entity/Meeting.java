@@ -34,7 +34,7 @@ public class Meeting {
     private String question;
 
     @Column(name = "OWNER")
-    private String owner;
+    private Long owner;
 
     @Embedded
     private DateTime dateTime;

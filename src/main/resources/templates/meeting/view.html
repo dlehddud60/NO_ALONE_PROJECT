@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>meeting 등록</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" th:href="@{/css/meeting/view.css}">
+
+
+</head>
+<body>
+<th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
+<div class="wrap">
+  <div class="boardArea">
+
+    <div class="viewArea">
+      <table>
+        <tbody>
+        <tr>
+          <th>모임명</th>
+          <td th:text="${info.name()}"></td>
+        </tr>
+        <tr>
+          <th>모임설명</th>
+          <td th:text="${info.content()}"></td>
+        </tr>
+        <tr>
+          <th>규칙</th>
+          <td th:text="${info.rule()}"></td>
+        </tr>
+        <tr>
+          <th>지역</th>
+          <td th:text="${info.location()}"></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <div class="buttonArea">
+    <div class="listBtn Btn"><a th:href="@{/meeting/list}">목록</a></div>
+    <div class="updateBtn Btn"><a th:href="@{/meeting/update/{meetingId}(meetingId = ${info.meetingId()})}" th:text="수정"></a></div>
+    <div class="deleteBtn Btn"><a th:href="@{/meeting/delete/{meetingId}(meetingId = ${info.meetingId()})}" th:text="삭제"></a></div>
+  </div>
+</div>
+<th:block th:replace="/include/header.html :: footerFragment"></th:block>
+</body>
+</html>
