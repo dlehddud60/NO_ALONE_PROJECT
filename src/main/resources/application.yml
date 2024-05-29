@@ -15,6 +15,19 @@ spring:
       enabled: true
     restart:
       enabled: false
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: dlehddud6097@gmail.com # 앱 비밀번호를 발급받은 구글 계정
+    password: ztuh izqb rqws doty # 발급받은 앱 비밀번호
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          auth: true
+    default-encoding: utf-8
+
   jpa:
     show-sql: true
     hibernate:
@@ -28,3 +41,8 @@ spring:
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.orm.jdbc.bind: trace #d??? ?? 3.x, hibernate6
+
+email:
+  from:
+    address : dlehddud6097@gmail.com
+    name : 관리자

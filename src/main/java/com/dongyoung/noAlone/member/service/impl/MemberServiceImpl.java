@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Log4j2
 @Service
@@ -31,7 +32,7 @@ public class MemberServiceImpl implements MemberService {
     private final MbtiRepository mbtiRepository;
 
     @Override
-    public void save(FindRequestRegisterMemberModel findRequestRegisterMemberModel) {
+    public void save(FindRequestRegisterMemberModel findRequestRegisterMemberModel, HttpSession session) {
 
         String encode = passwordEncoder.encode(findRequestRegisterMemberModel.password());
 
@@ -52,6 +53,8 @@ public class MemberServiceImpl implements MemberService {
                         .build())
                 .build();
         memberRepository.save(memberEntity);
+        session.setAttribute("member", memberEntity);
+
     }
 
     @Override
@@ -82,5 +85,12 @@ public class MemberServiceImpl implements MemberService {
         member.setMobile(memberUpdateModel.mobile());
         member.setMbti(mbtiRepository.findByName(memberUpdateModel.mbtiName()));
         session.setAttribute("member",member);
+    }
+
+    @Override
+    public boolean verifyExistEmail(String email) {
+        Optional<Member> member = memberRepository.findByEmail(email);
+        log.info("========isPresent======={}",member.isPresent());
+        return member.isPresent();
     }
 }

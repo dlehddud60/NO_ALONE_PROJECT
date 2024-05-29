@@ -41,13 +41,13 @@ public class MemberController {
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute("memberDTO") @Validated  FindRequestRegisterMemberModel memberDTO, BindingResult bindingResult) {
+    public String save(@ModelAttribute("memberDTO") @Validated  FindRequestRegisterMemberModel memberDTO, BindingResult bindingResult, HttpSession session) {
         if (bindingResult.hasErrors()) {
             log.info("errors={} ", bindingResult);
             return "/member/register";
         }
-        memberService.save(memberDTO);
-        return "redirect:/member/register";
+        memberService.save(memberDTO,session);
+        return "redirect:/mbti/mbtiCheckForm";
     }
 
     @GetMapping("/login")

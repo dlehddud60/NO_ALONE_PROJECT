@@ -31,7 +31,7 @@ public class Member {
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL" ,unique = true)
     private String email;
 
     @Column(name = "GENDER")

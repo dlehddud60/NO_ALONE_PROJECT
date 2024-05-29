@@ -39,11 +39,19 @@
                 <input type="text" name="nickname" th:field="*{nickname}" th:errorclass="field-error">
 
                 <p>E-Mail</p>
-                <input type="email" name="email" th:field="*{email}" th:errorclass="field-error">
+                <div class="emailArea">
+                <input type="email" name="email" th:field="*{email}" th:errorclass="field-error" style="width: 25vw">
+                    <div class="emailBtn Btn" onclick="emailFunc()" style="width: 10vw; height: 5vh; line-height: 5vh; margin-left: 3%">이메일 인증</div>
+                </div>
+                <div class="emailConfirmArea" style="display: none;">
+                    <input type='text' name='emailCode' style='width: 25vw' placeholder='인증번호를 입력해주시길 바랍니다.'>
+                    <div class='emailBtn Btn' onclick='emailConfirmFunc()' style='width: 10vw; height: 5vh; line-height: 5vh; margin-left: 3%'>인증</div>
+                </div>
+
+                <div class="email-info"></div>
                 <div class="field-error" th:errors="*{email}">
                     이메일 오류
                 </div>
-
 
                 <p>핸드폰</p>
                 <input type="text" name="mobile" th:field="*{mobile}" th:errorclass="field-error">
@@ -79,8 +87,9 @@
                 </div>
 
 
-                <div class="updateBtn Btn">회원가입</div>
-
+                <div class="updateBtn Btn" style="display: none">회원가입</div>
+                <div class="errorBtn Btn"  onclick="emailCompleteFunc();">회원가입</div>
+                <div class="field-error emailComplete"></div>
             </div>
 
         </div>

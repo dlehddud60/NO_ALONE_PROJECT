@@ -1,4 +1,4 @@
-package com.dongyoung.noAlone.accept.config;
+package com.dongyoung.noAlone.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

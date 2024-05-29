@@ -7,7 +7,7 @@ import com.dongyoung.noAlone.member.Model.FindResponseMemberWithMbtiModel;
 import jakarta.servlet.http.HttpSession;
 
 public interface MemberService {
-    void save(FindRequestRegisterMemberModel findRequestRegisterMemberModel);
+    void save(FindRequestRegisterMemberModel findRequestRegisterMemberModel , HttpSession session);
 
     String login(FindRequestLoginModel loginModel, HttpSession session);
 
@@ -15,6 +15,8 @@ public interface MemberService {
     void update(FindRequestMemberUpdateModel id,HttpSession session);
 
     FindResponseMemberWithMbtiModel find(String id);
+
+    boolean verifyExistEmail(String email);
 }
 
 

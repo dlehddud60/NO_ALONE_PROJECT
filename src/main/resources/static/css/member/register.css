@@ -75,10 +75,18 @@ input {
     height: 4vh; width: 35vw;
     font-family: SUITE-Regular, serif;
     font-size: 1rem;
+    margin-bottom: 3%;
+    border-radius: 5px;
 }
-
+.email {
+    width: 25vw;
+}
+.emailArea ,.emailConfirmArea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .Btn {
-    margin-top: 3%;
     border-radius: 7px;
     text-align: center;
     line-height: 6vh;
@@ -87,13 +95,17 @@ input {
     font-size: 1.2rem;
     font-family: SUITE-Regular;
     cursor: pointer;
+    margin-bottom: 3%;
 }
 
-.updateBtn {
+.updateBtn,.emailBtn, .errorBtn {
     background: #a2a2a2;
     transition: all 0.5s;
 }
 .updateBtn:hover {
+    background: #737373;
+}
+.emailBtn:hover {
     background: #737373;
 }
 
@@ -128,4 +140,8 @@ input {
     border-color: #dc3545;
     color: #dc3545;
     margin-bottom: 3%;
+}
+.email-info {
+    color: #2b48dc;
+    margin-bottom: 1%;
 }
