@@ -36,7 +36,6 @@ public record FindResponseMemberWithMbtiModel(
         String birthyear,
         @NotBlank(message = "핸드폰 번호는 필수 입력 값입니다.")
         String mobile,
-
         LocalDate updateDt,
         FindResponseMbtiWithMemberModel mbtiWithMemberModel
 ) {
