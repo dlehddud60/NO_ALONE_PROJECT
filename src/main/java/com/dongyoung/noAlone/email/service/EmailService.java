@@ -25,7 +25,9 @@ import org.thymeleaf.context.Context;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 @Transactional
@@ -36,7 +38,7 @@ public class EmailService {
     private final JavaMailSender mailSender;
     private final MemberService memberService;
     private final TemplateEngine templateEngine;
-    public static HashMap<String, String> codeStorage = new HashMap<>();
+    public static final Map<String, String> codeStorage = new ConcurrentHashMap<>();
     @Value("${email.from.address}")
     private String FROM_ADDRESS;
     @Value("${email.from.name}")
