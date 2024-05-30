@@ -14,6 +14,7 @@
 <th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
 
 <form action="/meeting/save" method="post" id="frm">
+  <input type="text" name="memberId" th:value="${session.member.getMemberId()}">
   <div class="wrap">
     <div class="boardArea">
       <div class="viewArea">

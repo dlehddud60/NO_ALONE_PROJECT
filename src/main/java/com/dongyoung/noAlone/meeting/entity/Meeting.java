@@ -1,8 +1,12 @@
 package com.dongyoung.noAlone.meeting.entity;
 
 import com.dongyoung.noAlone.common.entity.DateTime;
+import com.dongyoung.noAlone.owner.entity.Owner;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "MEETING")
@@ -33,9 +37,9 @@ public class Meeting {
     @Column(name = "QUESTION")
     private String question;
 
-    @Column(name = "OWNER")
-    private Long owner;
-
     @Embedded
     private DateTime dateTime;
+
+    @OneToMany(mappedBy = "meeting",cascade = CascadeType.PERSIST)
+    private final List<Owner> owners = new ArrayList<>();
 }
