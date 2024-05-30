@@ -19,7 +19,6 @@
         <button type="submit">search</button>
       </div>
     </div>
-
     <div class="boardArea">
       <div class="listArea">
         <table>
@@ -39,7 +38,7 @@
                 <a th:href="@{/meeting/find/{meetingId}( meetingId = ${list.meetingId()})}"
                    th:text="${list.name()}" style="color: #ffffff"></a>
               </td>
-              <td th:text="${list.owner()}"></td>
+              <td th:text="${list.ownerListModel.memberListModel.nickname()}"></td>
               <td th:text="${list.inputDt()}"></td>
             </tr>
           </th:block>

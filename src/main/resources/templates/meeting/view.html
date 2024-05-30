@@ -13,7 +13,6 @@
 <th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
 <div class="wrap">
   <div class="boardArea">
-
     <div class="viewArea">
       <table>
         <tbody>
@@ -32,6 +31,10 @@
         <tr>
           <th>지역</th>
           <td th:text="${info.location()}"></td>
+        </tr>
+        <tr>
+          <th>방장</th>
+          <td th:text="${owner.nickname()}"></td>
         </tr>
         </tbody>
       </table>

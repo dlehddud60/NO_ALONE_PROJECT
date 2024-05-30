@@ -40,6 +40,8 @@ public class Meeting {
     @Embedded
     private DateTime dateTime;
 
-    @OneToMany(mappedBy = "meeting",cascade = CascadeType.PERSIST)
-    private final List<Owner> owners = new ArrayList<>();
+
+    @OneToOne(mappedBy = "meeting",cascade = CascadeType.PERSIST)
+    private Owner owner;
+
 }
