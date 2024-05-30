@@ -2,10 +2,12 @@ package com.dongyoung.noAlone.meeting.controller;
 
 import com.dongyoung.noAlone.meeting.model.FindRequestInsertMeetingModel;
 import com.dongyoung.noAlone.meeting.model.FindRequestUpdateMeetingModel;
+import com.dongyoung.noAlone.meeting.model.FindResponseMeetingAndOwnerModel;
 import com.dongyoung.noAlone.meeting.service.MeetingService;
 import com.dongyoung.noAlone.member.entity.Member;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@Log4j2
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/meeting")
@@ -28,7 +31,9 @@ public class MeetingController {
 
     @GetMapping("/find/{meetingId}")
     public String find(@PathVariable Long meetingId,Model model) {
-        model.addAttribute("info",meetingService.find(meetingId));
+        FindResponseMeetingAndOwnerModel meetingAndOwnerModel = meetingService.find(meetingId);
+        model.addAttribute("info",meetingAndOwnerModel);
+        model.addAttribute("owner",meetingAndOwnerModel.ownerWithMeetingModel().memberModel());
         return "/meeting/view";
     }
 

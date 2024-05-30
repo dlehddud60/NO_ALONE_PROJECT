@@ -11,7 +11,6 @@ public record FindResponseMeetingListModel(
         String rule,
         String location,
         String question,
-        String owner,
         LocalDate inputDt
 ) {
 }

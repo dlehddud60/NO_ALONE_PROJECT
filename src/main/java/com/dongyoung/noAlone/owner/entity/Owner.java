@@ -20,10 +20,6 @@ public class Owner {
     @Column(name = "OWNER_ID")
     private Long ownerId;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "RATING")
-    private Rating rating;
-
     @Embedded
     private DateTime dateTime;
 
@@ -31,7 +27,7 @@ public class Owner {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEETING_ID")
     private Meeting meeting;
 }

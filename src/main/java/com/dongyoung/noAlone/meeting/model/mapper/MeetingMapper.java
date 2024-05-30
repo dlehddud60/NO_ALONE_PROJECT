@@ -1,8 +1,8 @@
 package com.dongyoung.noAlone.meeting.model.mapper;
 
 import com.dongyoung.noAlone.meeting.entity.Meeting;
-import com.dongyoung.noAlone.meeting.model.FindResponseMeetingListModel;
-import com.dongyoung.noAlone.meeting.model.FindResponseMeetingModel;
+import com.dongyoung.noAlone.meeting.model.FindResponseMeetingAndOwnerListModel;
+import com.dongyoung.noAlone.meeting.model.FindResponseMeetingAndOwnerModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -10,7 +10,12 @@ import org.mapstruct.Mapping;
 public interface MeetingMapper {
 
     @Mapping(source = "dateTime.inputDt", target = "inputDt")
-    FindResponseMeetingListModel toMeetingListModel(Meeting meeting);
+    @Mapping(source = "owner", target = "ownerListModel")
+    @Mapping(source = "owner.member", target = "ownerListModel.memberListModel")
+    FindResponseMeetingAndOwnerListModel toMeetingListModel(Meeting meeting);
+
     @Mapping(source = "dateTime.inputDt", target = "inputDt")
-    FindResponseMeetingModel toMeetingModel(Meeting meeting);
+    @Mapping(source = "owner", target = "ownerWithMeetingModel")
+    @Mapping(source = "owner.member", target = "ownerWithMeetingModel.memberModel")
+    FindResponseMeetingAndOwnerModel toMeetingModel(Meeting meeting);
 }
