@@ -39,9 +39,9 @@ public class MeetingController {
     }
 
     @PostMapping("/save")
-    public String save(FindRequestInsertMeetingModel meetingModel, HttpSession session) {
+    public String save(FindRequestInsertMeetingModel meetingModel) {
 
-        meetingService.save(meetingModel,session);
+        meetingService.save(meetingModel);
         return "redirect:/meeting/list";
     }
 

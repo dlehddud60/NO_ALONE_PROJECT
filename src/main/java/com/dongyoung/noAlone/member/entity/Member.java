@@ -2,8 +2,12 @@ package com.dongyoung.noAlone.member.entity;
 
 import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.mbti.entity.Mbti;
+import com.dongyoung.noAlone.owner.entity.Owner;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "MEMBER")
@@ -62,4 +66,7 @@ public class Member {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MBTI_ID")
     private Mbti mbti;
+
+    @OneToMany(mappedBy = "member",cascade = CascadeType.PERSIST)
+    private final List<Owner> owners = new ArrayList<>();
 }

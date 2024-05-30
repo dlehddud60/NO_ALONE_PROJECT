@@ -5,6 +5,7 @@ public record FindRequestInsertMeetingModel(
         String content,
         String rule,
         String location,
-        String question
+        String question,
+        Long memberId
 ) {
 }

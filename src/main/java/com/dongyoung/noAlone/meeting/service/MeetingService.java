@@ -13,7 +13,7 @@ public interface MeetingService {
 
     FindResponseMeetingModel find(Long meetingId);
 
-    void save(FindRequestInsertMeetingModel meetingModel, HttpSession session);
+    void save(FindRequestInsertMeetingModel meetingModel);
 
     void update(FindRequestUpdateMeetingModel meetingModel);
 

@@ -10,6 +10,10 @@ import com.dongyoung.noAlone.meeting.model.mapper.MeetingMapper;
 import com.dongyoung.noAlone.meeting.repository.MeetingRepository;
 import com.dongyoung.noAlone.meeting.service.MeetingService;
 import com.dongyoung.noAlone.member.entity.Member;
+import com.dongyoung.noAlone.member.repository.MemberRepository;
+import com.dongyoung.noAlone.owner.entity.Owner;
+import com.dongyoung.noAlone.owner.entity.Rating;
+import com.dongyoung.noAlone.owner.repository.OwnerRepository;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -26,6 +30,8 @@ import java.util.stream.Collectors;
 @Service
 public class MeetingServiceImpl implements MeetingService {
     private final MeetingRepository meetingRepository;
+    private final MemberRepository memberRepository;
+    private final OwnerRepository ownerRepository;
     private final MeetingMapper meetingMapper;
 
     @Override
@@ -39,22 +45,29 @@ public class MeetingServiceImpl implements MeetingService {
     }
 
     @Override
-    public void save(FindRequestInsertMeetingModel meetingService, HttpSession session) {
-        Member member = (Member) session.getAttribute("member");
+    public void save(FindRequestInsertMeetingModel meetingService) {
         Meeting meeting = Meeting.builder()
                 .content(meetingService.content())
                 .name(meetingService.name())
                 .rule(meetingService.rule())
                 .question(meetingService.question())
                 .location(meetingService.location())
-                .owner(member.getMemberId())
                 .dateTime(
                         DateTime.builder()
                                 .inputDt(LocalDate.now())
                                 .build())
                 .build();
-
         meetingRepository.save(meeting);
+
+        Owner owner = Owner.builder()
+                .rating(Rating.MASTER)
+                .member(memberRepository.findByMemberId(meetingService.memberId()))
+                .meeting(meeting)
+                .dateTime(DateTime.builder()
+                        .inputDt(LocalDate.now())
+                        .build())
+                .build();
+        ownerRepository.save(owner);
     }
 
     @Override
