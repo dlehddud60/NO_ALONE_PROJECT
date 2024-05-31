@@ -1,6 +1,8 @@
 package com.dongyoung.noAlone.accept.entity;
 
 import com.dongyoung.noAlone.common.entity.DateTime;
+import com.dongyoung.noAlone.meeting.entity.Meeting;
+import com.dongyoung.noAlone.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,5 +32,13 @@ public class Accept {
 
     @Embedded
     private DateTime dateTime;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MEETING_ID")
+    private Meeting meeting;
 
 }

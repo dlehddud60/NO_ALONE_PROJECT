@@ -1,5 +1,6 @@
 package com.dongyoung.noAlone.meeting.entity;
 
+import com.dongyoung.noAlone.accept.entity.Accept;
 import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.owner.entity.Owner;
 import jakarta.persistence.*;
@@ -40,8 +41,10 @@ public class Meeting {
     @Embedded
     private DateTime dateTime;
 
-
     @OneToOne(mappedBy = "meeting",cascade = CascadeType.PERSIST)
     private Owner owner;
+
+    @OneToMany(mappedBy = "meeting",cascade = CascadeType.PERSIST)
+    private final List<Accept> accepts = new ArrayList<>();
 
 }

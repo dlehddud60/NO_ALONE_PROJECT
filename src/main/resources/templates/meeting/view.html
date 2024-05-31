@@ -6,6 +6,7 @@
   <title>meeting 등록</title>
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <link rel="stylesheet" th:href="@{/css/meeting/view.css}">
+  <script th:src="@{/js/meeting/view.js}"></script>
 
 
 </head>
@@ -44,7 +45,8 @@
   <div class="buttonArea">
     <div class="listBtn Btn"><a th:href="@{/meeting/list}">목록</a></div>
     <div class="updateBtn Btn"><a th:href="@{/meeting/update/{meetingId}(meetingId = ${info.meetingId()})}" th:text="수정"></a></div>
-    <div class="deleteBtn Btn"><a th:href="@{/meeting/delete/{meetingId}(meetingId = ${info.meetingId()})}" th:text="삭제"></a></div>
+    <div class="updateBtn Btn" th:onclick="meetAppli([[${info.meetingId}]])" th:text="모임신청"></div>
+<!--    <div class="deleteBtn Btn"><a th:href="@{/meeting/delete/{meetingId}(meetingId = ${info.meetingId()})}" th:text="삭제"></a></div>-->
   </div>
 </div>
 <th:block th:replace="/include/header.html :: footerFragment"></th:block>
