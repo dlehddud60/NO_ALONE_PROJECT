@@ -1,5 +1,6 @@
 package com.dongyoung.noAlone.meeting.service;
 
+import com.dongyoung.noAlone.accept.model.FindRequestAcceptAppliModel;
 import com.dongyoung.noAlone.meeting.model.*;
 import jakarta.servlet.http.HttpSession;
 
@@ -15,4 +16,6 @@ public interface MeetingService {
     void update(FindRequestUpdateMeetingModel meetingModel);
 
     void delete(Long meetingId);
+
+    void meetAppli(FindRequestAcceptAppliModel appliModel);
 }

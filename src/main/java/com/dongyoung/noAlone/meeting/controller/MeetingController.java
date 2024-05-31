@@ -1,5 +1,6 @@
 package com.dongyoung.noAlone.meeting.controller;
 
+import com.dongyoung.noAlone.accept.model.FindRequestAcceptAppliModel;
 import com.dongyoung.noAlone.meeting.model.FindRequestInsertMeetingModel;
 import com.dongyoung.noAlone.meeting.model.FindRequestUpdateMeetingModel;
 import com.dongyoung.noAlone.meeting.model.FindResponseMeetingAndOwnerModel;
@@ -65,6 +66,20 @@ public class MeetingController {
     @GetMapping("/delete/{meetingId}")
     public String delete(@PathVariable Long meetingId) {
         meetingService.delete(meetingId);
+        return "redirect:/meeting/list";
+    }
+
+
+    @GetMapping("/meetAppli/{meetingId}")
+    public String meetAppli(@PathVariable Long meetingId ,Model model) {
+        model.addAttribute("meeting",meetingService.find(meetingId));
+
+        return "/meeting/meetAppli";
+    }
+
+    @PostMapping("/meetAppli")
+    public String meetAppli(FindRequestAcceptAppliModel appliModel) {
+        meetingService.meetAppli(appliModel);
         return "redirect:/meeting/list";
     }
 

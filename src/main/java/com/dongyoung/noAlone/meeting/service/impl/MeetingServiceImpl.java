@@ -1,14 +1,20 @@
 package com.dongyoung.noAlone.meeting.service.impl;
 
+import com.dongyoung.noAlone.accept.entity.Accept;
+import com.dongyoung.noAlone.accept.entity.Status;
+import com.dongyoung.noAlone.accept.model.FindRequestAcceptAppliModel;
+import com.dongyoung.noAlone.accept.repository.AcceptRepository;
 import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.meeting.entity.Meeting;
 import com.dongyoung.noAlone.meeting.model.*;
 import com.dongyoung.noAlone.meeting.model.mapper.MeetingMapper;
 import com.dongyoung.noAlone.meeting.repository.MeetingRepository;
 import com.dongyoung.noAlone.meeting.service.MeetingService;
+import com.dongyoung.noAlone.member.entity.Member;
 import com.dongyoung.noAlone.member.repository.MemberRepository;
 import com.dongyoung.noAlone.owner.entity.Owner;
 import com.dongyoung.noAlone.owner.repository.OwnerRepository;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -27,6 +33,7 @@ public class MeetingServiceImpl implements MeetingService {
     private final MemberRepository memberRepository;
     private final OwnerRepository ownerRepository;
     private final MeetingMapper meetingMapper;
+    private final AcceptRepository acceptRepository;
 
     @Override
     public List<FindResponseMeetingAndOwnerListModel> findAll() {
@@ -78,5 +85,21 @@ public class MeetingServiceImpl implements MeetingService {
     public void delete(Long meetingId) {
         ownerRepository.deleteById(meetingRepository.findByMeetingId(meetingId).getOwner().getOwnerId());
         meetingRepository.deleteById(meetingId);
+    }
+
+    @Override
+    public void meetAppli(FindRequestAcceptAppliModel appliModel) {
+
+        Accept accept = Accept.builder()
+                .meeting(meetingRepository.findByMeetingId(appliModel.meetingId()))
+                .member(memberRepository.findByMemberId(appliModel.memberId()))
+                .aboutMe(appliModel.aboutMe())
+                .companionReason(appliModel.companionReason())
+                .status(Status.APPLY)
+                .dateTime(DateTime.builder()
+                        .inputDt(LocalDate.now())
+                        .build())
+                .build();
+        acceptRepository.save(accept);
     }
 }
