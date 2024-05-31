@@ -1,12 +1,11 @@
 package com.dongyoung.noAlone.meeting.controller;
 
 import com.dongyoung.noAlone.accept.model.FindRequestAcceptAppliModel;
+import com.dongyoung.noAlone.meeting.model.FindRequestChangeStatusModel;
 import com.dongyoung.noAlone.meeting.model.FindRequestInsertMeetingModel;
 import com.dongyoung.noAlone.meeting.model.FindRequestUpdateMeetingModel;
 import com.dongyoung.noAlone.meeting.model.FindResponseMeetingAndOwnerModel;
 import com.dongyoung.noAlone.meeting.service.MeetingService;
-import com.dongyoung.noAlone.member.entity.Member;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
@@ -26,15 +25,15 @@ public class MeetingController {
 
     @GetMapping("/list")
     public String findAll(Model model) {
-        model.addAttribute("list",meetingService.findAll());
+        model.addAttribute("list", meetingService.findAll());
         return "/meeting/list";
     }
 
     @GetMapping("/find/{meetingId}")
-    public String find(@PathVariable Long meetingId,Model model) {
+    public String find(@PathVariable Long meetingId, Model model) {
         FindResponseMeetingAndOwnerModel meetingAndOwnerModel = meetingService.find(meetingId);
-        model.addAttribute("info",meetingAndOwnerModel);
-        model.addAttribute("owner",meetingAndOwnerModel.ownerWithMeetingModel().memberModel());
+        model.addAttribute("info", meetingAndOwnerModel);
+        model.addAttribute("owner", meetingAndOwnerModel.ownerWithMeetingModel().memberModel());
         return "/meeting/view";
     }
 
@@ -53,7 +52,7 @@ public class MeetingController {
 
     @GetMapping("/update/{meetingId}")
     public String update(@PathVariable Long meetingId, Model model) {
-        model.addAttribute("info",meetingService.find(meetingId));
+        model.addAttribute("info", meetingService.find(meetingId));
         return "/meeting/update";
     }
 
@@ -71,8 +70,8 @@ public class MeetingController {
 
 
     @GetMapping("/meetAppli/{meetingId}")
-    public String meetAppli(@PathVariable Long meetingId ,Model model) {
-        model.addAttribute("meeting",meetingService.find(meetingId));
+    public String meetAppli(@PathVariable Long meetingId, Model model) {
+        model.addAttribute("meeting", meetingService.find(meetingId));
 
         return "/meeting/meetAppli";
     }
@@ -83,7 +82,16 @@ public class MeetingController {
         return "redirect:/meeting/list";
     }
 
+    @GetMapping("/meetAppliList")
+    public String meetAppliList(Model model) {
+        model.addAttribute("list", meetingService.meetAppliList());
+        return "/meeting/meetAppliList";
+    }
 
-
+    @PostMapping("/changeStatus")
+    public String changeStatus(FindRequestChangeStatusModel statusModel) {
+        meetingService.changeStatus(statusModel);
+        return "redirect:/meeting/meetAppliList";
+    }
 
 }

@@ -10,11 +10,9 @@ import com.dongyoung.noAlone.meeting.model.*;
 import com.dongyoung.noAlone.meeting.model.mapper.MeetingMapper;
 import com.dongyoung.noAlone.meeting.repository.MeetingRepository;
 import com.dongyoung.noAlone.meeting.service.MeetingService;
-import com.dongyoung.noAlone.member.entity.Member;
 import com.dongyoung.noAlone.member.repository.MemberRepository;
 import com.dongyoung.noAlone.owner.entity.Owner;
 import com.dongyoung.noAlone.owner.repository.OwnerRepository;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -101,5 +99,16 @@ public class MeetingServiceImpl implements MeetingService {
                         .build())
                 .build();
         acceptRepository.save(accept);
+    }
+
+    @Override
+    public List<FindResponseMeetingAppliListModel> meetAppliList() {
+        return acceptRepository.findAll().stream().map(meetingMapper::toMeetingAppliListModel).collect(Collectors.toList());
+    }
+
+    @Override
+    public void changeStatus( FindRequestChangeStatusModel statusModel) {
+        Accept accept = acceptRepository.findByAcceptId(statusModel.acceptId());
+        accept.setStatus(statusModel.status());
     }
 }
