@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <title>모임 등록</title>
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script th:src="@{/js/meeting/write.js}"></script>
-    <link rel="stylesheet" th:href="@{/css/meeting/write.css}">
+  <script th:src="@{/js/meeting/saveForm.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/meeting/saveForm.css}">
 
 
 </head>
@@ -14,7 +14,7 @@
 <th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
 
 <form action="/meeting/save" method="post" id="frm">
-  <input type="text" name="memberId" th:value="${session.member.getMemberId()}">
+  <input type="hidden" name="memberId" th:value="${session.member.getMemberId()}">
   <div class="wrap">
     <div class="boardArea">
       <div class="viewArea">

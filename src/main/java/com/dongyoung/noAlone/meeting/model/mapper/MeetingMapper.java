@@ -6,6 +6,8 @@ import com.dongyoung.noAlone.meeting.model.FindResponseMeetingAndOwnerListModel;
 import com.dongyoung.noAlone.meeting.model.FindResponseMeetingAndOwnerModel;
 import com.dongyoung.noAlone.meeting.model.FindResponseMeetingAppliListModel;
 import com.dongyoung.noAlone.member.Model.FindResponseMemberWithAcceptListModel;
+import com.dongyoung.noAlone.owner.entity.Owner;
+import com.dongyoung.noAlone.owner.model.FindResponseOwnerModel;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
@@ -27,4 +29,6 @@ public interface MeetingMapper {
     @Mapping(source = "member", target = "memberWithAcceptListModel")
     @Mapping(source = "member.mbti", target = "memberWithAcceptListModel.mbtiWithMemberModel")
     FindResponseMeetingAppliListModel toMeetingAppliListModel(Accept accept);
+
+
 }

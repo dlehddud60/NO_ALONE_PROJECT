@@ -5,16 +5,16 @@
   <meta charset="UTF-8">
   <title>모임 신청</title>
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script th:src="@{/js/meeting/meetAppli.js}"></script>
-  <link rel="stylesheet" th:href="@{/css/meeting/meetAppli.css}">
-  <script th:src="@{/js/meeting/meetAppli.js}"></script>
+  <script th:src="@{/js/meeting/application.js}"></script>
+  <link rel="stylesheet" th:href="@{/css/meeting/application.css}">
+  <script th:src="@{/js/meeting/application.js}"></script>
 
 
 </head>
 <body>
 <th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
 
-<form action="/meeting/meetAppli" method="post" id="frm">
+<form action="/meeting/application" method="post" id="frm">
   <input type="hidden" name="memberId" th:value="${session.member.getMemberId()}">
   <input type="hidden" name="meetingId" th:value="${meeting.meetingId()}">
   <div class="wrap">
@@ -24,11 +24,11 @@
           <tbody>
           <tr>
             <th th:text="${meeting.question()}"></th>
-            <td><textarea name="companionReason"  cols="30" rows="10"></textarea></td>
+            <td><textarea name="companionReason"  cols="30" rows="10" th:text="${companionReason == null ? '' : companionReason}"></textarea></td>
           </tr>
           <tr>
             <th>자기소개</th>
-            <td><textarea name="aboutMe"  cols="30" rows="10"></textarea></td>
+            <td><textarea name="aboutMe"  cols="30" rows="10" th:text="${aboutMe == null ? '' : aboutMe}"></textarea></td>
           </tr>
           </tbody>
         </table>

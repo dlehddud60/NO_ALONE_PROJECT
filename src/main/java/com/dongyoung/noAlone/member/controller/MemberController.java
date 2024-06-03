@@ -5,22 +5,13 @@ import com.dongyoung.noAlone.member.Model.*;
 import com.dongyoung.noAlone.member.entity.Member;
 import com.dongyoung.noAlone.member.service.MemberService;
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.web.bind.annotation.*;
 
 @Log4j2
 @Controller
@@ -36,12 +27,12 @@ public class MemberController {
     }
 
     @GetMapping("/register")
-    public String save(@ModelAttribute("memberDTO") FindRequestRegisterMemberModel memberDTO) {
+    public String save(@ModelAttribute("memberDTO") InsertRequestMemberModel memberDTO) {
         return "member/register";
     }
 
     @PostMapping("/save")
-    public String save(@ModelAttribute("memberDTO") @Validated  FindRequestRegisterMemberModel memberDTO, BindingResult bindingResult, HttpSession session) {
+    public String save(@ModelAttribute("memberDTO") @Validated InsertRequestMemberModel memberDTO, BindingResult bindingResult, HttpSession session) {
         if (bindingResult.hasErrors()) {
             log.info("errors={} ", bindingResult);
             return "/member/register";
@@ -56,7 +47,7 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(FindRequestLoginModel loginModel, HttpSession session) {
+    public String login(LoginRequestModel loginModel, HttpSession session) {
         return memberService.login(loginModel, session);
     }
 
@@ -79,8 +70,8 @@ public class MemberController {
         return "/member/update";
     }
 
-    @PostMapping("/update")
-    public String update(@ModelAttribute("memberDTO") @Validated FindRequestMemberUpdateModel memberUpdateModel, BindingResult bindingResult,Model model,HttpSession session) {
+    @PutMapping("/update")
+    public String update(@ModelAttribute("memberDTO") @Validated UpdateRequestMemberModel memberUpdateModel, BindingResult bindingResult, Model model, HttpSession session) {
         Member member = (Member) session.getAttribute("member");
         if (bindingResult.hasErrors()) {
             log.info("errors={} ", bindingResult);

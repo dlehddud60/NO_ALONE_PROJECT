@@ -1,19 +1,24 @@
 package com.dongyoung.noAlone.meeting.controller;
 
-import com.dongyoung.noAlone.accept.model.FindRequestAcceptAppliModel;
-import com.dongyoung.noAlone.meeting.model.FindRequestChangeStatusModel;
-import com.dongyoung.noAlone.meeting.model.FindRequestInsertMeetingModel;
-import com.dongyoung.noAlone.meeting.model.FindRequestUpdateMeetingModel;
+import com.dongyoung.noAlone.accept.model.InsertRequestApplicationModel;
+import com.dongyoung.noAlone.meeting.model.ChangeStatusRequestModel;
 import com.dongyoung.noAlone.meeting.model.FindResponseMeetingAndOwnerModel;
+import com.dongyoung.noAlone.meeting.model.InsertRequestMeetingModel;
+import com.dongyoung.noAlone.meeting.model.UpdateRequestMeetingModel;
 import com.dongyoung.noAlone.meeting.service.MeetingService;
+import com.dongyoung.noAlone.member.entity.Member;
+import com.dongyoung.noAlone.owner.model.FindResponseOwnerModel;
+import com.dongyoung.noAlone.owner.service.OwnerService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Log4j2
 @Controller
@@ -21,6 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/meeting")
 public class MeetingController {
     private final MeetingService meetingService;
+    private final OwnerService ownerService;
+
 
 
     @GetMapping("/list")
@@ -30,22 +37,32 @@ public class MeetingController {
     }
 
     @GetMapping("/find/{meetingId}")
-    public String find(@PathVariable Long meetingId, Model model) {
+    public String find(@PathVariable Long meetingId, Model model, HttpSession session) {
         FindResponseMeetingAndOwnerModel meetingAndOwnerModel = meetingService.find(meetingId);
         model.addAttribute("info", meetingAndOwnerModel);
-        model.addAttribute("owner", meetingAndOwnerModel.ownerWithMeetingModel().memberModel());
+        model.addAttribute("ownerInfo", meetingAndOwnerModel.ownerWithMeetingModel().memberModel());
+        try {
+            Member member = (Member) session.getAttribute("member");
+            FindResponseOwnerModel owner = ownerService.find(meetingId, member.getMemberId());
+            model.addAttribute("ownerDTO", owner);
+        } catch (NullPointerException e) {
+            log.info("비회원 접속");
+        }
+
         return "/meeting/view";
     }
 
-
-    @GetMapping("/write")
-    public String write() {
-        return "/meeting/write";
+    @GetMapping("/save")
+    public String saveForm() {
+        return "/meeting/saveForm";
     }
 
     @PostMapping("/save")
-    public String save(FindRequestInsertMeetingModel meetingModel) {
-
+    public String save(@Validated InsertRequestMeetingModel meetingModel,BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            log.info("errors={} ", bindingResult);
+            return "/meeting/saveForm";
+        }
         meetingService.save(meetingModel);
         return "redirect:/meeting/list";
     }
@@ -57,7 +74,11 @@ public class MeetingController {
     }
 
     @PostMapping("/update")
-    public String update(FindRequestUpdateMeetingModel meetingModel) {
+    public String update(@Validated UpdateRequestMeetingModel meetingModel, BindingResult bindingResult, HttpServletRequest request) {
+        if (bindingResult.hasErrors()) {
+            log.info("errors={} ", bindingResult);
+            return "redirect:" + request.getHeader("Referer");
+        }
         meetingService.update(meetingModel);
         return "redirect:/meeting/list";
     }
@@ -69,29 +90,44 @@ public class MeetingController {
     }
 
 
-    @GetMapping("/meetAppli/{meetingId}")
-    public String meetAppli(@PathVariable Long meetingId, Model model) {
+    @GetMapping("/application/{meetingId}")
+    public String application(@PathVariable Long meetingId, Model model) {
         model.addAttribute("meeting", meetingService.find(meetingId));
+        return "meeting/application";
+    }//이름 바꾸기
 
-        return "/meeting/meetAppli";
-    }
-
-    @PostMapping("/meetAppli")
-    public String meetAppli(FindRequestAcceptAppliModel appliModel) {
-        meetingService.meetAppli(appliModel);
+    @PostMapping("/application")
+    public String application(@ModelAttribute @Validated InsertRequestApplicationModel applicationModel, BindingResult bindingResult, HttpServletRequest request, RedirectAttributes rttr) {
+        if (bindingResult.hasErrors()) {
+            log.info("errors={} ", bindingResult);
+            rttr.addFlashAttribute("aboutMe",applicationModel.aboutMe());
+            rttr.addFlashAttribute("companionReason",applicationModel.companionReason());
+            return "redirect:" + request.getHeader("Referer");
+        }
+        meetingService.meetAppli(applicationModel);
         return "redirect:/meeting/list";
-    }
+    }//이름 바꾸기
 
-    @GetMapping("/meetAppliList")
-    public String meetAppliList(Model model) {
-        model.addAttribute("list", meetingService.meetAppliList());
-        return "/meeting/meetAppliList";
-    }
+    @GetMapping("/applicationList/{meetingId}")
+    public String applicationList(Model model, @PathVariable Long meetingId, HttpSession session) {
+        Member member = (Member) session.getAttribute("member"); //필터에서 거르기 white리스트 onwer리스트 만들기
+        FindResponseOwnerModel owner = ownerService.find(meetingId, member.getMemberId());
+        model.addAttribute("list", meetingService.applicationList(meetingId));
+        if (owner != null) {
+            return "meeting/applicationList";
+        } else {
+            return "redirect:/meeting/list";
+        }
+    }//이름 바꾸기
 
     @PostMapping("/changeStatus")
-    public String changeStatus(FindRequestChangeStatusModel statusModel) {
+    public String changeStatus(@Validated ChangeStatusRequestModel statusModel,BindingResult bindingResult,HttpServletRequest request) {
+        if (bindingResult.hasErrors()) {
+            log.info("errors={} ", bindingResult);
+            return "redirect:" + request.getHeader("Referer");
+        }
         meetingService.changeStatus(statusModel);
-        return "redirect:/meeting/meetAppliList";
+        return "redirect:" + request.getHeader("Referer");
     }
 
 }

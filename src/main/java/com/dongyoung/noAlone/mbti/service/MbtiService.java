@@ -6,11 +6,11 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 
 public interface MbtiService {
-    FindResponseMbtiModel mbtiCheck(FindRequestMbtiDataModel mbtiData, HttpSession session);
+    FindResponseMbtiModel mbtiCheck(MbtiResultRequestModel mbtiData, HttpSession session);
 
-    void save(FindRequestInsertModel insertModel);
+    void save(InsertRequestModel insertModel);
 
-    void update(FindRequestUpdateModel updateModel);
+    void update(UpdateRequestModel updateModel);
 
     List<FindResponseMbtiListModel> findAll();
 

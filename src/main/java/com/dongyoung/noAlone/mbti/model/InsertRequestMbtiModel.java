@@ -1,7 +1,6 @@
 package com.dongyoung.noAlone.mbti.model;
 
-public record FindRequestUpdateModel(
-        Long mbtiId,
+public record InsertRequestMbtiModel(
         String name,
         String description
 ) {

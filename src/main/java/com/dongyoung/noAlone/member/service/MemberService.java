@@ -1,18 +1,18 @@
 package com.dongyoung.noAlone.member.service;
 
-import com.dongyoung.noAlone.member.Model.FindRequestLoginModel;
-import com.dongyoung.noAlone.member.Model.FindRequestRegisterMemberModel;
-import com.dongyoung.noAlone.member.Model.FindRequestMemberUpdateModel;
+import com.dongyoung.noAlone.member.Model.LoginRequestModel;
+import com.dongyoung.noAlone.member.Model.InsertRequestMemberModel;
+import com.dongyoung.noAlone.member.Model.UpdateRequestMemberModel;
 import com.dongyoung.noAlone.member.Model.FindResponseMemberWithMbtiModel;
 import jakarta.servlet.http.HttpSession;
 
 public interface MemberService {
-    void save(FindRequestRegisterMemberModel findRequestRegisterMemberModel , HttpSession session);
+    void save(InsertRequestMemberModel insertRequestMemberModel, HttpSession session);
 
-    String login(FindRequestLoginModel loginModel, HttpSession session);
+    String login(LoginRequestModel loginModel, HttpSession session);
 
 
-    void update(FindRequestMemberUpdateModel id,HttpSession session);
+    void update(UpdateRequestMemberModel id, HttpSession session);
 
     FindResponseMemberWithMbtiModel find(String id);
 

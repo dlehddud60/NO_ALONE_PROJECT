@@ -7,8 +7,6 @@
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <link rel="stylesheet" th:href="@{/css/meeting/view.css}">
   <script th:src="@{/js/meeting/view.js}"></script>
-
-
 </head>
 <body>
 <th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
@@ -35,7 +33,7 @@
         </tr>
         <tr>
           <th>방장</th>
-          <td th:text="${owner.nickname()}"></td>
+          <td th:text="${ownerInfo.nickname()}"></td>
         </tr>
         </tbody>
       </table>
@@ -44,8 +42,9 @@
   </div>
   <div class="buttonArea">
     <div class="listBtn Btn"><a th:href="@{/meeting/list}">목록</a></div>
-    <div class="updateBtn Btn"><a th:href="@{/meeting/update/{meetingId}(meetingId = ${info.meetingId()})}" th:text="수정"></a></div>
-    <div class="updateBtn Btn" th:onclick="meetAppli([[${info.meetingId}]])" th:text="모임신청"></div>
+    <div class="updateBtn Btn" th:if="${not #strings.isEmpty(ownerDTO)}"><a th:href="@{/meeting/update/{meetingId}(meetingId = ${info.meetingId()})}" th:text="수정"></a></div>
+    <div class="updateBtn Btn" th:onclick="meetAppli([[${info.meetingId}]])" th:text="모임신청" th:if="${#strings.isEmpty(ownerDTO)}"></div>
+    <div class="updateBtn Btn" th:onclick="meetAppliList([[${info.meetingId}]])" th:text="멤버관리" th:if="${not #strings.isEmpty(ownerDTO)}"></div>
 <!--    <div class="deleteBtn Btn"><a th:href="@{/meeting/delete/{meetingId}(meetingId = ${info.meetingId()})}" th:text="삭제"></a></div>-->
   </div>
 </div>
