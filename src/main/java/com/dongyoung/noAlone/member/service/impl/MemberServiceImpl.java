@@ -2,9 +2,9 @@ package com.dongyoung.noAlone.member.service.impl;
 
 import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.mbti.repository.MbtiRepository;
-import com.dongyoung.noAlone.member.Model.FindRequestLoginModel;
-import com.dongyoung.noAlone.member.Model.FindRequestRegisterMemberModel;
-import com.dongyoung.noAlone.member.Model.FindRequestMemberUpdateModel;
+import com.dongyoung.noAlone.member.Model.LoginRequestModel;
+import com.dongyoung.noAlone.member.Model.InsertRequestMemberModel;
+import com.dongyoung.noAlone.member.Model.UpdateRequestMemberModel;
 import com.dongyoung.noAlone.member.Model.FindResponseMemberWithMbtiModel;
 import com.dongyoung.noAlone.member.Model.mapper.MemberMapper;
 import com.dongyoung.noAlone.member.entity.Member;
@@ -32,21 +32,21 @@ public class MemberServiceImpl implements MemberService {
     private final MbtiRepository mbtiRepository;
 
     @Override
-    public void save(FindRequestRegisterMemberModel findRequestRegisterMemberModel, HttpSession session) {
+    public void save(InsertRequestMemberModel insertRequestMemberModel, HttpSession session) {
 
-        String encode = passwordEncoder.encode(findRequestRegisterMemberModel.password());
+        String encode = passwordEncoder.encode(insertRequestMemberModel.password());
 
         Member memberEntity = Member.builder()
-                .id(findRequestRegisterMemberModel.id())
+                .id(insertRequestMemberModel.id())
                 .password(encode)
-                .nickname(findRequestRegisterMemberModel.nickname())
-                .name(findRequestRegisterMemberModel.name())
-                .email(findRequestRegisterMemberModel.email())
-                .gender(findRequestRegisterMemberModel.gender())
-                .age(findRequestRegisterMemberModel.age())
-                .birthday(findRequestRegisterMemberModel.birthday())
-                .birthyear(findRequestRegisterMemberModel.birthyear())
-                .mobile(findRequestRegisterMemberModel.mobile())
+                .nickname(insertRequestMemberModel.nickname())
+                .name(insertRequestMemberModel.name())
+                .email(insertRequestMemberModel.email())
+                .gender(insertRequestMemberModel.gender())
+                .age(insertRequestMemberModel.age())
+                .birthday(insertRequestMemberModel.birthday())
+                .birthyear(insertRequestMemberModel.birthyear())
+                .mobile(insertRequestMemberModel.mobile())
                 .role(Role.ADMIN)
                 .dateTime(DateTime.builder()
                         .inputDt(LocalDate.now())
@@ -58,7 +58,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public String login(FindRequestLoginModel loginModel, HttpSession session) {
+    public String login(LoginRequestModel loginModel, HttpSession session) {
         Member member = memberRepository.findMemberById(loginModel.id());
         if (member != null && passwordEncoder.matches(loginModel.password(), member.getPassword())) {
             session.setAttribute("member", member);
@@ -73,7 +73,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public void update(FindRequestMemberUpdateModel memberUpdateModel,HttpSession session) {
+    public void update(UpdateRequestMemberModel memberUpdateModel, HttpSession session) {
         Member member = memberRepository.findMemberById(memberUpdateModel.id());
         member.setNickname(memberUpdateModel.nickname());
         member.setName(memberUpdateModel.name());

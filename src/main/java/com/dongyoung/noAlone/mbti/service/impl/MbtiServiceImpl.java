@@ -29,7 +29,7 @@ public class MbtiServiceImpl implements MbtiService {
 
 
     @Override
-    public void save(FindRequestInsertModel insertModel) {
+    public void save(InsertRequestModel insertModel) {
 
         Mbti mbti = Mbti.builder()
                 .name(insertModel.name())
@@ -42,7 +42,7 @@ public class MbtiServiceImpl implements MbtiService {
     }
 
     @Override
-    public void update(FindRequestUpdateModel updateModel) {
+    public void update(UpdateRequestModel updateModel) {
         Mbti mbti = mbtiRepository.findByMbtiId(updateModel.mbtiId());
         mbti.setName(updateModel.name());
         mbti.setDescription(updateModel.description());
@@ -64,7 +64,7 @@ public class MbtiServiceImpl implements MbtiService {
     }
 
     @Override
-    public FindResponseMbtiModel mbtiCheck(FindRequestMbtiDataModel mbtiData, HttpSession session) {
+    public FindResponseMbtiModel mbtiCheck(MbtiResultRequestModel mbtiData, HttpSession session) {
         String mbtiResult1 = mbtiData.E() > mbtiData.I() ? "E" : "I";
         String mbtiResult2 = mbtiData.N() > mbtiData.S() ? "N" : "S";
         String mbtiResult3 = mbtiData.T() > mbtiData.F() ? "T" : "F";

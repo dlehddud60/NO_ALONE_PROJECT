@@ -1,11 +1,15 @@
 package com.dongyoung.noAlone.meeting.model;
 
-public record FindRequestInsertMeetingModel(
+import java.time.LocalDate;
+
+public record FindResponseMeetingWithOwnerModel(
+        Long meetingId,
         String name,
         String content,
         String rule,
         String location,
         String question,
-        Long memberId
+        LocalDate inputDt
+
 ) {
 }

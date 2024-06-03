@@ -1,9 +1,7 @@
 package com.dongyoung.noAlone.meeting.service;
 
-import com.dongyoung.noAlone.accept.model.FindRequestAcceptAppliModel;
+import com.dongyoung.noAlone.accept.model.InsertRequestApplicationModel;
 import com.dongyoung.noAlone.meeting.model.*;
-import com.dongyoung.noAlone.member.Model.FindResponseMemberWithAcceptListModel;
-import jakarta.servlet.http.HttpSession;
 
 import java.util.List;
 
@@ -12,15 +10,15 @@ public interface MeetingService {
 
     FindResponseMeetingAndOwnerModel find(Long meetingId);
 
-    void save(FindRequestInsertMeetingModel meetingModel);
+    void save(InsertRequestMeetingModel meetingModel);
 
-    void update(FindRequestUpdateMeetingModel meetingModel);
+    void update(UpdateRequestMeetingModel meetingModel);
 
     void delete(Long meetingId);
 
-    void meetAppli(FindRequestAcceptAppliModel appliModel);
+    void meetAppli(InsertRequestApplicationModel appliModel);
 
-    List<FindResponseMeetingAppliListModel> meetAppliList();
+    List<FindResponseMeetingAppliListModel> applicationList(Long meetingId);
 
-    void changeStatus(FindRequestChangeStatusModel statusModel);
+    void changeStatus(ChangeStatusRequestModel statusModel);
 }

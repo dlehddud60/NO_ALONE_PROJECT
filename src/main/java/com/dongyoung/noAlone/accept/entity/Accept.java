@@ -35,7 +35,7 @@ public class Accept {
     private DateTime dateTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MEMBER_ID")
+    @JoinColumn(name = "MEMBER_ID",unique = true)
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)

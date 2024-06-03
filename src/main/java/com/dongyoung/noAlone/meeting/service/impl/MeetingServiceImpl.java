@@ -2,7 +2,7 @@ package com.dongyoung.noAlone.meeting.service.impl;
 
 import com.dongyoung.noAlone.accept.entity.Accept;
 import com.dongyoung.noAlone.accept.entity.Status;
-import com.dongyoung.noAlone.accept.model.FindRequestAcceptAppliModel;
+import com.dongyoung.noAlone.accept.model.InsertRequestApplicationModel;
 import com.dongyoung.noAlone.accept.repository.AcceptRepository;
 import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.meeting.entity.Meeting;
@@ -44,7 +44,7 @@ public class MeetingServiceImpl implements MeetingService {
     }
 
     @Override
-    public void save(FindRequestInsertMeetingModel meetingService) {
+    public void save(InsertRequestMeetingModel meetingService) {
         Meeting meeting = Meeting.builder()
                 .content(meetingService.content())
                 .name(meetingService.name())
@@ -69,8 +69,10 @@ public class MeetingServiceImpl implements MeetingService {
     }
 
     @Override
-    public void update(FindRequestUpdateMeetingModel meetingModel) {
+    public void update(UpdateRequestMeetingModel meetingModel) {
         Meeting meeting = meetingRepository.findByMeetingId(meetingModel.meetingId());
+
+        //memberID 세션을 받아서 owner조회하고 meetingId나온 결과와 컨트롤러 에서 넘겨온 id와 비교해여
         meeting.setContent(meetingModel.content());
         meeting.setName(meetingModel.name());
         meeting.setRule(meetingModel.rule());
@@ -86,7 +88,7 @@ public class MeetingServiceImpl implements MeetingService {
     }
 
     @Override
-    public void meetAppli(FindRequestAcceptAppliModel appliModel) {
+    public void meetAppli(InsertRequestApplicationModel appliModel) {
 
         Accept accept = Accept.builder()
                 .meeting(meetingRepository.findByMeetingId(appliModel.meetingId()))
@@ -102,12 +104,12 @@ public class MeetingServiceImpl implements MeetingService {
     }
 
     @Override
-    public List<FindResponseMeetingAppliListModel> meetAppliList() {
-        return acceptRepository.findAll().stream().map(meetingMapper::toMeetingAppliListModel).collect(Collectors.toList());
+    public List<FindResponseMeetingAppliListModel> applicationList(Long meetingId) {
+        return acceptRepository.findAllByMeeting_MeetingId(meetingId).stream().map(meetingMapper::toMeetingAppliListModel).collect(Collectors.toList());
     }
 
     @Override
-    public void changeStatus( FindRequestChangeStatusModel statusModel) {
+    public void changeStatus( ChangeStatusRequestModel statusModel) {
         Accept accept = acceptRepository.findByAcceptId(statusModel.acceptId());
         accept.setStatus(statusModel.status());
     }
