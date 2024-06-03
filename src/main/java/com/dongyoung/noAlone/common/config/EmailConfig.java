@@ -1,4 +1,4 @@
-package com.dongyoung.noAlone.config;
+package com.dongyoung.noAlone.common.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
