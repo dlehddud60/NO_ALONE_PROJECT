@@ -33,7 +33,7 @@ public class MeetingController {
 
 
     @GetMapping("/list")
-    public String findAll(Model model, SearchCondition search, @PageableDefault(size = 2) Pageable pageable) {
+    public String findAll(Model model, SearchCondition search, @PageableDefault(size = 5) Pageable pageable) {
         Page<FindResponseMeetingAndOwnerListModel> allByQueryDsl = meetingService.findAllByQueryDsl(search, pageable);
         model.addAttribute("list", allByQueryDsl);
         model.addAttribute("maxPage", 10);
@@ -41,7 +41,7 @@ public class MeetingController {
     }
 
     @GetMapping("/find/{meetingId}")
-    public String find(@PathVariable Long meetingId, Model model, HttpSession session) {
+    public String find(@PathVariable(value = "meetingId") Long meetingId, Model model, HttpSession session) {
         FindResponseMeetingAndOwnerModel meetingAndOwnerModel = meetingService.find(meetingId);
         Member member = (Member) session.getAttribute("member");
         FindResponseOwnerModel owner = ownerService.find(meetingId, member.getMemberId());
@@ -69,7 +69,7 @@ public class MeetingController {
     }
 
     @GetMapping("/update/{meetingId}")
-    public String update(@PathVariable Long meetingId, Model model,HttpSession session) {
+    public String update(@PathVariable(value = "meetingId") Long meetingId, Model model,HttpSession session) {
         FindResponseMeetingAndOwnerModel owner = meetingService.find(meetingId);
         Member member = (Member) session.getAttribute("member");
         if(!owner.ownerWithMeetingModel().memberModel().memberId().equals(member.getMemberId())) {
@@ -90,14 +90,14 @@ public class MeetingController {
     }
 
     @GetMapping("/delete/{meetingId}")
-    public String delete(@PathVariable Long meetingId) {
+    public String delete(@PathVariable(value = "meetingId") Long meetingId) {
         meetingService.delete(meetingId);
         return "redirect:/meeting/list";
     }
 
 
     @GetMapping("/application/{meetingId}")
-    public String application(@PathVariable Long meetingId, Model model, HttpSession session, RedirectAttributes rttr) {
+    public String application(@PathVariable(value = "meetingId") Long meetingId, Model model, HttpSession session, RedirectAttributes rttr) {
         Member member = (Member) session.getAttribute("member");
         FindResponseAcceptModel accept = acceptService.findByMeeting_MeetingIdAndMember_MemberId(meetingId, member.getMemberId());
         FindResponseOwnerModel owner = ownerService.find(meetingId, member.getMemberId());
@@ -124,7 +124,7 @@ public class MeetingController {
     }
 
     @GetMapping("/applicationList/{meetingId}")
-    public String applicationList(Model model, @PathVariable Long meetingId, HttpSession session) {
+    public String applicationList(Model model, @PathVariable(value = "meetingId") Long meetingId, HttpSession session) {
         Member member = (Member) session.getAttribute("member"); //필터에서 거르기 white리스트 onwer리스트 만들기
         FindResponseOwnerModel owner = ownerService.find(meetingId, member.getMemberId());
         model.addAttribute("list", meetingService.applicationList(meetingId));
