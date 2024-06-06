@@ -5,6 +5,7 @@ import com.dongyoung.noAlone.meeting.entity.Meeting;
 import com.dongyoung.noAlone.meeting.model.FindResponseMeetingAndOwnerListModel;
 import com.dongyoung.noAlone.meeting.model.FindResponseMeetingAndOwnerModel;
 import com.dongyoung.noAlone.meeting.model.FindResponseMeetingAppliListModel;
+import com.dongyoung.noAlone.meeting.model.FindResponseMeetingListModel;
 import com.dongyoung.noAlone.member.Model.FindResponseMemberWithAcceptListModel;
 import com.dongyoung.noAlone.owner.entity.Owner;
 import com.dongyoung.noAlone.owner.model.FindResponseOwnerModel;

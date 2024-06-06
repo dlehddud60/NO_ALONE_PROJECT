@@ -8,6 +8,7 @@ import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.meeting.entity.Meeting;
 import com.dongyoung.noAlone.meeting.model.*;
 import com.dongyoung.noAlone.meeting.model.mapper.MeetingMapper;
+import com.dongyoung.noAlone.meeting.repository.MeetingQueryReposity;
 import com.dongyoung.noAlone.meeting.repository.MeetingRepository;
 import com.dongyoung.noAlone.meeting.service.MeetingService;
 import com.dongyoung.noAlone.member.repository.MemberRepository;
@@ -15,6 +16,8 @@ import com.dongyoung.noAlone.owner.entity.Owner;
 import com.dongyoung.noAlone.owner.repository.OwnerRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,10 +35,16 @@ public class MeetingServiceImpl implements MeetingService {
     private final OwnerRepository ownerRepository;
     private final MeetingMapper meetingMapper;
     private final AcceptRepository acceptRepository;
+    private final MeetingQueryReposity meetingQueryReposity;
 
     @Override
     public List<FindResponseMeetingAndOwnerListModel> findAll() {
         return meetingRepository.findAll().stream().map(meetingMapper::toMeetingListModel).collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<FindResponseMeetingAndOwnerListModel> findAllByQueryDsl(SearchCondition search, Pageable pageable) {
+        return meetingQueryReposity.findAllByQueryDsl(search, pageable);
     }
 
     @Override
@@ -113,4 +122,6 @@ public class MeetingServiceImpl implements MeetingService {
         Accept accept = acceptRepository.findByAcceptId(statusModel.acceptId());
         accept.setStatus(statusModel.status());
     }
+
+
 }
