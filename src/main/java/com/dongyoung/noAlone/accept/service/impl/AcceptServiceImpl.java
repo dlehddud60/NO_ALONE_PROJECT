@@ -19,4 +19,9 @@ public class AcceptServiceImpl implements AcceptService {
     public FindResponseAcceptModel findByMeeting_MeetingIdAndMember_MemberId(Long meetingId, Long memberId) {
         return acceptMapper.toAcceptModel(acceptRepository.findByMeeting_MeetingIdAndMember_MemberId(meetingId, memberId));
     }
+
+    @Override
+    public void delete(Long acceptId) {
+        acceptRepository.deleteById(acceptId);
+    }
 }

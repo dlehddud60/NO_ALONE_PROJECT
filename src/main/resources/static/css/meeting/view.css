@@ -33,7 +33,7 @@
 
 
 .boardArea {
-    height: 30vh;
+    height: 60vh;
     width: 70%;
     margin: auto auto 1%;
     display: flex;
@@ -108,4 +108,10 @@ table tbody tr td {
 }
 .deleteBtn:hover {
     background: #ffacac;
+}
+.meetingCancelArea {
+}
+.meetingCancel {
+    background: #dc3545;
+
 }
