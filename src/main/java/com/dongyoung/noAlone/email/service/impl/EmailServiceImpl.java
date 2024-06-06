@@ -4,7 +4,7 @@ import com.dongyoung.noAlone.email.event.EmailSendApplicationEvent;
 import com.dongyoung.noAlone.email.model.FindRequestEmailModel;
 import com.dongyoung.noAlone.email.service.EmailService;
 import com.dongyoung.noAlone.email.status.ExceptionCode;
-import com.dongyoung.noAlone.exception.CustomException;
+import com.dongyoung.noAlone.common.exception.CustomException;
 import com.dongyoung.noAlone.member.service.MemberService;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;

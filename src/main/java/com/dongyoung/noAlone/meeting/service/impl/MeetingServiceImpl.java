@@ -88,7 +88,7 @@ public class MeetingServiceImpl implements MeetingService {
     }
 
     @Override
-    public void meetAppli(InsertRequestApplicationModel appliModel) {
+    public void application(InsertRequestApplicationModel appliModel) {
 
         Accept accept = Accept.builder()
                 .meeting(meetingRepository.findByMeetingId(appliModel.meetingId()))
@@ -109,7 +109,7 @@ public class MeetingServiceImpl implements MeetingService {
     }
 
     @Override
-    public void changeStatus( ChangeStatusRequestModel statusModel) {
+    public void changeStatus(ChangeStatusRequestModel statusModel) {
         Accept accept = acceptRepository.findByAcceptId(statusModel.acceptId());
         accept.setStatus(statusModel.status());
     }

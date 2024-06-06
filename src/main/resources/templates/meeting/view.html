@@ -43,7 +43,9 @@
   <div class="buttonArea">
     <div class="listBtn Btn"><a th:href="@{/meeting/list}">목록</a></div>
     <div class="updateBtn Btn" th:if="${not #strings.isEmpty(ownerDTO)}"><a th:href="@{/meeting/update/{meetingId}(meetingId = ${info.meetingId()})}" th:text="수정"></a></div>
-    <div class="updateBtn Btn" th:onclick="meetAppli([[${info.meetingId}]])" th:text="모임신청" th:if="${#strings.isEmpty(ownerDTO)}"></div>
+    <th:block th:if="${#strings.isEmpty(acceptDTO)}">
+      <div class="updateBtn Btn" th:onclick="meetAppli([[${info.meetingId}]])" th:text="모임신청" th:if="${#strings.isEmpty(ownerDTO)}"></div>
+    </th:block>
     <div class="updateBtn Btn" th:onclick="meetAppliList([[${info.meetingId}]])" th:text="멤버관리" th:if="${not #strings.isEmpty(ownerDTO)}"></div>
 <!--    <div class="deleteBtn Btn"><a th:href="@{/meeting/delete/{meetingId}(meetingId = ${info.meetingId()})}" th:text="삭제"></a></div>-->
   </div>

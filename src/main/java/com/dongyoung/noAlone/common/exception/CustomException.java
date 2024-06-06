@@ -1,4 +1,4 @@
-package com.dongyoung.noAlone.exception;
+package com.dongyoung.noAlone.common.exception;
 
 import com.dongyoung.noAlone.email.status.ExceptionCode;
 import lombok.AllArgsConstructor;

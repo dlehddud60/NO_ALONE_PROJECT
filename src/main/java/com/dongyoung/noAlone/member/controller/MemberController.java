@@ -70,7 +70,7 @@ public class MemberController {
         return "/member/update";
     }
 
-    @PutMapping("/update")
+    @PostMapping("/update")
     public String update(@ModelAttribute("memberDTO") @Validated UpdateRequestMemberModel memberUpdateModel, BindingResult bindingResult, Model model, HttpSession session) {
         Member member = (Member) session.getAttribute("member");
         if (bindingResult.hasErrors()) {

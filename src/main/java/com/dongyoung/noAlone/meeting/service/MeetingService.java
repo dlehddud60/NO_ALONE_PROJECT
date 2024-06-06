@@ -16,9 +16,11 @@ public interface MeetingService {
 
     void delete(Long meetingId);
 
-    void meetAppli(InsertRequestApplicationModel appliModel);
+    void application(InsertRequestApplicationModel applicationModel);
 
     List<FindResponseMeetingAppliListModel> applicationList(Long meetingId);
 
     void changeStatus(ChangeStatusRequestModel statusModel);
+
+
 }

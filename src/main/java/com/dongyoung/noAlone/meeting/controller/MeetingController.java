@@ -1,6 +1,8 @@
 package com.dongyoung.noAlone.meeting.controller;
 
+import com.dongyoung.noAlone.accept.model.FindResponseAcceptModel;
 import com.dongyoung.noAlone.accept.model.InsertRequestApplicationModel;
+import com.dongyoung.noAlone.accept.service.AcceptService;
 import com.dongyoung.noAlone.meeting.model.ChangeStatusRequestModel;
 import com.dongyoung.noAlone.meeting.model.FindResponseMeetingAndOwnerModel;
 import com.dongyoung.noAlone.meeting.model.InsertRequestMeetingModel;
@@ -27,7 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class MeetingController {
     private final MeetingService meetingService;
     private final OwnerService ownerService;
-
+    private final AcceptService acceptService;
 
 
     @GetMapping("/list")
@@ -39,16 +41,13 @@ public class MeetingController {
     @GetMapping("/find/{meetingId}")
     public String find(@PathVariable Long meetingId, Model model, HttpSession session) {
         FindResponseMeetingAndOwnerModel meetingAndOwnerModel = meetingService.find(meetingId);
+        Member member = (Member) session.getAttribute("member");
+        FindResponseOwnerModel owner = ownerService.find(meetingId, member.getMemberId());
+
         model.addAttribute("info", meetingAndOwnerModel);
         model.addAttribute("ownerInfo", meetingAndOwnerModel.ownerWithMeetingModel().memberModel());
-        try {
-            Member member = (Member) session.getAttribute("member");
-            FindResponseOwnerModel owner = ownerService.find(meetingId, member.getMemberId());
-            model.addAttribute("ownerDTO", owner);
-        } catch (NullPointerException e) {
-            log.info("비회원 접속");
-        }
-
+        model.addAttribute("acceptDTO", acceptService.findByMeeting_MeetingIdAndMember_MemberId(meetingId, member.getMemberId()));
+        model.addAttribute("ownerDTO", owner);
         return "/meeting/view";
     }
 
@@ -58,7 +57,7 @@ public class MeetingController {
     }
 
     @PostMapping("/save")
-    public String save(@Validated InsertRequestMeetingModel meetingModel,BindingResult bindingResult) {
+    public String save(@Validated InsertRequestMeetingModel meetingModel, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.info("errors={} ", bindingResult);
             return "/meeting/saveForm";
@@ -91,22 +90,31 @@ public class MeetingController {
 
 
     @GetMapping("/application/{meetingId}")
-    public String application(@PathVariable Long meetingId, Model model) {
+    public String application(@PathVariable Long meetingId, Model model, HttpSession session, RedirectAttributes rttr) {
+        Member member = (Member) session.getAttribute("member");
+        FindResponseAcceptModel accept = acceptService.findByMeeting_MeetingIdAndMember_MemberId(meetingId, member.getMemberId());
+        FindResponseOwnerModel owner = ownerService.find(meetingId, member.getMemberId());
+        if (accept != null || owner != null) {
+            rttr.addFlashAttribute("msg", "이미 신청하였습니다.");
+            return "redirect:/meeting/list";
+        }
         model.addAttribute("meeting", meetingService.find(meetingId));
         return "meeting/application";
-    }//이름 바꾸기
+    }
 
     @PostMapping("/application")
     public String application(@ModelAttribute @Validated InsertRequestApplicationModel applicationModel, BindingResult bindingResult, HttpServletRequest request, RedirectAttributes rttr) {
         if (bindingResult.hasErrors()) {
             log.info("errors={} ", bindingResult);
-            rttr.addFlashAttribute("aboutMe",applicationModel.aboutMe());
-            rttr.addFlashAttribute("companionReason",applicationModel.companionReason());
+            rttr.addFlashAttribute("aboutMe", applicationModel.aboutMe());
+            rttr.addFlashAttribute("companionReason", applicationModel.companionReason());
+            //검증 시 데이터 유지위한 코드
             return "redirect:" + request.getHeader("Referer");
         }
-        meetingService.meetAppli(applicationModel);
+        rttr.addFlashAttribute("insertMsg", "이미 가입하셨습니다.");
+        meetingService.application(applicationModel);
         return "redirect:/meeting/list";
-    }//이름 바꾸기
+    }
 
     @GetMapping("/applicationList/{meetingId}")
     public String applicationList(Model model, @PathVariable Long meetingId, HttpSession session) {
@@ -118,16 +126,14 @@ public class MeetingController {
         } else {
             return "redirect:/meeting/list";
         }
-    }//이름 바꾸기
+    }
 
     @PostMapping("/changeStatus")
-    public String changeStatus(@Validated ChangeStatusRequestModel statusModel,BindingResult bindingResult,HttpServletRequest request) {
+    public String changeStatus(@Validated ChangeStatusRequestModel statusModel, BindingResult bindingResult, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            log.info("errors={} ", bindingResult);
             return "redirect:" + request.getHeader("Referer");
         }
         meetingService.changeStatus(statusModel);
         return "redirect:" + request.getHeader("Referer");
     }
-
 }
