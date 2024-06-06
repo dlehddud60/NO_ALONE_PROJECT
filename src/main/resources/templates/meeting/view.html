@@ -35,6 +35,21 @@
           <th>방장</th>
           <td th:text="${ownerInfo.nickname()}"></td>
         </tr>
+        <tr>
+          <th>방장</th>
+          <td th:text="${ownerInfo.nickname()}"></td>
+        </tr>
+        <th:block th:if="${not #strings.isEmpty(acceptDTO)}">
+          <tr>
+            <th>신청 현황</th>
+            <td th:switch="${acceptDTO.status.name()}" class="meetingCancelArea">
+              <span th:case="'APPLY'">신청중</span>
+              <span th:case="'GRANT'">승인</span>
+              <span th:case="'COMP'">반려</span>
+              <div class="updateBtn Btn meetingCancel" th:text="'신청취소'" th:onclick="acceptDelete([[${acceptDTO.acceptId()}]])"></div>
+            </td>
+          </tr>
+        </th:block>
         </tbody>
       </table>
     </div>

@@ -102,7 +102,6 @@ public class MeetingController {
         FindResponseAcceptModel accept = acceptService.findByMeeting_MeetingIdAndMember_MemberId(meetingId, member.getMemberId());
         FindResponseOwnerModel owner = ownerService.find(meetingId, member.getMemberId());
         if (accept != null || owner != null) {
-            rttr.addFlashAttribute("msg", "이미 신청하였습니다.");
             return "redirect:/meeting/list";
         }
         model.addAttribute("meeting", meetingService.find(meetingId));
