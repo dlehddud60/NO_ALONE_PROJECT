@@ -67,8 +67,13 @@ public class MeetingController {
     }
 
     @GetMapping("/update/{meetingId}")
-    public String update(@PathVariable Long meetingId, Model model) {
-        model.addAttribute("info", meetingService.find(meetingId));
+    public String update(@PathVariable Long meetingId, Model model,HttpSession session) {
+        FindResponseMeetingAndOwnerModel owner = meetingService.find(meetingId);
+        Member member = (Member) session.getAttribute("member");
+        if(!owner.ownerWithMeetingModel().memberModel().memberId().equals(member.getMemberId())) {
+            return "redirect:/meeting/list";
+        }
+        model.addAttribute("info", owner);
         return "/meeting/update";
     }
 
