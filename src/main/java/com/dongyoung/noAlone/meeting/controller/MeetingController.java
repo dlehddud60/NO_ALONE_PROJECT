@@ -3,10 +3,7 @@ package com.dongyoung.noAlone.meeting.controller;
 import com.dongyoung.noAlone.accept.model.FindResponseAcceptModel;
 import com.dongyoung.noAlone.accept.model.InsertRequestApplicationModel;
 import com.dongyoung.noAlone.accept.service.AcceptService;
-import com.dongyoung.noAlone.meeting.model.ChangeStatusRequestModel;
-import com.dongyoung.noAlone.meeting.model.FindResponseMeetingAndOwnerModel;
-import com.dongyoung.noAlone.meeting.model.InsertRequestMeetingModel;
-import com.dongyoung.noAlone.meeting.model.UpdateRequestMeetingModel;
+import com.dongyoung.noAlone.meeting.model.*;
 import com.dongyoung.noAlone.meeting.service.MeetingService;
 import com.dongyoung.noAlone.member.entity.Member;
 import com.dongyoung.noAlone.owner.model.FindResponseOwnerModel;
@@ -15,6 +12,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,8 +33,10 @@ public class MeetingController {
 
 
     @GetMapping("/list")
-    public String findAll(Model model) {
-        model.addAttribute("list", meetingService.findAll());
+    public String findAll(Model model, SearchCondition search, @PageableDefault(size = 2) Pageable pageable) {
+        Page<FindResponseMeetingAndOwnerListModel> allByQueryDsl = meetingService.findAllByQueryDsl(search, pageable);
+        model.addAttribute("list", allByQueryDsl);
+        model.addAttribute("maxPage", 10);
         return "/meeting/list";
     }
 
