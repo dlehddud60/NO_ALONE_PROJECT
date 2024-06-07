@@ -30,7 +30,7 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final StringPath title = createString("title");
 
-    public final StringPath views = createString("views");
+    public final NumberPath<Long> views = createNumber("views", Long.class);
 
     public QBoard(String variable) {
         this(Board.class, forVariable(variable), INITS);
