@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>상세보기</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" th:href="@{/css/category/view.css}">
+</head>
+<body>
+<th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
+<div class="wrap">
+  <div class="boardArea">
+    <div class="viewArea">
+      <table>
+        <tbody>
+        <tr>
+          <th>제목</th>
+          <td th:text="${info.name()}"></td>
+        </tr>
+        <tr>
+          <th>내용</th>
+          <td th:text="${info.description()}"></td>
+        </tr>
+        <tr>
+          <th>작성일</th>
+          <td th:text="${info.inputDt()}"></td>
+        </tr>
+<!--        <tr>-->
+<!--          <th>작성자</th>-->
+<!--          <td th:text="${info.member().nickname()}"></td>-->
+<!--        </tr>-->
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+  <div class="buttonArea">
+    <div class="listBtn Btn"><a th:href="@{/category/list}">목록</a></div>
+    <div class="updateBtn Btn"><a th:href="@{/category/update/{categoryId}(categoryId = ${info.categoryId()})}" th:text="수정"></a></div>
+    <div class="deleteBtn Btn"><a th:href="@{/category/delete/{categoryId}(categoryId = ${info.categoryId()})}" th:text="삭제"></a></div>
+  </div>
+</div>
+<th:block th:replace="/include/header.html :: footerFragment"></th:block>
+</body>
+</html>
