@@ -7,6 +7,8 @@ import com.dongyoung.noAlone.board.repository.BoardQueryRepository;
 import com.dongyoung.noAlone.board.repository.BoardRepository;
 import com.dongyoung.noAlone.board.service.BoardService;
 import com.dongyoung.noAlone.common.entity.DateTime;
+import com.dongyoung.noAlone.member.entity.Member;
+import com.dongyoung.noAlone.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,30 +26,32 @@ public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
     private final BoardQueryRepository boardQueryRepository;
     private final BoardMapper boardMapper;
+    private final MemberRepository memberRepository;
 
     @Override
-    public List<FindResponseBoardListModel> findAll() {
+    public List<FindResponseBoardWithMemberListModel> findAll() {
         return boardRepository.findAll().stream().map(boardMapper::toBoardListModel).collect(Collectors.toList());
     }
 
     @Override
-    public Page<FindResponseBoardListModel> findAllByQueryDsl(SearchCondition search, Pageable pageable) {
+    public Page<FindResponseBoardWithMemberListModel> findAllByQueryDsl(SearchCondition search, Pageable pageable) {
         return boardQueryRepository.findAllByQueryDsl(search, pageable);
     }
 
     @Override
-    public FindResponseBoardModel find(Long boardId) {
+    public FindResponseBoardWithMemberModel find(Long boardId) {
         return boardMapper.toBoardFindModel(boardRepository.findByBoardId(boardId));
     }
 
     @Override
-    public void save(InsertRequestBoardModel boardModel) {
+    public void save(InsertRequestBoardModel boardModel, Member member) {
         Board board = Board.builder()
                 .title(boardModel.title())
                 .content(boardModel.content())
                 .dateTime(DateTime.builder()
                         .inputDt(LocalDate.now())
                         .build())
+                .member(memberRepository.findByMemberId(member.getMemberId()))
                 .build();
         boardRepository.save(board);
     }
