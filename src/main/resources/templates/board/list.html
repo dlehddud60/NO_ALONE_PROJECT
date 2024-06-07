@@ -28,6 +28,7 @@
                         <th class="num">번호</th>
                         <th class="title">제목</th>
                         <th class="writer">작성일</th>
+                        <th class="writer">작성자</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -38,8 +39,8 @@
                                 <a style="color: #ffffff"
                                    th:href="@{/board/find/{boardId}( boardId = ${list.boardId()})}" th:text="${list.title()}"></a>
                             </td>
-<!--                            <td th:text="${list.ownerListModel.memberListModel.nickname()}"></td>-->
                             <td th:text="${list.inputDt()}"></td>
+                            <td th:text="${list.member().nickname()}"></td>
                         </tr>
                     </th:block>
                     </tbody>

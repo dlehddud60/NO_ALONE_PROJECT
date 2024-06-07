@@ -28,6 +28,8 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final com.dongyoung.noAlone.common.entity.QDateTime dateTime;
 
+    public final com.dongyoung.noAlone.member.entity.QMember member;
+
     public final StringPath title = createString("title");
 
     public final NumberPath<Long> views = createNumber("views", Long.class);
@@ -51,6 +53,7 @@ public class QBoard extends EntityPathBase<Board> {
     public QBoard(Class<? extends Board> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.dateTime = inits.isInitialized("dateTime") ? new com.dongyoung.noAlone.common.entity.QDateTime(forProperty("dateTime")) : null;
+        this.member = inits.isInitialized("member") ? new com.dongyoung.noAlone.member.entity.QMember(forProperty("member"), inits.get("member")) : null;
     }
 
 }

@@ -1,6 +1,7 @@
 package com.dongyoung.noAlone.board.entity;
 
 import com.dongyoung.noAlone.common.entity.DateTime;
+import com.dongyoung.noAlone.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,4 +30,8 @@ public class Board {
 
     @Embedded
     private DateTime dateTime;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "memberId")
+    private Member member;
 }
