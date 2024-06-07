@@ -1,6 +1,4 @@
 const changeStatus = (acceptId,status) => {
-  console.log("====acceptId====",acceptId)
-  console.log("====status====",status)
   $.ajax({
     url:'/meeting/changeStatus',
     type:'post',
@@ -13,4 +11,8 @@ const changeStatus = (acceptId,status) => {
     error: function(err) {
     }
   });
+}
+
+const acceptDel = (param) => {
+  $(location).attr("href", "/accept/delete/" + param);
 }
