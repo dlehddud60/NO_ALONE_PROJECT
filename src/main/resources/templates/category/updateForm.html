@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th ="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>수정</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link rel="stylesheet" th:href="@{/css/category/update.css}">
+    <script th:src="@{/js/category/update.js}"></script>
+
+</head>
+<body>
+<th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
+<form action="/category/update" method="post" id="frm">
+    <input type="hidden" name="categoryId" th:value="${info.categoryId()}">
+    <div class="wrap">
+        <div class="boardArea">
+            <div class="viewArea">
+                <table>
+                    <tbody>
+                    <tr>
+                        <th>카테고리 이름</th>
+                        <td><input type="text" name="name" th:value="${info.name()}"></td>
+                    </tr>
+                    <tr>
+                        <th>카테고리 내용</th>
+                        <td>
+                            <textarea name="description" th:text="${info.description()}"></textarea>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="buttonArea">
+            <div class="listBtn Btn"><a th:href="@{/category/list}">목록</a></div>
+            <div class="updateBtn Btn">작성</div>
+        </div>
+    </div>
+</form>
+<th:block th:replace="/include/header.html :: footerFragment"></th:block>
+</body>
+</html>
