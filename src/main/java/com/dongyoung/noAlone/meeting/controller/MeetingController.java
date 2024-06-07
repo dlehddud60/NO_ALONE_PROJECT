@@ -127,6 +127,7 @@ public class MeetingController {
         Member member = (Member) session.getAttribute("member"); //필터에서 거르기 white리스트 onwer리스트 만들기
         FindResponseOwnerModel owner = ownerService.find(meetingId, member.getMemberId());
         model.addAttribute("list", meetingService.applicationList(meetingId));
+
         if (owner != null) {
             return "meeting/applicationList";
         } else {

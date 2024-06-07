@@ -34,6 +34,7 @@
             <th class="title">답변</th>
             <th class="writer">신청상태</th>
             <th class="writer">신청일</th>
+            <th class="writer">회원탈퇴</th>
           </tr>
           </thead>
           <tbody>
@@ -54,6 +55,7 @@
                 </select>
               </td>
               <td th:text="${list.inputDt()}"></td>
+              <td><div class="updateBtn Btn" th:text="회원탈퇴" th:onclick="acceptDel([[${list.acceptId}]])"></div></td>
             </tr>
           </th:block>
           </tbody>
