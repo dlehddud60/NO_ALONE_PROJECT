@@ -25,7 +25,7 @@ public class Board {
     private String content;
 
     @Column(name = "VIEWS")
-    private String views;
+    private Long views; //조회수
 
     @Embedded
     private DateTime dateTime;

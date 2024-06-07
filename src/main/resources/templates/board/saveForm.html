@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>게시물 등</title>
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script th:src="@{/js/board/saveForm.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/board/saveForm.css}">
+
+
+</head>
+<body>
+<th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
+
+<form action="/board/save" method="post" id="frm">
+  <input type="hidden" name="memberId" th:value="${session.member.getMemberId()}">
+  <div class="wrap">
+    <div class="boardArea">
+      <div class="viewArea">
+        <table>
+          <tbody>
+          <tr>
+            <th>제목</th>
+            <td><input type="text" name="title"></td>
+          </tr>
+          <tr>
+            <th>내용</th>
+            <td>
+              <textarea name="content"></textarea>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="buttonArea">
+      <div class="listBtn Btn"><a th:href="@{/board/list}" style="color: white;">목록</a></div>
+      <div class="updateBtn Btn">작성</div>
+    </div>
+  </div>
+</form>
+
+<th:block th:replace="/include/header.html :: footerFragment"></th:block>
+</body>
+</html>
