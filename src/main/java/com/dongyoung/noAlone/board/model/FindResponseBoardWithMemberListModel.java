@@ -8,7 +8,7 @@ public record FindResponseBoardWithMemberListModel(
         Long boardId,
         String title,
         String content,
-        Long views,
+        Integer views,
         LocalDate inputDt,
         FindResponseMemberWithMemberListModel member
 ) {

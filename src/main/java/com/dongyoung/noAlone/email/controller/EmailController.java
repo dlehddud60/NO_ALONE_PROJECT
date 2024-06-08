@@ -15,7 +15,7 @@ public class EmailController {
     private final EmailServiceImpl emailServiceImpl;
 
     @PostMapping
-    public ResponseEntity<Boolean> sendEmail(@RequestParam String email) {
+    public ResponseEntity<Boolean> sendEmail(@RequestParam(value = "email") String email) {
         return ResponseEntity.ok(emailServiceImpl.sendEmail(email));
     }//
 

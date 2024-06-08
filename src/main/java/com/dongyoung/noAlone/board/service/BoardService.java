@@ -19,5 +19,7 @@ public interface BoardService{
     void delete(Long boardId);
 
     Page<FindResponseBoardWithMemberListModel> findAllByQueryDsl(SearchCondition search, Pageable pageable);
+
+    void updateCount(Long boardId);
 }
 

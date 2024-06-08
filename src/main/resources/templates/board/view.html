@@ -31,6 +31,10 @@
           <th>작성자</th>
           <td th:text="${info.member().nickname()}"></td>
         </tr>
+        <tr>
+          <th>조회수</th>
+          <td th:text="${info.views()}"></td>
+        </tr>
         </tbody>
       </table>
     </div>

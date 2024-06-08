@@ -9,7 +9,7 @@ public record FindResponseBoardWithMemberModel(
         Long boardId,
         String title,
         String content,
-        Long views,
+        Integer views,
         LocalDate inputDt,
         FindResponseMemberWithMemberModel member
 ) {
