@@ -36,7 +36,7 @@ public class BoardQueryRepositoryImpl implements BoardQueryRepository {
                 .orderBy(board.boardId.desc())
                 .fetch();
         JPAQuery<Long> count = queryFactory.select(Wildcard.count).from(board);
-        return PageableExecutionUtils.getPage(list.stream().map(boardMapper::toBoardListModel).collect(Collectors.toList()),pageable,count::fetchCount);
+        return PageableExecutionUtils.getPage(list.stream().map(boardMapper::toBoardResListModel).collect(Collectors.toList()),pageable,count::fetchCount);
     }
 
     private BooleanExpression search(String search) {

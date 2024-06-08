@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-07T19:13:30+0900",
+    date = "2024-06-08T12:07:22+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
@@ -25,12 +25,37 @@ public class BoardMapperImpl implements BoardMapper {
             return null;
         }
 
+        Long boardId = null;
+        String title = null;
+        String content = null;
+        Integer views = null;
+        FindResponseMemberWithMemberListModel member = null;
+
+        boardId = board.getBoardId();
+        title = board.getTitle();
+        content = board.getContent();
+        views = board.getViews();
+        member = memberToFindResponseMemberWithMemberListModel( board.getMember() );
+
+        LocalDate inputDt = null;
+
+        FindResponseBoardWithMemberListModel findResponseBoardWithMemberListModel = new FindResponseBoardWithMemberListModel( boardId, title, content, views, inputDt, member );
+
+        return findResponseBoardWithMemberListModel;
+    }
+
+    @Override
+    public FindResponseBoardWithMemberListModel toBoardResListModel(Board board) {
+        if ( board == null ) {
+            return null;
+        }
+
         FindResponseMemberWithMemberListModel member = null;
         LocalDate inputDt = null;
         Long boardId = null;
         String title = null;
         String content = null;
-        Long views = null;
+        Integer views = null;
 
         member = memberToFindResponseMemberWithMemberListModel( board.getMember() );
         inputDt = boardDateTimeInputDt( board );
@@ -45,7 +70,7 @@ public class BoardMapperImpl implements BoardMapper {
     }
 
     @Override
-    public FindResponseBoardWithMemberModel toBoardFindModel(Board board) {
+    public FindResponseBoardWithMemberModel toBoardResFindModel(Board board) {
         if ( board == null ) {
             return null;
         }
@@ -55,7 +80,7 @@ public class BoardMapperImpl implements BoardMapper {
         Long boardId = null;
         String title = null;
         String content = null;
-        Long views = null;
+        Integer views = null;
 
         member = memberToFindResponseMemberWithMemberModel( board.getMember() );
         inputDt = boardDateTimeInputDt( board );

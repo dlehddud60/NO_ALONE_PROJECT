@@ -40,7 +40,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public FindResponseBoardWithMemberModel find(Long boardId) {
-        return boardMapper.toBoardFindModel(boardRepository.findByBoardId(boardId));
+        return boardMapper.toBoardResFindModel(boardRepository.findByBoardId(boardId));
     }
 
     @Override
@@ -48,6 +48,7 @@ public class BoardServiceImpl implements BoardService {
         Board board = Board.builder()
                 .title(boardModel.title())
                 .content(boardModel.content())
+                .views(0)
                 .dateTime(DateTime.builder()
                         .inputDt(LocalDate.now())
                         .build())
@@ -66,5 +67,11 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public void delete(Long boardId) {
         boardRepository.deleteById(boardId);
+    }
+
+    @Override
+    public void updateCount(Long boardId) {
+        Board board = boardRepository.findByBoardId(boardId);
+        board.setViews(board.getViews() + 1);
     }
 }

@@ -6,7 +6,7 @@ public record FindResponseBoardListModel(
         Long boardId,
         String title,
         String content,
-        Long views,
+        Integer views,
         LocalDate inputDt
 ) {
 }

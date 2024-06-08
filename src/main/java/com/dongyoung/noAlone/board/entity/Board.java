@@ -4,6 +4,7 @@ import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 @Entity
 @Table(name = "BOARD")
@@ -25,8 +26,8 @@ public class Board {
     @Column(name = "CONTENT",length = 3000)
     private String content;
 
-    @Column(name = "VIEWS")
-    private Long views; //조회수
+    @Column(name = "VIEWS", columnDefinition = "integer default 0",nullable = false)
+    private Integer views = 0; //조회수
 
     @Embedded
     private DateTime dateTime;

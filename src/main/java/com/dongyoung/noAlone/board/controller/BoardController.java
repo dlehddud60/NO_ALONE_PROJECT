@@ -34,6 +34,7 @@ public class BoardController {
 
     @GetMapping("/find/{boardId}")
     public String find(@PathVariable(value = "boardId") Long boardId, Model model) {
+        boardService.updateCount(boardId);
         model.addAttribute("info", boardService.find(boardId));
         return "board/view";
     }

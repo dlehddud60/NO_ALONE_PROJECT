@@ -13,12 +13,16 @@ import java.time.LocalDateTime;
 @Mapper(componentModel = "spring")
 public interface BoardMapper {
 
-    @Mapping(source = "member", target = "member")
-    @Mapping(source = "dateTime.inputDt", target = "inputDt")
+
     FindResponseBoardWithMemberListModel toBoardListModel(Board board);
 
     @Mapping(source = "member", target = "member")
     @Mapping(source = "dateTime.inputDt", target = "inputDt")
-    FindResponseBoardWithMemberModel toBoardFindModel(Board board);
+    FindResponseBoardWithMemberListModel toBoardResListModel(Board board);
+
+
+    @Mapping(source = "member", target = "member")
+    @Mapping(source = "dateTime.inputDt", target = "inputDt")
+    FindResponseBoardWithMemberModel toBoardResFindModel(Board board);
 
 }
