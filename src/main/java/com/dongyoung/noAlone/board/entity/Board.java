@@ -1,5 +1,6 @@
 package com.dongyoung.noAlone.board.entity;
 
+import com.dongyoung.noAlone.category.entity.Category;
 import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.member.entity.Member;
 import jakarta.persistence.*;
@@ -35,4 +36,8 @@ public class Board {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberId")
     private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoryId")
+    private Category category;
 }

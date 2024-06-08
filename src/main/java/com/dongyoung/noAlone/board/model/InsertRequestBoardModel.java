@@ -5,6 +5,7 @@ import java.time.LocalDate;
 public record InsertRequestBoardModel(
         String title,
         String content,
-        LocalDate inputDt
+        LocalDate inputDt,
+        Long categoryId
 ) {
 }

@@ -1,7 +1,8 @@
 package com.dongyoung.noAlone.board.repository.impl;
 
 import com.dongyoung.noAlone.board.entity.Board;
-import com.dongyoung.noAlone.board.model.FindResponseBoardWithMemberListModel;
+import com.dongyoung.noAlone.board.model.FindCategorySort;
+import com.dongyoung.noAlone.board.model.FindResponseBoardListModel;
 import com.dongyoung.noAlone.board.model.SearchCondition;
 import com.dongyoung.noAlone.board.model.mapper.BoardMapper;
 import com.dongyoung.noAlone.board.repository.BoardQueryRepository;
@@ -27,12 +28,12 @@ public class BoardQueryRepositoryImpl implements BoardQueryRepository {
     private final BoardMapper boardMapper;
 
     @Override
-    public Page<FindResponseBoardWithMemberListModel> findAllByQueryDsl(SearchCondition search, Pageable pageable) {
+    public Page<FindResponseBoardListModel> findAllByQueryDsl(SearchCondition search, Pageable pageable, FindCategorySort category) {
 
         List<Board> list = queryFactory.selectFrom(board)
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
-                .where(search(search.name()))
+                .where(search(search.name()), category(category.categoryId()))
                 .orderBy(board.boardId.desc())
                 .fetch();
         JPAQuery<Long> count = queryFactory.select(Wildcard.count).from(board);
@@ -41,5 +42,9 @@ public class BoardQueryRepositoryImpl implements BoardQueryRepository {
 
     private BooleanExpression search(String search) {
         return search != null ? board.title.contains(search) : null;
+    }
+
+    private BooleanExpression category(Long categoryId) {
+        return categoryId != null ? board.category.categoryId.eq(categoryId) : null;
     }
 }

@@ -13,6 +13,8 @@
 <body>
 <th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
 <form action="" method="get">
+    <input type="hidden" name="categoryId" th:value="${param.categoryId}">
+
     <div class="wrap">
         <div class="searchArea">
             <div class="searchAreaChild">
@@ -50,7 +52,7 @@
             </div>
         </div>
         <div class="buttonArea">
-            <div class="updateBtn Btn"><a style="color: white" th:href="@{/board/save}">작성</a></div>
+            <div class="updateBtn Btn" th:onclick="boardSaveFrom([[${param.categoryId}]])">작성</div>
         </div>
 
         <div class="pageArea" th:with="start=${(list.number/maxPage)*maxPage+1},

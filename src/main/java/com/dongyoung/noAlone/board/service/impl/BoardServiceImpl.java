@@ -6,11 +6,13 @@ import com.dongyoung.noAlone.board.model.mapper.BoardMapper;
 import com.dongyoung.noAlone.board.repository.BoardQueryRepository;
 import com.dongyoung.noAlone.board.repository.BoardRepository;
 import com.dongyoung.noAlone.board.service.BoardService;
+import com.dongyoung.noAlone.category.repository.CategoryRepository;
 import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.member.entity.Member;
 import com.dongyoung.noAlone.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,24 +24,26 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Log4j2
 public class BoardServiceImpl implements BoardService {
     private final BoardRepository boardRepository;
     private final BoardQueryRepository boardQueryRepository;
     private final BoardMapper boardMapper;
     private final MemberRepository memberRepository;
+    private final CategoryRepository categoryRepository;
 
     @Override
-    public List<FindResponseBoardWithMemberListModel> findAll() {
-        return boardRepository.findAll().stream().map(boardMapper::toBoardListModel).collect(Collectors.toList());
+    public List<FindResponseBoardListModel> findAll() {
+        return boardRepository.findAll().stream().map(boardMapper::toBoardResListModel).collect(Collectors.toList());
     }
 
     @Override
-    public Page<FindResponseBoardWithMemberListModel> findAllByQueryDsl(SearchCondition search, Pageable pageable) {
-        return boardQueryRepository.findAllByQueryDsl(search, pageable);
+    public Page<FindResponseBoardListModel> findAllByQueryDsl(SearchCondition search, Pageable pageable, FindCategorySort category) {
+        return boardQueryRepository.findAllByQueryDsl(search, pageable,category);
     }
 
     @Override
-    public FindResponseBoardWithMemberModel find(Long boardId) {
+    public FindResponseBoardModel find(Long boardId) {
         return boardMapper.toBoardResFindModel(boardRepository.findByBoardId(boardId));
     }
 
@@ -53,6 +57,7 @@ public class BoardServiceImpl implements BoardService {
                         .inputDt(LocalDate.now())
                         .build())
                 .member(memberRepository.findByMemberId(member.getMemberId()))
+                .category(categoryRepository.findByCategoryId(boardModel.categoryId()))
                 .build();
         boardRepository.save(board);
     }

@@ -1,10 +1,9 @@
 package com.dongyoung.noAlone.board.controller;
 
 import com.dongyoung.noAlone.board.entity.Board;
-import com.dongyoung.noAlone.board.model.InsertRequestBoardModel;
-import com.dongyoung.noAlone.board.model.SearchCondition;
-import com.dongyoung.noAlone.board.model.UpdateRequestBoardModel;
+import com.dongyoung.noAlone.board.model.*;
 import com.dongyoung.noAlone.board.service.BoardService;
+import com.dongyoung.noAlone.category.service.CategoryService;
 import com.dongyoung.noAlone.member.entity.Member;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -18,17 +17,23 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/board")
 @Log4j2
 public class BoardController {
     private final BoardService boardService;
+    private final CategoryService categoryService;
 
     @GetMapping("/list")
-    public String findAll(Model model, SearchCondition search, @PageableDefault(size = 10) Pageable pageable) {
+    public String findAll(Model model, SearchCondition search, @PageableDefault(size = 10) Pageable pageable, FindCategorySort category) {
+        if (category.categoryId() == null || category.categoryId() == 0) {
+            return "redirect:/board/list?categoryId=1";
+        }
         model.addAttribute("maxPage", 10);
-        model.addAttribute("list", boardService.findAllByQueryDsl(search, pageable));
+        model.addAttribute("list", boardService.findAllByQueryDsl(search, pageable, category));
         return "board/list";
     }
 
@@ -40,7 +45,8 @@ public class BoardController {
     }
 
     @GetMapping("/save")
-    public String saveForm() {
+    public String saveForm(Model model) {
+        model.addAttribute("categoryList", categoryService.findAll());
         return "board/saveForm";
     }
 
@@ -48,7 +54,7 @@ public class BoardController {
     public String save(InsertRequestBoardModel boardModel, HttpSession session) {
         Member member = (Member) session.getAttribute("member"); //필터에서 거르기 white리스트 onwer리스트 만들기
         boardService.save(boardModel, member);
-        return "redirect:/board/list";
+        return "redirect:/board/list?categoryId=" + boardModel.categoryId();
     }
 
     @GetMapping("/update/{boardId}")
