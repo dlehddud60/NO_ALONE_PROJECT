@@ -1,8 +1,12 @@
 package com.dongyoung.noAlone.category.entity;
 
+import com.dongyoung.noAlone.board.entity.Board;
 import com.dongyoung.noAlone.common.entity.DateTime;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "CATEGORY")
@@ -26,4 +30,8 @@ public class Category {
 
     @Embedded
     private DateTime dateTime;
+
+    @OneToMany(mappedBy = "category",cascade = CascadeType.PERSIST)
+    private final List<Board> boards = new ArrayList<>();
+
 }

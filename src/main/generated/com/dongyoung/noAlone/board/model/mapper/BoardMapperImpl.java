@@ -1,8 +1,11 @@
 package com.dongyoung.noAlone.board.model.mapper;
 
 import com.dongyoung.noAlone.board.entity.Board;
-import com.dongyoung.noAlone.board.model.FindResponseBoardWithMemberListModel;
-import com.dongyoung.noAlone.board.model.FindResponseBoardWithMemberModel;
+import com.dongyoung.noAlone.board.model.FindResponseBoardListModel;
+import com.dongyoung.noAlone.board.model.FindResponseBoardModel;
+import com.dongyoung.noAlone.category.entity.Category;
+import com.dongyoung.noAlone.category.model.FindResponseCategoryListModel;
+import com.dongyoung.noAlone.category.model.FindResponseCategoryModel;
 import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.member.Model.FindResponseMemberWithMemberListModel;
 import com.dongyoung.noAlone.member.Model.FindResponseMemberWithMemberModel;
@@ -13,43 +16,19 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-08T12:07:22+0900",
+    date = "2024-06-08T15:27:30+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
 public class BoardMapperImpl implements BoardMapper {
 
     @Override
-    public FindResponseBoardWithMemberListModel toBoardListModel(Board board) {
+    public FindResponseBoardListModel toBoardResListModel(Board board) {
         if ( board == null ) {
             return null;
         }
 
-        Long boardId = null;
-        String title = null;
-        String content = null;
-        Integer views = null;
-        FindResponseMemberWithMemberListModel member = null;
-
-        boardId = board.getBoardId();
-        title = board.getTitle();
-        content = board.getContent();
-        views = board.getViews();
-        member = memberToFindResponseMemberWithMemberListModel( board.getMember() );
-
-        LocalDate inputDt = null;
-
-        FindResponseBoardWithMemberListModel findResponseBoardWithMemberListModel = new FindResponseBoardWithMemberListModel( boardId, title, content, views, inputDt, member );
-
-        return findResponseBoardWithMemberListModel;
-    }
-
-    @Override
-    public FindResponseBoardWithMemberListModel toBoardResListModel(Board board) {
-        if ( board == null ) {
-            return null;
-        }
-
+        FindResponseCategoryListModel category = null;
         FindResponseMemberWithMemberListModel member = null;
         LocalDate inputDt = null;
         Long boardId = null;
@@ -57,6 +36,7 @@ public class BoardMapperImpl implements BoardMapper {
         String content = null;
         Integer views = null;
 
+        category = categoryToFindResponseCategoryListModel( board.getCategory() );
         member = memberToFindResponseMemberWithMemberListModel( board.getMember() );
         inputDt = boardDateTimeInputDt( board );
         boardId = board.getBoardId();
@@ -64,17 +44,18 @@ public class BoardMapperImpl implements BoardMapper {
         content = board.getContent();
         views = board.getViews();
 
-        FindResponseBoardWithMemberListModel findResponseBoardWithMemberListModel = new FindResponseBoardWithMemberListModel( boardId, title, content, views, inputDt, member );
+        FindResponseBoardListModel findResponseBoardListModel = new FindResponseBoardListModel( boardId, title, content, views, inputDt, member, category );
 
-        return findResponseBoardWithMemberListModel;
+        return findResponseBoardListModel;
     }
 
     @Override
-    public FindResponseBoardWithMemberModel toBoardResFindModel(Board board) {
+    public FindResponseBoardModel toBoardResFindModel(Board board) {
         if ( board == null ) {
             return null;
         }
 
+        FindResponseCategoryModel category = null;
         FindResponseMemberWithMemberModel member = null;
         LocalDate inputDt = null;
         Long boardId = null;
@@ -82,6 +63,7 @@ public class BoardMapperImpl implements BoardMapper {
         String content = null;
         Integer views = null;
 
+        category = categoryToFindResponseCategoryModel( board.getCategory() );
         member = memberToFindResponseMemberWithMemberModel( board.getMember() );
         inputDt = boardDateTimeInputDt( board );
         boardId = board.getBoardId();
@@ -89,9 +71,29 @@ public class BoardMapperImpl implements BoardMapper {
         content = board.getContent();
         views = board.getViews();
 
-        FindResponseBoardWithMemberModel findResponseBoardWithMemberModel = new FindResponseBoardWithMemberModel( boardId, title, content, views, inputDt, member );
+        FindResponseBoardModel findResponseBoardModel = new FindResponseBoardModel( boardId, title, content, views, inputDt, member, category );
 
-        return findResponseBoardWithMemberModel;
+        return findResponseBoardModel;
+    }
+
+    protected FindResponseCategoryListModel categoryToFindResponseCategoryListModel(Category category) {
+        if ( category == null ) {
+            return null;
+        }
+
+        Long categoryId = null;
+        String name = null;
+        String description = null;
+
+        categoryId = category.getCategoryId();
+        name = category.getName();
+        description = category.getDescription();
+
+        LocalDate inputDt = null;
+
+        FindResponseCategoryListModel findResponseCategoryListModel = new FindResponseCategoryListModel( categoryId, name, description, inputDt );
+
+        return findResponseCategoryListModel;
     }
 
     protected FindResponseMemberWithMemberListModel memberToFindResponseMemberWithMemberListModel(Member member) {
@@ -143,6 +145,26 @@ public class BoardMapperImpl implements BoardMapper {
             return null;
         }
         return inputDt;
+    }
+
+    protected FindResponseCategoryModel categoryToFindResponseCategoryModel(Category category) {
+        if ( category == null ) {
+            return null;
+        }
+
+        Long categoryId = null;
+        String name = null;
+        String description = null;
+
+        categoryId = category.getCategoryId();
+        name = category.getName();
+        description = category.getDescription();
+
+        LocalDate inputDt = null;
+
+        FindResponseCategoryModel findResponseCategoryModel = new FindResponseCategoryModel( categoryId, name, description, inputDt );
+
+        return findResponseCategoryModel;
     }
 
     protected FindResponseMemberWithMemberModel memberToFindResponseMemberWithMemberModel(Member member) {

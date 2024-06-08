@@ -8,9 +8,9 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface BoardService{
-    List<FindResponseBoardWithMemberListModel> findAll();
+    List<FindResponseBoardListModel> findAll();
 
-    FindResponseBoardWithMemberModel find(Long boardId);
+    FindResponseBoardModel find(Long boardId);
 
     void save(InsertRequestBoardModel boardModel, Member member);
 
@@ -18,7 +18,7 @@ public interface BoardService{
 
     void delete(Long boardId);
 
-    Page<FindResponseBoardWithMemberListModel> findAllByQueryDsl(SearchCondition search, Pageable pageable);
+    Page<FindResponseBoardListModel> findAllByQueryDsl(SearchCondition search, Pageable pageable, FindCategorySort category);
 
     void updateCount(Long boardId);
 }

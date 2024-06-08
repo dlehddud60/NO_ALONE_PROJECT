@@ -22,6 +22,8 @@ public class QCategory extends EntityPathBase<Category> {
 
     public static final QCategory category = new QCategory("category");
 
+    public final ListPath<com.dongyoung.noAlone.board.entity.Board, com.dongyoung.noAlone.board.entity.QBoard> boards = this.<com.dongyoung.noAlone.board.entity.Board, com.dongyoung.noAlone.board.entity.QBoard>createList("boards", com.dongyoung.noAlone.board.entity.Board.class, com.dongyoung.noAlone.board.entity.QBoard.class, PathInits.DIRECT2);
+
     public final NumberPath<Long> categoryId = createNumber("categoryId", Long.class);
 
     public final com.dongyoung.noAlone.common.entity.QDateTime dateTime;
