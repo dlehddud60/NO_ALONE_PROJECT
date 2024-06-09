@@ -28,7 +28,7 @@ public class MemberController {
 
     @GetMapping("/register")
     public String save(@ModelAttribute("memberDTO") InsertRequestMemberModel memberDTO) {
-        return "member/register";
+        return "/member/register";
     }
 
     @PostMapping("/save")

@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public record InsertRequestMemberModel(
-        @NotBlank(message = "아이디는 필수 입력 값입니다.111111")
+        @NotBlank(message = "아이디는 필수 입력 값입니다.")
         @Pattern(regexp = "^[a-z0-9]{4,20}$", message = "아이디는 영어 소문자와 숫자만 사용하여 4~20자리여야 합니다.")
         String id,
 

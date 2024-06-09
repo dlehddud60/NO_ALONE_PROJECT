@@ -9,6 +9,7 @@ import com.dongyoung.noAlone.category.service.CategoryService;
 import com.dongyoung.noAlone.member.entity.Member;
 import com.dongyoung.noAlone.owner.model.FindResponseOwnerModel;
 import com.dongyoung.noAlone.owner.service.OwnerService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -16,10 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,7 +44,6 @@ public class BoardController {
         if(!isValidCategory(category.categoryId())) {
             FindResponseAcceptModel acceptModel = acceptService.findByMeeting_MeetingIdAndMember_MemberId(category.meetingId(), member.getMemberId());
             FindResponseOwnerModel ownerModel = ownerService.find(category.meetingId(), member.getMemberId());
-            log.info("==============ownerModel=============={}", ownerModel);
             if (ownerModel == null && (acceptModel == null || !acceptModel.status().name().equals("GRANT"))) {
                 return "redirect:/board/list?categoryId=1";
             }
@@ -66,26 +65,43 @@ public class BoardController {
     }
 
     @GetMapping("/save")
-    public String saveForm(Model model) {
+    public String saveForm(@ModelAttribute("boardModel") InsertRequestBoardModel boardModel, Model model) {
         model.addAttribute("categoryList", categoryService.findAll());
-        return "board/saveForm";
+        return "/board/saveForm";
     }
 
     @PostMapping("/save")
-    public String save(InsertRequestBoardModel boardModel, HttpSession session) {
+    public String save(@Validated @ModelAttribute("boardModel")InsertRequestBoardModel boardModel, BindingResult bindingResult, HttpSession session) {
+        if (bindingResult.hasErrors()) {
+            log.info("errors={} ", bindingResult);
+            return "/board/saveForm";
+        }
         Member member = (Member) session.getAttribute("member"); //필터에서 거르기 white리스트 onwer리스트 만들기
         boardService.save(boardModel, member);
-        return "redirect:/board/list?categoryId=" + boardModel.categoryId() + "&meetingId=" + boardModel.meetingId();
+        log.info("===========boardModel======={}",boardModel.meetingId());
+        if(boardModel.meetingId() == null) {
+            log.info("============null=================");
+            return "redirect:/board/list?categoryId=" + boardModel.categoryId() + "&meetingId=" + boardModel.meetingId();
+        }else {
+            log.info("============null123123=================");
+            return "redirect:/board/list?categoryId=" + boardModel.categoryId();
+
+        }
     }
 
     @GetMapping("/update/{boardId}")
     public String updateForm(@PathVariable(value = "boardId") Long boardId, Model model) {
+
         model.addAttribute("info", boardService.find(boardId));
         return "board/updateForm";
     }
 
     @PostMapping("/update")
-    public String update(UpdateRequestBoardModel boardModel) {
+    public String update(@Validated @ModelAttribute("boardModel") UpdateRequestBoardModel boardModel, BindingResult bindingResult, HttpServletRequest request) {
+        if (bindingResult.hasErrors()) {
+            log.info("errors={} ", bindingResult);
+            return "redirect:" + request.getHeader("Referer");
+        }
         boardService.update(boardModel);
         return "redirect:/board/list";
     }

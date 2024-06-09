@@ -125,3 +125,8 @@ textarea[name='boardText'] {
 .deleteBtn:hover {
     background: #ffacac;
 }
+.field-error {
+    border-color: #dc3545;
+    color: #dc3545;
+    margin-bottom: 3%;
+}
