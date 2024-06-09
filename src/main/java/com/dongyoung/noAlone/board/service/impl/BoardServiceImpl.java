@@ -49,6 +49,7 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void save(InsertRequestBoardModel boardModel, Member member) {
+        log.info("=======boardModel======{}",boardModel);
         Board board = Board.builder()
                 .title(boardModel.title())
                 .content(boardModel.content())
@@ -57,7 +58,7 @@ public class BoardServiceImpl implements BoardService {
                         .inputDt(LocalDate.now())
                         .build())
                 .member(memberRepository.findByMemberId(member.getMemberId()))
-                .category(categoryRepository.findByCategoryId(boardModel.categoryId()))
+                .category(categoryRepository.findByCategoryId(Long.parseLong(boardModel.categoryId())))
                 .build();
         boardRepository.save(board);
     }
