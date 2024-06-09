@@ -4,6 +4,8 @@ import com.dongyoung.noAlone.accept.entity.Accept;
 import com.dongyoung.noAlone.accept.entity.Status;
 import com.dongyoung.noAlone.accept.model.InsertRequestApplicationModel;
 import com.dongyoung.noAlone.accept.repository.AcceptRepository;
+import com.dongyoung.noAlone.category.entity.Category;
+import com.dongyoung.noAlone.category.repository.CategoryRepository;
 import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.meeting.entity.Meeting;
 import com.dongyoung.noAlone.meeting.model.*;
@@ -36,6 +38,7 @@ public class MeetingServiceImpl implements MeetingService {
     private final MeetingMapper meetingMapper;
     private final AcceptRepository acceptRepository;
     private final MeetingQueryReposity meetingQueryReposity;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public List<FindResponseMeetingAndOwnerListModel> findAll() {
@@ -48,27 +51,37 @@ public class MeetingServiceImpl implements MeetingService {
     }
 
     @Override
-    public FindResponseMeetingAndOwnerModel find(Long meetingId) {
+    public FindResponseMeetingViewModel find(Long meetingId) {
         return meetingMapper.toMeetingModel(meetingRepository.findByMeetingId(meetingId));
     }
 
     @Override
-    public void save(InsertRequestMeetingModel meetingService) {
+    public void save(InsertRequestMeetingModel meetingModel) {
+        Category category = Category.builder()
+                .name(meetingModel.name())
+                .description(meetingModel.name())
+                .dateTime(DateTime.builder()
+                        .inputDt(LocalDate.now())
+                        .build())
+                .build();
+        categoryRepository.save(category);
+
         Meeting meeting = Meeting.builder()
-                .content(meetingService.content())
-                .name(meetingService.name())
-                .rule(meetingService.rule())
-                .question(meetingService.question())
-                .location(meetingService.location())
+                .content(meetingModel.content())
+                .name(meetingModel.name())
+                .rule(meetingModel.rule())
+                .question(meetingModel.question())
+                .location(meetingModel.location())
                 .dateTime(
                         DateTime.builder()
                                 .inputDt(LocalDate.now())
                                 .build())
+                .category(category)
                 .build();
         meetingRepository.save(meeting);
 
         Owner owner = Owner.builder()
-                .member(memberRepository.findByMemberId(meetingService.memberId()))
+                .member(memberRepository.findByMemberId(meetingModel.memberId()))
                 .meeting(meeting)
                 .dateTime(DateTime.builder()
                         .inputDt(LocalDate.now())

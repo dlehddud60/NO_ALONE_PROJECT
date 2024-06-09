@@ -1,4 +1,4 @@
 package com.dongyoung.noAlone.board.model;
 
-public record FindCategorySort(Long categoryId) {
+public record FindCategorySort(Long categoryId, Long meetingId) {
 }

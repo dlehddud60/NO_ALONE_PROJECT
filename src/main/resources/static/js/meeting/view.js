@@ -9,3 +9,8 @@ const meetAppliList = (param) => {
 const acceptDelete = (param) => {
   $(location).attr("href", "/accept/delete/" + param);
 }
+const meetingBoard = (param1,param2) => {
+  console.log("=========param=====",param2)
+  $(location).attr("href", "/board/list?categoryId=" + param1 + "&meetingId=" + param2);
+
+}

@@ -1,11 +1,11 @@
 package com.dongyoung.noAlone.meeting.model;
 
-import com.dongyoung.noAlone.owner.entity.Owner;
+import com.dongyoung.noAlone.category.model.FindResponseCategoryModel;
 import com.dongyoung.noAlone.owner.model.FindResponseOwnerwithMeetingModel;
 
 import java.time.LocalDate;
 
-public record FindResponseMeetingAndOwnerModel(
+public record FindResponseMeetingViewModel(
         Long meetingId,
         String name,
         String content,
@@ -13,6 +13,7 @@ public record FindResponseMeetingAndOwnerModel(
         String location,
         String question,
         LocalDate inputDt,
-        FindResponseOwnerwithMeetingModel ownerWithMeetingModel
+        FindResponseOwnerwithMeetingModel ownerWithMeetingModel,
+        FindResponseCategoryModel category
 ) {
 }

@@ -2,13 +2,15 @@ package com.dongyoung.noAlone.meeting.model.mapper;
 
 import com.dongyoung.noAlone.accept.entity.Accept;
 import com.dongyoung.noAlone.accept.entity.Status;
+import com.dongyoung.noAlone.category.entity.Category;
+import com.dongyoung.noAlone.category.model.FindResponseCategoryModel;
 import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.mbti.entity.Mbti;
 import com.dongyoung.noAlone.mbti.model.FindResponseMbtiWithMemberModel;
 import com.dongyoung.noAlone.meeting.entity.Meeting;
 import com.dongyoung.noAlone.meeting.model.FindResponseMeetingAndOwnerListModel;
-import com.dongyoung.noAlone.meeting.model.FindResponseMeetingAndOwnerModel;
 import com.dongyoung.noAlone.meeting.model.FindResponseMeetingAppliListModel;
+import com.dongyoung.noAlone.meeting.model.FindResponseMeetingViewModel;
 import com.dongyoung.noAlone.member.Model.FindResponseMemberWithAcceptListModel;
 import com.dongyoung.noAlone.member.Model.FindResponseMemberWithOwnerListModel;
 import com.dongyoung.noAlone.member.Model.FindResponseMemberWithOwnerModel;
@@ -22,7 +24,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-08T15:27:30+0900",
+    date = "2024-06-08T18:24:39+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
@@ -58,7 +60,7 @@ public class MeetingMapperImpl implements MeetingMapper {
     }
 
     @Override
-    public FindResponseMeetingAndOwnerModel toMeetingModel(Meeting meeting) {
+    public FindResponseMeetingViewModel toMeetingModel(Meeting meeting) {
         if ( meeting == null ) {
             return null;
         }
@@ -71,6 +73,7 @@ public class MeetingMapperImpl implements MeetingMapper {
         String rule = null;
         String location = null;
         String question = null;
+        FindResponseCategoryModel category = null;
 
         ownerWithMeetingModel = ownerToFindResponseOwnerwithMeetingModel( meeting.getOwner() );
         inputDt = meetingDateTimeInputDt( meeting );
@@ -80,10 +83,11 @@ public class MeetingMapperImpl implements MeetingMapper {
         rule = meeting.getRule();
         location = meeting.getLocation();
         question = meeting.getQuestion();
+        category = categoryToFindResponseCategoryModel( meeting.getCategory() );
 
-        FindResponseMeetingAndOwnerModel findResponseMeetingAndOwnerModel = new FindResponseMeetingAndOwnerModel( meetingId, name, content, rule, location, question, inputDt, ownerWithMeetingModel );
+        FindResponseMeetingViewModel findResponseMeetingViewModel = new FindResponseMeetingViewModel( meetingId, name, content, rule, location, question, inputDt, ownerWithMeetingModel, category );
 
-        return findResponseMeetingAndOwnerModel;
+        return findResponseMeetingViewModel;
     }
 
     @Override
@@ -224,6 +228,26 @@ public class MeetingMapperImpl implements MeetingMapper {
         FindResponseOwnerwithMeetingModel findResponseOwnerwithMeetingModel = new FindResponseOwnerwithMeetingModel( memberModel );
 
         return findResponseOwnerwithMeetingModel;
+    }
+
+    protected FindResponseCategoryModel categoryToFindResponseCategoryModel(Category category) {
+        if ( category == null ) {
+            return null;
+        }
+
+        Long categoryId = null;
+        String name = null;
+        String description = null;
+
+        categoryId = category.getCategoryId();
+        name = category.getName();
+        description = category.getDescription();
+
+        LocalDate inputDt = null;
+
+        FindResponseCategoryModel findResponseCategoryModel = new FindResponseCategoryModel( categoryId, name, description, inputDt );
+
+        return findResponseCategoryModel;
     }
 
     protected FindResponseMbtiWithMemberModel mbtiToFindResponseMbtiWithMemberModel(Mbti mbti) {

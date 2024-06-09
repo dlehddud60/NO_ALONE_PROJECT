@@ -7,8 +7,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <link rel="stylesheet" th:href="@{/css/board/list.css}">
     <script th:inline="javascript" th:src="@{/js/board/list.js}"></script>
-
-
 </head>
 <body>
 <th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
@@ -52,7 +50,7 @@
             </div>
         </div>
         <div class="buttonArea">
-            <div class="updateBtn Btn" th:onclick="boardSaveFrom([[${param.categoryId}]])">작성</div>
+            <div class="updateBtn Btn" th:onclick="boardSaveFrom([[${param.categoryId}]],[[${param.meetingId}]])">작성</div>
         </div>
 
         <div class="pageArea" th:with="start=${(list.number/maxPage)*maxPage+1},

@@ -1,6 +1,7 @@
 package com.dongyoung.noAlone.meeting.entity;
 
 import com.dongyoung.noAlone.accept.entity.Accept;
+import com.dongyoung.noAlone.category.entity.Category;
 import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.owner.entity.Owner;
 import jakarta.persistence.*;
@@ -47,4 +48,7 @@ public class Meeting {
     @OneToMany(mappedBy = "meeting",cascade = CascadeType.PERSIST)
     private final List<Accept> accepts = new ArrayList<>();
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CATEGORY_ID")
+    private Category category;
 }

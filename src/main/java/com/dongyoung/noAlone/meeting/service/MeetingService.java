@@ -1,7 +1,6 @@
 package com.dongyoung.noAlone.meeting.service;
 
 import com.dongyoung.noAlone.accept.model.InsertRequestApplicationModel;
-import com.dongyoung.noAlone.meeting.entity.Meeting;
 import com.dongyoung.noAlone.meeting.model.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +10,7 @@ import java.util.List;
 public interface MeetingService {
     List<FindResponseMeetingAndOwnerListModel> findAll();
 
-    FindResponseMeetingAndOwnerModel find(Long meetingId);
+    FindResponseMeetingViewModel find(Long meetingId);
 
     void save(InsertRequestMeetingModel meetingModel);
 
