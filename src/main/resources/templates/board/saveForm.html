@@ -16,6 +16,7 @@
 <form action="/board/save" method="post" id="frm">
   <input type="hidden" name="memberId" th:value="${session.member.getMemberId()}">
   <input type="hidden" name="categoryId" th:value="${param.categoryId}">
+  <input type="hidden" name="meetingId" th:value="${param.meetingId}">
   <div class="wrap">
     <div class="boardArea">
       <div class="viewArea">

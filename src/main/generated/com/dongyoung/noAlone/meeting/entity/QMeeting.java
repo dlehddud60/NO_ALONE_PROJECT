@@ -24,6 +24,8 @@ public class QMeeting extends EntityPathBase<Meeting> {
 
     public final ListPath<com.dongyoung.noAlone.accept.entity.Accept, com.dongyoung.noAlone.accept.entity.QAccept> accepts = this.<com.dongyoung.noAlone.accept.entity.Accept, com.dongyoung.noAlone.accept.entity.QAccept>createList("accepts", com.dongyoung.noAlone.accept.entity.Accept.class, com.dongyoung.noAlone.accept.entity.QAccept.class, PathInits.DIRECT2);
 
+    public final com.dongyoung.noAlone.category.entity.QCategory category;
+
     public final StringPath content = createString("content");
 
     public final com.dongyoung.noAlone.common.entity.QDateTime dateTime;
@@ -58,6 +60,7 @@ public class QMeeting extends EntityPathBase<Meeting> {
 
     public QMeeting(Class<? extends Meeting> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.category = inits.isInitialized("category") ? new com.dongyoung.noAlone.category.entity.QCategory(forProperty("category"), inits.get("category")) : null;
         this.dateTime = inits.isInitialized("dateTime") ? new com.dongyoung.noAlone.common.entity.QDateTime(forProperty("dateTime")) : null;
         this.owner = inits.isInitialized("owner") ? new com.dongyoung.noAlone.owner.entity.QOwner(forProperty("owner"), inits.get("owner")) : null;
     }

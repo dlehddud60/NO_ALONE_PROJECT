@@ -30,6 +30,8 @@ public class QCategory extends EntityPathBase<Category> {
 
     public final StringPath description = createString("description");
 
+    public final com.dongyoung.noAlone.meeting.entity.QMeeting meeting;
+
     public final StringPath name = createString("name");
 
     public QCategory(String variable) {
@@ -51,6 +53,7 @@ public class QCategory extends EntityPathBase<Category> {
     public QCategory(Class<? extends Category> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.dateTime = inits.isInitialized("dateTime") ? new com.dongyoung.noAlone.common.entity.QDateTime(forProperty("dateTime")) : null;
+        this.meeting = inits.isInitialized("meeting") ? new com.dongyoung.noAlone.meeting.entity.QMeeting(forProperty("meeting"), inits.get("meeting")) : null;
     }
 
 }

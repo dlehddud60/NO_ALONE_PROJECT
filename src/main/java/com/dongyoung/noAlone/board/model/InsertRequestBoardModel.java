@@ -6,6 +6,7 @@ public record InsertRequestBoardModel(
         String title,
         String content,
         LocalDate inputDt,
-        Long categoryId
+        Long categoryId,
+        Long meetingId
 ) {
 }

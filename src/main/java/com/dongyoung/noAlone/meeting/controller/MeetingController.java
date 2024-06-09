@@ -42,11 +42,12 @@ public class MeetingController {
 
     @GetMapping("/find/{meetingId}")
     public String find(@PathVariable(value = "meetingId") Long meetingId, Model model, HttpSession session) {
-        FindResponseMeetingAndOwnerModel meetingAndOwnerModel = meetingService.find(meetingId);
+        FindResponseMeetingViewModel meetingAndOwnerModel = meetingService.find(meetingId);
         Member member = (Member) session.getAttribute("member");
         FindResponseOwnerModel owner = ownerService.find(meetingId, member.getMemberId());
 
         model.addAttribute("info", meetingAndOwnerModel);
+        model.addAttribute("category", meetingAndOwnerModel.category());
         model.addAttribute("ownerInfo", meetingAndOwnerModel.ownerWithMeetingModel().memberModel());
         model.addAttribute("acceptDTO", acceptService.findByMeeting_MeetingIdAndMember_MemberId(meetingId, member.getMemberId()));
         model.addAttribute("ownerDTO", owner);
@@ -70,7 +71,7 @@ public class MeetingController {
 
     @GetMapping("/update/{meetingId}")
     public String update(@PathVariable(value = "meetingId") Long meetingId, Model model,HttpSession session) {
-        FindResponseMeetingAndOwnerModel owner = meetingService.find(meetingId);
+        FindResponseMeetingViewModel owner = meetingService.find(meetingId);
         Member member = (Member) session.getAttribute("member");
         if(!owner.ownerWithMeetingModel().memberModel().memberId().equals(member.getMemberId())) {
             return "redirect:/meeting/list";

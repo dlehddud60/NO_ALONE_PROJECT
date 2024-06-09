@@ -2,6 +2,8 @@ package com.dongyoung.noAlone.category.entity;
 
 import com.dongyoung.noAlone.board.entity.Board;
 import com.dongyoung.noAlone.common.entity.DateTime;
+import com.dongyoung.noAlone.meeting.entity.Meeting;
+import com.dongyoung.noAlone.owner.entity.Owner;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -33,5 +35,8 @@ public class Category {
 
     @OneToMany(mappedBy = "category",cascade = CascadeType.PERSIST)
     private final List<Board> boards = new ArrayList<>();
+
+    @OneToOne(mappedBy = "category",cascade = CascadeType.PERSIST)
+    private Meeting meeting;
 
 }
