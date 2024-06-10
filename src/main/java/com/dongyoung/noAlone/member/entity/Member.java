@@ -2,6 +2,7 @@ package com.dongyoung.noAlone.member.entity;
 
 import com.dongyoung.noAlone.accept.entity.Accept;
 import com.dongyoung.noAlone.board.entity.Board;
+import com.dongyoung.noAlone.comment.entity.Comment;
 import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.mbti.entity.Mbti;
 import com.dongyoung.noAlone.owner.entity.Owner;
@@ -77,5 +78,8 @@ public class Member {
 
     @OneToMany(mappedBy = "member",cascade = CascadeType.PERSIST)
     private final List<Board> boards = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member",cascade = CascadeType.PERSIST)
+    private final List<Comment> comments = new ArrayList<>();
 
 }

@@ -26,6 +26,8 @@ public class QBoard extends EntityPathBase<Board> {
 
     public final com.dongyoung.noAlone.category.entity.QCategory category;
 
+    public final ListPath<com.dongyoung.noAlone.comment.entity.Comment, com.dongyoung.noAlone.comment.entity.QComment> comments = this.<com.dongyoung.noAlone.comment.entity.Comment, com.dongyoung.noAlone.comment.entity.QComment>createList("comments", com.dongyoung.noAlone.comment.entity.Comment.class, com.dongyoung.noAlone.comment.entity.QComment.class, PathInits.DIRECT2);
+
     public final StringPath content = createString("content");
 
     public final com.dongyoung.noAlone.common.entity.QDateTime dateTime;
