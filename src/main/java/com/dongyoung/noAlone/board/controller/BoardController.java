@@ -78,12 +78,9 @@ public class BoardController {
         }
         Member member = (Member) session.getAttribute("member"); //필터에서 거르기 white리스트 onwer리스트 만들기
         boardService.save(boardModel, member);
-        log.info("===========boardModel======={}",boardModel.meetingId());
         if(boardModel.meetingId() == null) {
-            log.info("============null=================");
             return "redirect:/board/list?categoryId=" + boardModel.categoryId() + "&meetingId=" + boardModel.meetingId();
         }else {
-            log.info("============null123123=================");
             return "redirect:/board/list?categoryId=" + boardModel.categoryId();
 
         }

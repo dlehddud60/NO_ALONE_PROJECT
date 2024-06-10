@@ -1,11 +1,15 @@
 package com.dongyoung.noAlone.board.entity;
 
 import com.dongyoung.noAlone.category.entity.Category;
+import com.dongyoung.noAlone.comment.entity.Comment;
 import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "BOARD")
@@ -40,4 +44,7 @@ public class Board {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoryId")
     private Category category;
+
+    @OneToMany(mappedBy = "board",cascade = CascadeType.PERSIST)
+    private final List<Comment> comments = new ArrayList<>();
 }

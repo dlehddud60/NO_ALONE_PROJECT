@@ -11,6 +11,7 @@
 <body>
 <th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
 <div class="wrap">
+  <input type="hidden" name="boardId" th:value="${info.boardId()}">
   <div class="boardArea">
     <div class="viewArea">
       <table>
@@ -44,6 +45,15 @@
     <div class="listBtn Btn"><a th:href="@{/board/list}">목록</a></div>
     <div class="updateBtn Btn"><a th:href="@{/board/update/{boardId}(boardId = ${info.boardId()})}" th:text="수정"></a></div>
     <div class="deleteBtn Btn"><a th:href="@{/board/delete/{boardId}(boardId = ${info.boardId()})}" th:text="삭제"></a></div>
+  </div>
+  <div class="commentArea">
+    <div class="inputCommnet">
+      <textarea name="content" class="saveForm"></textarea>
+      <div class="updateBtn Btn" th:onclick="commentSave([[${info.boardId()}]])">작성</div>
+    </div>
+
+  </div>
+  <div class="commentListArea">
   </div>
 </div>
 <th:block th:replace="/include/header.html :: footerFragment"></th:block>

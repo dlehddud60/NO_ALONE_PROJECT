@@ -32,6 +32,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public final ListPath<com.dongyoung.noAlone.board.entity.Board, com.dongyoung.noAlone.board.entity.QBoard> boards = this.<com.dongyoung.noAlone.board.entity.Board, com.dongyoung.noAlone.board.entity.QBoard>createList("boards", com.dongyoung.noAlone.board.entity.Board.class, com.dongyoung.noAlone.board.entity.QBoard.class, PathInits.DIRECT2);
 
+    public final ListPath<com.dongyoung.noAlone.comment.entity.Comment, com.dongyoung.noAlone.comment.entity.QComment> comments = this.<com.dongyoung.noAlone.comment.entity.Comment, com.dongyoung.noAlone.comment.entity.QComment>createList("comments", com.dongyoung.noAlone.comment.entity.Comment.class, com.dongyoung.noAlone.comment.entity.QComment.class, PathInits.DIRECT2);
+
     public final com.dongyoung.noAlone.common.entity.QDateTime dateTime;
 
     public final StringPath email = createString("email");
