@@ -1,6 +1,9 @@
 package com.dongyoung.noAlone.commentRe.entity;
 
+import com.dongyoung.noAlone.board.entity.Board;
+import com.dongyoung.noAlone.comment.entity.Comment;
 import com.dongyoung.noAlone.common.entity.DateTime;
+import com.dongyoung.noAlone.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,4 +26,16 @@ public class CommentRe {
 
     @Embedded
     private DateTime dateTime;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "memberId")
+    private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "commentId")
+    private Comment comment;
+
+
+
+
 }

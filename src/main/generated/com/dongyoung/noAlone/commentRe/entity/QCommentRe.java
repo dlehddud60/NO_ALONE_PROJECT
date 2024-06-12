@@ -22,11 +22,15 @@ public class QCommentRe extends EntityPathBase<CommentRe> {
 
     public static final QCommentRe commentRe = new QCommentRe("commentRe");
 
+    public final com.dongyoung.noAlone.comment.entity.QComment comment;
+
     public final NumberPath<Long> commentReId = createNumber("commentReId", Long.class);
 
     public final StringPath content = createString("content");
 
     public final com.dongyoung.noAlone.common.entity.QDateTime dateTime;
+
+    public final com.dongyoung.noAlone.member.entity.QMember member;
 
     public QCommentRe(String variable) {
         this(CommentRe.class, forVariable(variable), INITS);
@@ -46,7 +50,9 @@ public class QCommentRe extends EntityPathBase<CommentRe> {
 
     public QCommentRe(Class<? extends CommentRe> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.comment = inits.isInitialized("comment") ? new com.dongyoung.noAlone.comment.entity.QComment(forProperty("comment"), inits.get("comment")) : null;
         this.dateTime = inits.isInitialized("dateTime") ? new com.dongyoung.noAlone.common.entity.QDateTime(forProperty("dateTime")) : null;
+        this.member = inits.isInitialized("member") ? new com.dongyoung.noAlone.member.entity.QMember(forProperty("member"), inits.get("member")) : null;
     }
 
 }

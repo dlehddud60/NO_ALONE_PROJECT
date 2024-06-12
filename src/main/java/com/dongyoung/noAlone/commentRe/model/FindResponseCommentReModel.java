@@ -1,17 +1,15 @@
-package com.dongyoung.noAlone.comment.model;
+package com.dongyoung.noAlone.commentRe.model;
 
 import com.dongyoung.noAlone.board.model.FindResponseBoardCommentModel;
-import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.member.Model.FindResponseMemberWithCommentModel;
-import jakarta.validation.constraints.NotBlank;
 
 import java.time.LocalDate;
 
-public record FindResponseCommentModel(
-        Long commentId,
+public record FindResponseCommentReModel(
+        Long commentReId,
         String content,
         LocalDate inputDt,
-        FindResponseCommentModel comment,
+        FindResponseBoardCommentModel board,
         FindResponseMemberWithCommentModel member
 ) {
 }

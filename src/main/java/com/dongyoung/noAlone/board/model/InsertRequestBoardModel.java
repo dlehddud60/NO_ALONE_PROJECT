@@ -14,6 +14,7 @@ public record InsertRequestBoardModel(
         LocalDate inputDt,
         String  categoryId,
         @Nullable
-        String meetingId
+        String meetingId,
+        String memberId
 ) {
 }
