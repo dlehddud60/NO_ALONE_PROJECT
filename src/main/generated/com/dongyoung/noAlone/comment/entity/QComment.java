@@ -26,6 +26,8 @@ public class QComment extends EntityPathBase<Comment> {
 
     public final NumberPath<Long> commentId = createNumber("commentId", Long.class);
 
+    public final ListPath<com.dongyoung.noAlone.commentRe.entity.CommentRe, com.dongyoung.noAlone.commentRe.entity.QCommentRe> commentRes = this.<com.dongyoung.noAlone.commentRe.entity.CommentRe, com.dongyoung.noAlone.commentRe.entity.QCommentRe>createList("commentRes", com.dongyoung.noAlone.commentRe.entity.CommentRe.class, com.dongyoung.noAlone.commentRe.entity.QCommentRe.class, PathInits.DIRECT2);
+
     public final StringPath content = createString("content");
 
     public final com.dongyoung.noAlone.common.entity.QDateTime dateTime;

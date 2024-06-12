@@ -2,10 +2,14 @@ package com.dongyoung.noAlone.comment.entity;
 
 import com.dongyoung.noAlone.board.entity.Board;
 import com.dongyoung.noAlone.category.entity.Category;
+import com.dongyoung.noAlone.commentRe.entity.CommentRe;
 import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "COMMENT")
@@ -34,6 +38,9 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberId")
     private Member member;
+
+    @OneToMany(mappedBy = "comment",cascade = CascadeType.PERSIST)
+    private final List<CommentRe> commentRes = new ArrayList<>();
 
 
 }

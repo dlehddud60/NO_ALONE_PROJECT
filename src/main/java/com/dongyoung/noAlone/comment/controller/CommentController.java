@@ -21,7 +21,6 @@ public class CommentController {
 
     @GetMapping("/list/{boardId}")
     public List<FindResponseCommentListModel> list(@PathVariable("boardId") Long boardId) {
-        log.info("==========boardId=========={}", boardId);
         return commentService.findAll(boardId);
     }
 
@@ -31,12 +30,12 @@ public class CommentController {
         commentService.save(comment, member.getMemberId());
     }
 
-    @PostMapping("/update/{commentId}")
+    @PutMapping("/update/{commentId}")
     public void update(UpdateRequestCommentModel comment, @PathVariable("commentId") Long commentId) {
         commentService.update(comment, commentId);
     }
 
-    @GetMapping("/delete/{commentId}")
+    @DeleteMapping("/delete/{commentId}")
     public void delete(@PathVariable("commentId") Long commentId) {
         commentService.delete(commentId);
     }

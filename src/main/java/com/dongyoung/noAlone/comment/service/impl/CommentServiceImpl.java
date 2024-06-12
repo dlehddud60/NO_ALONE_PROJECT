@@ -51,6 +51,8 @@ public class CommentServiceImpl implements CommentService {
     public void update(UpdateRequestCommentModel commentModel, Long commentId) {
         Comment comment = commentRepository.findByCommentId(commentId);
         comment.setContent(commentModel.content());
+        comment.getDateTime().setUpdateDt(LocalDate.now());
+
     }
 
     @Override
