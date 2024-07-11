@@ -29,8 +29,6 @@ const findAll = (boardId) => {
     success: function (data) {
       $(".commentListArea").html("");
       $.map(data, function (comment) {
-        console.log(comment.commentId);
-
         // 각 댓글을 나타내는 HTML 구조
         let commentHtml = `
                     <div class="commentView" id="comment-${comment.commentId}">
@@ -61,7 +59,6 @@ const findAll = (boardId) => {
           url: '/commentRe/list/' + comment.commentId,
           type: 'get',
           success: function (data) {
-            console.log(data);
             $.map(data, function (commentRe) {
               // 대댓글을 나타내는 HTML 구조
               let commentReHtml = `
@@ -171,7 +168,6 @@ const commentReFunc = (param, obj) => {
 
 const commentReSave = (commentId) => {
   const commentContent = $(".commentReForm").val();
-  console.log(commentId)
   $.ajax({
     url: '/commentRe/save',
     type: 'post',
@@ -361,7 +357,6 @@ const myLike = (id, likeDivision) => {
       'likeDivision': likeDivision
     },
     success: function (data) {
-      console.log("==============datadatadata==============", data)
       // 좋아요를 했을 경우 버튼 클래스를 변경
       if (data) {
         if (likeDivision === 'COMMENT') {
