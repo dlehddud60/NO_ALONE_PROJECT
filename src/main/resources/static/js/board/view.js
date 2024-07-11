@@ -1,38 +1,38 @@
 $(() => {
-    findAll($("input[name=boardId]").val())
+  findAll($("input[name=boardId]").val())
 })
 
 const commentSave = (boardId) => {
-    const commentContent = $("textarea[name=content]").val();
-    $.ajax({
-        url: '/comment/save',
-        type: 'post',
-        data: {
-            'boardId': boardId,
-            'content': commentContent
+  const commentContent = $("textarea[name=content]").val();
+  $.ajax({
+    url: '/comment/save',
+    type: 'post',
+    data: {
+      'boardId': boardId,
+      'content': commentContent
 
-        },
-        success: function (data) {
-            findAll($("input[name=boardId]").val())
-        },
-        error: function (err) {
+    },
+    success: function (data) {
+      findAll($("input[name=boardId]").val())
+    },
+    error: function (err) {
 
-        }
-    });
-    $(".saveForm").val("")
+    }
+  });
+  $(".saveForm").val("")
 }
 
 const findAll = (boardId) => {
-    $.ajax({
-        url: '/comment/list/' + boardId,
-        type: 'get',
-        success: function (data) {
-            $(".commentListArea").html("");
-            $.map(data, function (comment) {
-                console.log(comment.commentId);
+  $.ajax({
+    url: '/comment/list/' + boardId,
+    type: 'get',
+    success: function (data) {
+      $(".commentListArea").html("");
+      $.map(data, function (comment) {
+        console.log(comment.commentId);
 
-                // 각 댓글을 나타내는 HTML 구조
-                let commentHtml = `
+        // 각 댓글을 나타내는 HTML 구조
+        let commentHtml = `
                     <div class="commentView" id="comment-${comment.commentId}">
                         <div class="commentViewList">
                             <p> 작성자 : ${comment.member.nickname}</p>
@@ -49,24 +49,23 @@ const findAll = (boardId) => {
                         </div>
                     </div>`;
 
-                // 댓글 HTML을 commentListArea에 추가
-                $('.commentListArea').append(commentHtml);
+        // 댓글 HTML을 commentListArea에 추가
+        $('.commentListArea').append(commentHtml);
 
-                // 각 댓글의 좋아요 수를 불러오기 위한 AJAX 요청
-                listCount(comment.commentId, 'COMMENT');
-                myLike(comment.commentId,'COMMENT')
+        // 각 댓글의 좋아요 수를 불러오기 위한 AJAX 요청
+        listCount(comment.commentId, 'COMMENT');
+        myLike(comment.commentId, 'COMMENT')
 
-                // 대댓글을 불러오기 위한 AJAX 요청
-                $.ajax({
-                    url: '/commentRe/list/' + comment.commentId,
-                    type: 'get',
-                    success: function (data) {
-                        console.log(data);
-                        $.map(data, function (commentRe) {
-                            console.log("====================", commentRe.commentReId);
+        // 대댓글을 불러오기 위한 AJAX 요청
+        $.ajax({
+          url: '/commentRe/list/' + comment.commentId,
+          type: 'get',
+          success: function (data) {
+            console.log(data);
+            $.map(data, function (commentRe) {
 
-                            // 대댓글을 나타내는 HTML 구조
-                            let commentReHtml = `
+              // 대댓글을 나타내는 HTML 구조
+              let commentReHtml = `
                                 <div class="commentView" id="commentRe-${commentRe.commentReId}">
                                     <div class="commentViewList">
                                         <p>&nbsp;&nbsp;&nbsp; L작성자 : ${commentRe.member.nickname}</p>
@@ -82,33 +81,33 @@ const findAll = (boardId) => {
                                     </div>
                                 </div>`;
 
-                            // 대댓글 HTML을 해당 댓글 바로 아래에 추가
-                            $(`#comment-${comment.commentId}`).after(commentReHtml);
+              // 대댓글 HTML을 해당 댓글 바로 아래에 추가
+              $(`#comment-${comment.commentId}`).after(commentReHtml);
 
-                            // 각 대댓글의 좋아요 수를 불러오기 위한 AJAX 요청
-                            listCount(commentRe.commentReId, 'COMMENT_RE');
-                            myLike(commentRe.commentReId, 'COMMENT_RE');
-                        });
-                    },
-                    error: function (err) {
-                        console.error(err);
-                    }
-                });
+              // 각 대댓글의 좋아요 수를 불러오기 위한 AJAX 요청
+              listCount(commentRe.commentReId, 'COMMENT_RE');
+              myLike(commentRe.commentReId, 'COMMENT_RE');
             });
-        },
-        error: function (err) {
+          },
+          error: function (err) {
             console.error(err);
-        }
-    });
+          }
+        });
+      });
+    },
+    error: function (err) {
+      console.error(err);
+    }
+  });
 }
 
 const updateBtnFunc = (obj) => {
-    const $commentView = $(obj).closest('.commentView');
-    const objCancleSave = $commentView.html();
-    const commentId = $commentView.find('input[name="commentId"]').val();
-    const content = $commentView.find('input[name="content"]').val();
+  const $commentView = $(obj).closest('.commentView');
+  const objCancleSave = $commentView.html();
+  const commentId = $commentView.find('input[name="commentId"]').val();
+  const content = $commentView.find('input[name="content"]').val();
 
-    $commentView.html(`
+  $commentView.html(`
         <textarea name="content" style="width: 80%; height: 15vh" class="contentVal">${content}</textarea>
         <div style="display: flex; justify-content: right; align-items: center">
             <div class="deleteBtn Btn commentCancleBtn">취소</div>
@@ -116,51 +115,51 @@ const updateBtnFunc = (obj) => {
         </div>
     `);
 
-    // 수정 버튼 클릭 이벤트 처리
-    $commentView.find(".commentUpdateBtn").on("click", function () {
-        $.ajax({
-            url: '/comment/update/' + commentId,
-            type: 'put',
-            data: {
-                'content': $commentView.find(".contentVal").val()
-            },
-            success: function (data) {
-                $(".commentListArea").html("");
-                findAll($("input[name=boardId]").val());
-            },
-            error: function (err) {
-                console.error(err);
-            }
-        });
+  // 수정 버튼 클릭 이벤트 처리
+  $commentView.find(".commentUpdateBtn").on("click", function () {
+    $.ajax({
+      url: '/comment/update/' + commentId,
+      type: 'put',
+      data: {
+        'content': $commentView.find(".contentVal").val()
+      },
+      success: function (data) {
+        $(".commentListArea").html("");
+        findAll($("input[name=boardId]").val());
+      },
+      error: function (err) {
+        console.error(err);
+      }
     });
+  });
 
-    // 취소 버튼 클릭 이벤트 처리
-    $commentView.find(".commentCancleBtn").on("click", function () {
-        $commentView.html(objCancleSave);
-    });
+  // 취소 버튼 클릭 이벤트 처리
+  $commentView.find(".commentCancleBtn").on("click", function () {
+    $commentView.html(objCancleSave);
+  });
 }
 
 const deleteBtnFunc = (obj) => {
-    const $commentView = $(obj).closest('.commentView');
-    const commentId = $commentView.find('input[name="commentId"]').val();
+  const $commentView = $(obj).closest('.commentView');
+  const commentId = $commentView.find('input[name="commentId"]').val();
 
-    $.ajax({
-        url: '/comment/delete/' + commentId,
-        type: 'delete',
-        success: function (data) {
-            $(".commentListArea").html("");
-            findAll($("input[name=boardId]").val());
-        },
-        error: function (err) {
-            console.error(err);
-        }
-    });
+  $.ajax({
+    url: '/comment/delete/' + commentId,
+    type: 'delete',
+    success: function (data) {
+      $(".commentListArea").html("");
+      findAll($("input[name=boardId]").val());
+    },
+    error: function (err) {
+      console.error(err);
+    }
+  });
 }
 
-const commentReFunc = (param,obj) => {
-    let $commentView = $(obj).closest('.commentView');
+const commentReFunc = (param, obj) => {
+  let $commentView = $(obj).closest('.commentView');
 
-    $commentView.after(`
+  $commentView.after(`
       <div class="commentReArea">
         <div class="inputCommnet">
           <textarea name="content" class="saveForm commentReForm"></textarea>
@@ -171,30 +170,30 @@ const commentReFunc = (param,obj) => {
 }
 
 const commentReSave = (commentId) => {
-    const commentContent = $(".commentReForm").val();
-    console.log(commentId)
-    $.ajax({
-        url: '/commentRe/save',
-        type: 'post',
-        data: {
-            'commentId': commentId,
-            'content': commentContent
-        },
-        success: function (data) {
-            findAll($("input[name=boardId]").val())
-        },
-        error: function (err) {
-        }
-    });
+  const commentContent = $(".commentReForm").val();
+  console.log(commentId)
+  $.ajax({
+    url: '/commentRe/save',
+    type: 'post',
+    data: {
+      'commentId': commentId,
+      'content': commentContent
+    },
+    success: function (data) {
+      findAll($("input[name=boardId]").val())
+    },
+    error: function (err) {
+    }
+  });
 }
 
 const commentReUpdate = (obj) => {
-    const $commentView = $(obj).closest('.commentView');
-    const objCancleSave = $commentView.html();
-    const commentReId = $commentView.find('input[name="commentReId"]').val();
-    const commentReContent = $commentView.find('input[name="commentReContent"]').val();
+  const $commentView = $(obj).closest('.commentView');
+  const objCancleSave = $commentView.html();
+  const commentReId = $commentView.find('input[name="commentReId"]').val();
+  const commentReContent = $commentView.find('input[name="commentReContent"]').val();
 
-    $commentView.html(`
+  $commentView.html(`
         <textarea name="content" style="width: 80%; height: 15vh" class="contentVal">${commentReContent}</textarea>
         <div style="display: flex; justify-content: right; align-items: center">
             <div class="deleteBtn Btn commentCancleBtn">취소</div>
@@ -202,150 +201,148 @@ const commentReUpdate = (obj) => {
         </div>
     `);
 
-    // 수정 버튼 클릭 이벤트 처리
-    $commentView.find(".commentUpdateBtn").on("click", function () {
+  // 수정 버튼 클릭 이벤트 처리
+  $commentView.find(".commentUpdateBtn").on("click", function () {
 
-        $.ajax({
-            url: '/commentRe/update/' + commentReId,
-            type: 'put',
-            data: {
-                'content': $commentView.find(".contentVal").val()
-            },
-            success: function (data) {
-                $(".commentListArea").html("");
-                findAll($("input[name=boardId]").val());
-            },
-            error: function (err) {
-                console.error(err);
-            }
-        });
+    $.ajax({
+      url: '/commentRe/update/' + commentReId,
+      type: 'put',
+      data: {
+        'content': $commentView.find(".contentVal").val()
+      },
+      success: function (data) {
+        $(".commentListArea").html("");
+        findAll($("input[name=boardId]").val());
+      },
+      error: function (err) {
+        console.error(err);
+      }
     });
+  });
 
-    // 취소 버튼 클릭 이벤트 처리
-    $commentView.find(".commentCancleBtn").on("click", function () {
-        $commentView.html(objCancleSave);
-    });
+  // 취소 버튼 클릭 이벤트 처리
+  $commentView.find(".commentCancleBtn").on("click", function () {
+    $commentView.html(objCancleSave);
+  });
 }
 
 const commentReDeleteBtnFunc = (obj) => {
-    const $commentView = $(obj).closest('.commentView');
-    const commentReId = $commentView.find('input[name="commentReId"]').val();
+  const $commentView = $(obj).closest('.commentView');
+  const commentReId = $commentView.find('input[name="commentReId"]').val();
 
-    $.ajax({
-        url: '/commentRe/delete/' + commentReId,
-        type: 'delete',
-        success: function (data) {
-            $(".commentListArea").html("");
-            findAll($("input[name=boardId]").val());
-        },
-        error: function (err) {
-            console.error(err);
-        }
-    });
+  $.ajax({
+    url: '/commentRe/delete/' + commentReId,
+    type: 'delete',
+    success: function (data) {
+      $(".commentListArea").html("");
+      findAll($("input[name=boardId]").val());
+    },
+    error: function (err) {
+      console.error(err);
+    }
+  });
 }
 const listCount = (id, likeDivision) => {
-    var idName;
+  var idName;
 
-    if (likeDivision === 'COMMENT') {
-        idName = 'commentId'
-    } else if (likeDivision === 'COMMENT_RE') {
-        idName = 'commentReId'
+  if (likeDivision === 'COMMENT') {
+    idName = 'commentId'
+  } else if (likeDivision === 'COMMENT_RE') {
+    idName = 'commentReId'
+  }
+
+  $.ajax({
+    url: '/like/count',
+    type: 'get',
+    data: {
+      [idName]: id,
+      'likeDivision': likeDivision
+    },
+    success: function (data) {
+      let commentCountDiv;
+      if (likeDivision === 'COMMENT') {
+        commentCountDiv = $(`#comment-${id}`).find('.commentCount');
+      } else if (likeDivision === 'COMMENT_RE') {
+        commentCountDiv = $(`#commentRe-${id}`).find('.commentCount');
+      }
+      commentCountDiv.text('좋아요 : ' + data);
+    },
+    error: function (err) {
+      console.error('AJAX 실패:', err);
     }
-
-    $.ajax({
-        url: '/like/count',
-        type: 'get',
-        data: {
-            [idName]: id,
-            'likeDivision': likeDivision
-        },
-        success: function (data) {
-            let commentCountDiv;
-            if (likeDivision === 'COMMENT') {
-                commentCountDiv = $(`#comment-${id}`).find('.commentCount');
-            } else if (likeDivision === 'COMMENT_RE') {
-                commentCountDiv = $(`#commentRe-${id}`).find('.commentCount');
-            }
-            commentCountDiv.text('좋아요 : ' + data);
-        },
-        error: function (err) {
-            console.error('AJAX 실패:', err);
-        }
-    });
+  });
 }
 
 const likeSave = (id, likeDivision, element) => {
 
-    console.log("===========ididididid=============",id)
-    console.log("==========asdfasdf=asd=f=asd=f=sd=")
-    var idName;
+  var idName;
 
-    if (likeDivision === 'COMMENT') {
-        idName = 'commentId'
-    } else if (likeDivision === 'COMMENT_RE') {
-        idName = 'commentReId'
-    }
+  if (likeDivision === 'COMMENT') {
+    idName = 'commentId'
+  } else if (likeDivision === 'COMMENT_RE') {
+    idName = 'commentReId'
+  }
 
-    // 클릭된 요소의 클래스를 가져옴
-    const classes = $(element).attr('class').split(' ');
+  // 클릭된 요소의 클래스를 가져옴
+  const classes = $(element).attr('class').split(' ');
 
-    // listBtn 클래스가 있는지 확인
-    const hasListBtnClass = classes.includes('listBtn');
+  // listBtn 클래스가 있는지 확인
+  const hasListBtnClass = classes.includes('listBtn');
 
-    // listBtn 클래스가 있는 경우에만 실행
-    if (hasListBtnClass) {
-        // ajax 호출 및 이후 동작
-        $.ajax({
-            url: '/like/save',
-            type: 'post',
-            data: {
-                [idName]: id,
-                'likeDivision': likeDivision
-            },
-            success: function (data) {
-                if (data) {
-                    // 좋아요를 했을 경우 버튼 클래스를 변경
-                    $(element).removeClass('listBtn').addClass('deleteBtn');
-                }
-                $(".commentListArea").html("");
-                findAll($("input[name=boardId]").val());
-            },
-            error: function (err) {
-                console.error('AJAX 실패:', err);
-            }
-        });
-    }
+  // listBtn 클래스가 있는 경우에만 실행
+  if (hasListBtnClass) {
+    // ajax 호출 및 이후 동작
+    $.ajax({
+      url: '/like/save',
+      type: 'post',
+      data: {
+        [idName]: id,
+        'likeDivision': likeDivision
+      },
+      success: function (data) {
+        if (data) {
+          // 좋아요를 했을 경우 버튼 클래스를 변경
+          $(element).removeClass('listBtn').addClass('deleteBtn');
+        }
+        $(".commentListArea").html("");
+        findAll($("input[name=boardId]").val());
+      },
+      error: function (err) {
+        console.error('AJAX 실패:', err);
+      }
+    });
+  }
 };
 
 
 const myLike = (id, likeDivision) => {
-    var idName;
+  var idName;
 
-    if (likeDivision === 'COMMENT') {
-        idName = 'commentId'
-    } else if (likeDivision === 'COMMENT_RE') {
-        idName = 'commentReId'
-    }
+  if (likeDivision === 'COMMENT') {
+    idName = 'commentId'
+  } else if (likeDivision === 'COMMENT_RE') {
+    idName = 'commentReId'
+  }
 
-    $.ajax({
-        url: '/like/myLike',
-        type: 'get',
-        data: {
-            [idName]: id,
-            'likeDivision': likeDivision
-        },
-        success: function (data) {
-            if (data) {
-                // 좋아요를 했을 경우 버튼 클래스를 변경
-                if (data) {
-                    $(`#comment-${id} .commentCount`).removeClass('listBtn').addClass('deleteBtn');
-                }
-            }
-        },
-        error: function (err) {
-            console.error('AJAX 실패:', err);
+  $.ajax({
+    url: '/like/myLike',
+    type: 'get',
+    data: {
+      [idName]: id,
+      'likeDivision': likeDivision
+    },
+    success: function (data) {
+      if (data) {
+        // 좋아요를 했을 경우 버튼 클래스를 변경
+        if (data) {
+          $(`#comment-${id} .commentCount`).removeClass('listBtn').addClass('deleteBtn');
         }
-    });
+      }
+    },
+    error: function (err) {
+      console.error('AJAX 실패:', err);
+    }
+  });
 }
 
 

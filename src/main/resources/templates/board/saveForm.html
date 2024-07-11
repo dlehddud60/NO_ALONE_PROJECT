@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>게시물 등</title>
+  <title>게시물 등록</title>
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script src="https://cdn.tiny.cloud/1/ejdyilh3anv1f4an43losrthmr7gz3hyfgd9j58l3jopyz74/tinymce/5/tinymce.min.js"
+          referrerpolicy="origin"></script>
   <script th:src="@{/js/board/saveForm.js}"></script>
-    <link rel="stylesheet" th:href="@{/css/board/saveForm.css}">
-
-
+  <link rel="stylesheet" th:href="@{/css/board/saveForm.css}">
 </head>
 <body>
 <th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
@@ -26,28 +25,45 @@
             <th>제목</th>
             <td>
               <input type="text" name="title" th:field="*{title}">
-              <div class="field-error" th:errors="*{title}">아이디 오류</div>
+              <div class="field-error" th:errors="*{title}">제목 오류</div>
             </td>
-
           </tr>
           <tr>
             <th>내용</th>
             <td>
               <textarea name="content" th:field="*{content}"></textarea>
-              <div class="field-error" th:errors="*{content}">아이디 오류</div>
-
+              <div class="field-error" th:errors="*{content}">내용 오류</div>
+            </td>
           </tr>
           </tbody>
         </table>
       </div>
     </div>
     <div class="buttonArea">
-      <div class="listBtn Btn"><a th:href="@{/board/list}" style="color: white;">목록</a></div>
-      <div class="updateBtn Btn">작성</div>
+      <a th:href="@{/board/list}" class="Btn listBtn">목록</a>
+      <button type="submit" class="Btn updateBtn">작성</button>
     </div>
   </div>
 </form>
 
 <th:block th:replace="/include/header.html :: footerFragment"></th:block>
+
+<script>
+  tinymce.init({
+    selector: 'textarea[name="content"]',
+    height: 300,
+    menubar: false,
+    plugins: [
+      'advlist autolink lists link image charmap print preview anchor',
+      'searchreplace visualblocks code fullscreen',
+      'insertdatetime media table paste code help wordcount'
+    ],
+    toolbar: 'undo redo | formatselect | ' +
+      'bold italic backcolor | alignleft aligncenter ' +
+      'alignright alignjustify | bullist numlist outdent indent | ' +
+      'removeformat | help',
+    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+  });
+</script>
 </body>
 </html>
