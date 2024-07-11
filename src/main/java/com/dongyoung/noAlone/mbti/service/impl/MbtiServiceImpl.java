@@ -1,6 +1,5 @@
 package com.dongyoung.noAlone.mbti.service.impl;
 
-import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.mbti.entity.Mbti;
 import com.dongyoung.noAlone.mbti.model.*;
 import com.dongyoung.noAlone.mbti.model.mapper.MbtiMapper;
@@ -14,7 +13,6 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,9 +32,6 @@ public class MbtiServiceImpl implements MbtiService {
         Mbti mbti = Mbti.builder()
                 .name(insertModel.name())
                 .description(insertModel.description())
-                .dateTime(DateTime.builder()
-                        .inputDt(LocalDate.now())
-                        .build())
                 .build();
         mbtiRepository.save(mbti);
     }

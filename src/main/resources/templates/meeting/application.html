@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html lang="ko"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>모임 신청</title>
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script th:src="@{/js/meeting/application.js}"></script>
+  <script src="https://cdn.tiny.cloud/1/ejdyilh3anv1f4an43losrthmr7gz3hyfgd9j58l3jopyz74/tinymce/5/tinymce.min.js"
+          referrerpolicy="origin"></script>
   <link rel="stylesheet" th:href="@{/css/meeting/application.css}">
   <script th:src="@{/js/meeting/application.js}"></script>
-
-
 </head>
 <body>
 <th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
@@ -21,27 +19,41 @@
     <div class="boardArea">
       <div class="viewArea">
         [[${insertMsg}]]
-        <table>
-          <tbody>
-          <tr>
-            <th th:text="${meeting.question()}"></th>
-            <td><textarea name="companionReason"  cols="30" rows="10" th:text="${companionReason == null ? '' : companionReason}"></textarea></td>
-          </tr>
-          <tr>
-            <th>자기소개</th>
-            <td><textarea name="aboutMe"  cols="30" rows="10" th:text="${aboutMe == null ? '' : aboutMe}"></textarea></td>
-          </tr>
-          </tbody>
-        </table>
+        <div class="form-group">
+          <label th:text="${meeting.question()}"></label>
+          <textarea name="companionReason" id="companionReason"
+                    th:text="${companionReason == null ? '' : companionReason}"></textarea>
+        </div>
+        <div class="form-group">
+          <label>자기소개</label>
+          <textarea name="aboutMe" id="aboutMe" th:text="${aboutMe == null ? '' : aboutMe}"></textarea>
+        </div>
       </div>
     </div>
     <div class="buttonArea">
-<!--      <div class="listBtn Btn"><a th:href="@{/meeting/list}" style="color: white;">목록</a></div>-->
-      <div class="updateBtn Btn">신청하기</div>
+      <button type="submit" class="Btn updateBtn">신청하기</button>
     </div>
   </div>
 </form>
 
 <th:block th:replace="/include/header.html :: footerFragment"></th:block>
+
+<script>
+  tinymce.init({
+    selector: '#companionReason, #aboutMe',
+    height: 300,
+    menubar: false,
+    plugins: [
+      'advlist autolink lists link image charmap print preview anchor',
+      'searchreplace visualblocks code fullscreen',
+      'insertdatetime media table paste code help wordcount'
+    ],
+    toolbar: 'undo redo | formatselect | ' +
+      'bold italic backcolor | alignleft aligncenter ' +
+      'alignright alignjustify | bullist numlist outdent indent | ' +
+      'removeformat | help',
+    content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+  });
+</script>
 </body>
 </html>

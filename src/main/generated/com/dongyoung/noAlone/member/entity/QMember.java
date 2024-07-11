@@ -22,6 +22,8 @@ public class QMember extends EntityPathBase<Member> {
 
     public static final QMember member = new QMember("member1");
 
+    public final com.dongyoung.noAlone.common.entity.QBaseTimeEntity _super = new com.dongyoung.noAlone.common.entity.QBaseTimeEntity(this);
+
     public final ListPath<com.dongyoung.noAlone.accept.entity.Accept, com.dongyoung.noAlone.accept.entity.QAccept> accepts = this.<com.dongyoung.noAlone.accept.entity.Accept, com.dongyoung.noAlone.accept.entity.QAccept>createList("accepts", com.dongyoung.noAlone.accept.entity.Accept.class, com.dongyoung.noAlone.accept.entity.QAccept.class, PathInits.DIRECT2);
 
     public final NumberPath<Integer> age = createNumber("age", Integer.class);
@@ -36,13 +38,16 @@ public class QMember extends EntityPathBase<Member> {
 
     public final ListPath<com.dongyoung.noAlone.comment.entity.Comment, com.dongyoung.noAlone.comment.entity.QComment> comments = this.<com.dongyoung.noAlone.comment.entity.Comment, com.dongyoung.noAlone.comment.entity.QComment>createList("comments", com.dongyoung.noAlone.comment.entity.Comment.class, com.dongyoung.noAlone.comment.entity.QComment.class, PathInits.DIRECT2);
 
-    public final com.dongyoung.noAlone.common.entity.QDateTime dateTime;
-
     public final StringPath email = createString("email");
 
     public final StringPath gender = createString("gender");
 
     public final StringPath id = createString("id");
+
+    //inherited
+    public final DatePath<java.time.LocalDate> inputDt = _super.inputDt;
+
+    public final ListPath<com.dongyoung.noAlone.like.entity.Like, com.dongyoung.noAlone.like.entity.QLike> likes = this.<com.dongyoung.noAlone.like.entity.Like, com.dongyoung.noAlone.like.entity.QLike>createList("likes", com.dongyoung.noAlone.like.entity.Like.class, com.dongyoung.noAlone.like.entity.QLike.class, PathInits.DIRECT2);
 
     public final com.dongyoung.noAlone.mbti.entity.QMbti mbti;
 
@@ -62,6 +67,9 @@ public class QMember extends EntityPathBase<Member> {
 
     public final EnumPath<Role> role = createEnum("role", Role.class);
 
+    //inherited
+    public final DatePath<java.time.LocalDate> updateDt = _super.updateDt;
+
     public QMember(String variable) {
         this(Member.class, forVariable(variable), INITS);
     }
@@ -80,8 +88,7 @@ public class QMember extends EntityPathBase<Member> {
 
     public QMember(Class<? extends Member> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.dateTime = inits.isInitialized("dateTime") ? new com.dongyoung.noAlone.common.entity.QDateTime(forProperty("dateTime")) : null;
-        this.mbti = inits.isInitialized("mbti") ? new com.dongyoung.noAlone.mbti.entity.QMbti(forProperty("mbti"), inits.get("mbti")) : null;
+        this.mbti = inits.isInitialized("mbti") ? new com.dongyoung.noAlone.mbti.entity.QMbti(forProperty("mbti")) : null;
     }
 
 }

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-10T21:00:00+0900",
+    date = "2024-07-11T10:51:19+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
@@ -84,6 +84,7 @@ public class OwnerMapperImpl implements OwnerMapper {
         String rule = null;
         String location = null;
         String question = null;
+        LocalDate inputDt = null;
 
         meetingId = meeting.getMeetingId();
         name = meeting.getName();
@@ -91,8 +92,7 @@ public class OwnerMapperImpl implements OwnerMapper {
         rule = meeting.getRule();
         location = meeting.getLocation();
         question = meeting.getQuestion();
-
-        LocalDate inputDt = null;
+        inputDt = meeting.getInputDt();
 
         FindResponseMeetingWithOwnerModel findResponseMeetingWithOwnerModel = new FindResponseMeetingWithOwnerModel( meetingId, name, content, rule, location, question, inputDt );
 

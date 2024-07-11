@@ -1,11 +1,10 @@
 package com.dongyoung.noAlone.member.service.impl;
 
-import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.mbti.repository.MbtiRepository;
-import com.dongyoung.noAlone.member.Model.LoginRequestModel;
-import com.dongyoung.noAlone.member.Model.InsertRequestMemberModel;
-import com.dongyoung.noAlone.member.Model.UpdateRequestMemberModel;
 import com.dongyoung.noAlone.member.Model.FindResponseMemberWithMbtiModel;
+import com.dongyoung.noAlone.member.Model.InsertRequestMemberModel;
+import com.dongyoung.noAlone.member.Model.LoginRequestModel;
+import com.dongyoung.noAlone.member.Model.UpdateRequestMemberModel;
 import com.dongyoung.noAlone.member.Model.mapper.MemberMapper;
 import com.dongyoung.noAlone.member.entity.Member;
 import com.dongyoung.noAlone.member.entity.Role;
@@ -18,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.Optional;
 
 @Log4j2
@@ -48,9 +46,6 @@ public class MemberServiceImpl implements MemberService {
                 .birthyear(insertRequestMemberModel.birthyear())
                 .mobile(insertRequestMemberModel.mobile())
                 .role(Role.ADMIN)
-                .dateTime(DateTime.builder()
-                        .inputDt(LocalDate.now())
-                        .build())
                 .build();
         memberRepository.save(memberEntity);
         session.setAttribute("member", memberEntity);
@@ -84,13 +79,13 @@ public class MemberServiceImpl implements MemberService {
         member.setBirthday(memberUpdateModel.birthday());
         member.setMobile(memberUpdateModel.mobile());
         member.setMbti(mbtiRepository.findByName(memberUpdateModel.mbtiName()));
-        session.setAttribute("member",member);
+        session.setAttribute("member", member);
     }
 
     @Override
     public boolean verifyExistEmail(String email) {
         Optional<Member> member = memberRepository.findByEmail(email);
-        log.info("========isPresent======={}",member.isPresent());
+        log.info("========isPresent======={}", member.isPresent());
         return member.isPresent();
     }
 }

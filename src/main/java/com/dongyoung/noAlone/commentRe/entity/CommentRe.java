@@ -1,8 +1,7 @@
 package com.dongyoung.noAlone.commentRe.entity;
 
-import com.dongyoung.noAlone.board.entity.Board;
 import com.dongyoung.noAlone.comment.entity.Comment;
-import com.dongyoung.noAlone.common.entity.DateTime;
+import com.dongyoung.noAlone.common.entity.BaseTimeEntity;
 import com.dongyoung.noAlone.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,7 +13,8 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class CommentRe {
+@ToString
+public class CommentRe extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +24,6 @@ public class CommentRe {
     @Column(name = "CONTENT", length = 1000)
     private String content;
 
-    @Embedded
-    private DateTime dateTime;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberId")
     private Member member;
@@ -34,8 +31,6 @@ public class CommentRe {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "commentId")
     private Comment comment;
-
-
 
 
 }

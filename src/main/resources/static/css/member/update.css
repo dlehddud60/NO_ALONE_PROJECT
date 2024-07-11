@@ -1,20 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;900&display=swap');
+
 @font-face {
     font-family: 'SUITE-Regular';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
     font-weight: 400;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'KBO-Dia-Gothic_bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'WavvePADO-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2404@1.0/WavvePADO-Regular.woff2') format('woff2');
-    font-weight: normal;
     font-style: normal;
 }
 
@@ -25,116 +14,146 @@
     font-style: normal;
 }
 
-*{
-    text-decoration: none;
-    list-style: none;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'SUITE-Regular', 'Poppins', sans-serif;
 }
 
-p {
-    margin-bottom: 1.5%;
-    font-size: 1.2rem;
-    font-family: SUITE-Regular, serif;
-    color: #7c7c7c;
+body {
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
 }
-.formArea {
-    height: 130vh;
-    width: 70%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 2% auto;
 
+.wrap {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
 }
 
 .title {
-    font-family: Freesentation-9Black;
+    font-family: 'Freesentation-9Black', 'Poppins', sans-serif;
     font-size: 2.5rem;
-    margin-top: 5%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    color: #4a90e2;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.formArea {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px;
 }
 
 .viewArea {
-    padding-bottom: 3%;
-    padding-top: 3%;
-    padding-left: 5%;
-    height:100%;
-    width: 55%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* 요소들을 왼쪽 정렬 */
-    border-radius: 10px;
-
+    width: 100%;
 }
 
-
-.detail {
-    height: 30vh;
-}
-
-
-.Btn {
-    margin-top: 3%;
-    border-radius: 7px;
-    text-align: center;
-    line-height: 6vh;
-    width: 35.5vw; height: 6vh;
-    color: white;
-    font-size: 1.2rem;
-    font-family: SUITE-Regular;
-    cursor: pointer;
-}
-
-.updateBtn, .mbtiBtn {
-    background: #a2a2a2;
-    transition: all 0.5s;
-}
-.updateBtn:hover {
-    background: #737373;
-}
-.mbtiBtn:hover {
-    background: #737373;
-}
-input {
-    height: 4vh; width: 35vw;
-    font-family: SUITE-Regular, serif;
+p {
+    margin-bottom: 10px;
     font-size: 1rem;
-}
-select[name='mbtiName'] {
-    height: 5vh; width: 35.5vw;
-    font-family: SUITE-Regular, serif;
-    font-size: 1rem;
+    color: #7c7c7c;
 }
 
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+input:focus, select:focus {
+    border-color: #4a90e2;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
 
 .select {
-    margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
 }
-.select input[type=radio]{
+
+.select input[type=radio] {
     display: none;
 }
-.select input[type=radio]+label{
-    display: inline-block;
-    cursor: pointer;
-    height: 5vh;
-    width: 10vw;
-    border: 1px solid #333;
-    line-height: 5vh;
+
+.select input[type=radio] + label {
+    flex: 1;
+    padding: 10px;
     text-align: center;
-    font-weight:bold;
-    font-size:1.2rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
-.select input[type=radio]+label{
-    background-color: #fff;
-    color: #333;
+
+.select input[type=radio]:checked + label {
+    background-color: #4a90e2;
+    color: white;
+    border-color: #4a90e2;
 }
-.select input[type=radio]:checked+label{
-    background-color: #333;
-    color: #fff;
+
+.Btn {
+    display: inline-block;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4a90e2;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 20px;
 }
+
+.Btn:hover {
+    background-color: #357abd;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 .field-error {
-    border-color: #dc3545;
     color: #dc3545;
-    margin-bottom: 3%;
+    font-size: 0.9rem;
+    margin-top: -15px;
+    margin-bottom: 15px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.formArea {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+@media (max-width: 768px) {
+    .wrap {
+        padding: 15px;
+    }
+
+    .formArea {
+        padding: 20px;
+    }
+
+    .select input[type=radio] + label {
+        font-size: 0.9rem;
+    }
 }

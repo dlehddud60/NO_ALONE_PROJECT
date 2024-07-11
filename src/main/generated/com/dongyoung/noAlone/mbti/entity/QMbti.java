@@ -18,13 +18,14 @@ public class QMbti extends EntityPathBase<Mbti> {
 
     private static final long serialVersionUID = -55872916L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QMbti mbti = new QMbti("mbti");
 
-    public final com.dongyoung.noAlone.common.entity.QDateTime dateTime;
+    public final com.dongyoung.noAlone.common.entity.QBaseTimeEntity _super = new com.dongyoung.noAlone.common.entity.QBaseTimeEntity(this);
 
     public final StringPath description = createString("description");
+
+    //inherited
+    public final DatePath<java.time.LocalDate> inputDt = _super.inputDt;
 
     public final NumberPath<Long> mbtiId = createNumber("mbtiId", Long.class);
 
@@ -32,25 +33,19 @@ public class QMbti extends EntityPathBase<Mbti> {
 
     public final StringPath name = createString("name");
 
+    //inherited
+    public final DatePath<java.time.LocalDate> updateDt = _super.updateDt;
+
     public QMbti(String variable) {
-        this(Mbti.class, forVariable(variable), INITS);
+        super(Mbti.class, forVariable(variable));
     }
 
     public QMbti(Path<? extends Mbti> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QMbti(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QMbti(PathMetadata metadata, PathInits inits) {
-        this(Mbti.class, metadata, inits);
-    }
-
-    public QMbti(Class<? extends Mbti> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.dateTime = inits.isInitialized("dateTime") ? new com.dongyoung.noAlone.common.entity.QDateTime(forProperty("dateTime")) : null;
+        super(Mbti.class, metadata);
     }
 
 }

@@ -2,10 +2,8 @@ package com.dongyoung.noAlone.meeting.repository.impl;
 
 import com.dongyoung.noAlone.meeting.entity.Meeting;
 import com.dongyoung.noAlone.meeting.model.FindResponseMeetingAndOwnerListModel;
-import com.dongyoung.noAlone.meeting.model.FindResponseMeetingListModel;
 import com.dongyoung.noAlone.meeting.model.SearchCondition;
 import com.dongyoung.noAlone.meeting.model.mapper.MeetingMapper;
-import com.dongyoung.noAlone.meeting.repository.MeetingQueryReposity;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Wildcard;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -25,7 +23,7 @@ import static com.dongyoung.noAlone.meeting.entity.QMeeting.meeting;
 @Log4j2
 @Repository
 @RequiredArgsConstructor
-public class MeetingQueryRepository implements MeetingQueryReposity {
+public class MeetingQueryRepositoryImpl implements com.dongyoung.noAlone.meeting.repository.MeetingQueryRepository {
 
     private final JPAQueryFactory queryFactory;
     private final MeetingMapper meetingMapper;
@@ -40,7 +38,7 @@ public class MeetingQueryRepository implements MeetingQueryReposity {
                 .fetch();
 
         JPAQuery<Long> count = queryFactory.select(Wildcard.count).from(meeting);
-        return PageableExecutionUtils.getPage(list.stream().map(meetingMapper::toMeetingListModel).collect(Collectors.toList()),pageable,count::fetchCount);
+        return PageableExecutionUtils.getPage(list.stream().map(meetingMapper::toMeetingListModel).collect(Collectors.toList()), pageable, count::fetchCount);
     }
 
     private BooleanExpression search(String search) {

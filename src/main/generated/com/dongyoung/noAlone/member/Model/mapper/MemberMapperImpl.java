@@ -1,6 +1,5 @@
 package com.dongyoung.noAlone.member.Model.mapper;
 
-import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.mbti.entity.Mbti;
 import com.dongyoung.noAlone.mbti.model.FindResponseMbtiWithMemberModel;
 import com.dongyoung.noAlone.member.Model.FindResponseMemberWithMbtiModel;
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-10T21:00:00+0900",
+    date = "2024-07-11T10:51:18+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
@@ -23,7 +22,6 @@ public class MemberMapperImpl implements MemberMapper {
             return null;
         }
 
-        LocalDate updateDt = null;
         FindResponseMbtiWithMemberModel mbtiWithMemberModel = null;
         String id = null;
         String password = null;
@@ -35,8 +33,8 @@ public class MemberMapperImpl implements MemberMapper {
         String birthday = null;
         String birthyear = null;
         String mobile = null;
+        LocalDate updateDt = null;
 
-        updateDt = memberDateTimeUpdateDt( member );
         mbtiWithMemberModel = mbtiToFindResponseMbtiWithMemberModel( member.getMbti() );
         id = member.getId();
         password = member.getPassword();
@@ -48,25 +46,11 @@ public class MemberMapperImpl implements MemberMapper {
         birthday = member.getBirthday();
         birthyear = member.getBirthyear();
         mobile = member.getMobile();
+        updateDt = member.getUpdateDt();
 
         FindResponseMemberWithMbtiModel findResponseMemberWithMbtiModel = new FindResponseMemberWithMbtiModel( id, password, nickname, name, email, gender, age, birthday, birthyear, mobile, updateDt, mbtiWithMemberModel );
 
         return findResponseMemberWithMbtiModel;
-    }
-
-    private LocalDate memberDateTimeUpdateDt(Member member) {
-        if ( member == null ) {
-            return null;
-        }
-        DateTime dateTime = member.getDateTime();
-        if ( dateTime == null ) {
-            return null;
-        }
-        LocalDate updateDt = dateTime.getUpdateDt();
-        if ( updateDt == null ) {
-            return null;
-        }
-        return updateDt;
     }
 
     protected FindResponseMbtiWithMemberModel mbtiToFindResponseMbtiWithMemberModel(Mbti mbti) {

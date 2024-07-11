@@ -1,22 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;900&display=swap');
+
 @font-face {
     font-family: 'SUITE-Regular';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
 }
-@font-face {
-    font-family: 'KBO-Dia-Gothic_bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
-}
 
-@font-face {
-    font-family: 'WavvePADO-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2404@1.0/WavvePADO-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
 @font-face {
     font-family: 'Freesentation-9Black';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2') format('woff2');
@@ -24,72 +14,99 @@
     font-style: normal;
 }
 
-
-*{
-    text-decoration: none;
-    list-style: none;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'SUITE-Regular', 'Poppins', sans-serif;
 }
 
-p {
-    margin-bottom: 1.5%;
-    font-size: 1.2rem;
-    font-family: SUITE-Regular, serif;
-    color: #7c7c7c;
+body {
+    background-color: #f0f2f5;
+    color: #333;
 }
-.formArea {
-    height: 50vh;
-    width: 70%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
 
-}
-.viewArea {
-    padding-left: 5%;
-    height:60%;
-    width: 55%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* 요소들을 왼쪽 정렬 */
-    border-radius: 10px;
-
+.wrap {
+    max-width: 400px;
+    margin: 100px auto 10%;
+    padding: 20px;
 }
 
 .title {
-    font-family: Freesentation-9Black;
+    font-family: 'Freesentation-9Black', 'Poppins', sans-serif;
     font-size: 2.5rem;
-    margin-top: 5%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    color: #4a90e2;
+    text-align: center;
+    margin-bottom: 30px;
 }
-.detail {
-    height: 30vh;
+
+.formArea {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px;
 }
-input {
-    height: 4vh; width: 35vw;
-    font-family: SUITE-Regular, serif;
+
+.viewArea {
+    width: 100%;
+}
+
+p {
+    margin-bottom: 10px;
     font-size: 1rem;
-    margin-bottom: 3%;
+    color: #7c7c7c;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input:focus {
+    border-color: #4a90e2;
+    outline: none;
 }
 
 .Btn {
-    margin-top: 3%;
-    border-radius: 7px;
-    text-align: center;
-    line-height: 6vh;
-    width: 35.5vw; height: 6vh;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 50px;
     color: white;
-    font-size: 1.4rem;
-    font-family: SUITE-Regular;
+    font-weight: 600;
+    font-size: 1.1rem;
     cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-align: center;
 }
 
 .updateBtn {
-    background: #a2a2a2;
-    transition: all 0.5s;
+    background-color: #4a90e2;
 }
+
 .updateBtn:hover {
-    background: #8f8f8f;
+    background-color: #357abd;
+    transform: translateY(-3px);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.formArea {
+    animation: fadeIn 0.6s ease-out forwards;
 }

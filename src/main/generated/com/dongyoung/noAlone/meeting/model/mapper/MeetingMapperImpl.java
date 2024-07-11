@@ -4,7 +4,6 @@ import com.dongyoung.noAlone.accept.entity.Accept;
 import com.dongyoung.noAlone.accept.entity.Status;
 import com.dongyoung.noAlone.category.entity.Category;
 import com.dongyoung.noAlone.category.model.FindResponseCategoryModel;
-import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.mbti.entity.Mbti;
 import com.dongyoung.noAlone.mbti.model.FindResponseMbtiWithMemberModel;
 import com.dongyoung.noAlone.meeting.entity.Meeting;
@@ -24,7 +23,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-10T21:00:00+0900",
+    date = "2024-07-11T10:51:18+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
@@ -37,22 +36,22 @@ public class MeetingMapperImpl implements MeetingMapper {
         }
 
         FindResponseOwnerwithMeetingListModel ownerListModel = null;
-        LocalDate inputDt = null;
         Long meetingId = null;
         String name = null;
         String content = null;
         String rule = null;
         String location = null;
         String question = null;
+        LocalDate inputDt = null;
 
         ownerListModel = ownerToFindResponseOwnerwithMeetingListModel( meeting.getOwner() );
-        inputDt = meetingDateTimeInputDt( meeting );
         meetingId = meeting.getMeetingId();
         name = meeting.getName();
         content = meeting.getContent();
         rule = meeting.getRule();
         location = meeting.getLocation();
         question = meeting.getQuestion();
+        inputDt = meeting.getInputDt();
 
         FindResponseMeetingAndOwnerListModel findResponseMeetingAndOwnerListModel = new FindResponseMeetingAndOwnerListModel( meetingId, name, content, rule, location, question, inputDt, ownerListModel );
 
@@ -66,23 +65,23 @@ public class MeetingMapperImpl implements MeetingMapper {
         }
 
         FindResponseOwnerwithMeetingModel ownerWithMeetingModel = null;
-        LocalDate inputDt = null;
         Long meetingId = null;
         String name = null;
         String content = null;
         String rule = null;
         String location = null;
         String question = null;
+        LocalDate inputDt = null;
         FindResponseCategoryModel category = null;
 
         ownerWithMeetingModel = ownerToFindResponseOwnerwithMeetingModel( meeting.getOwner() );
-        inputDt = meetingDateTimeInputDt( meeting );
         meetingId = meeting.getMeetingId();
         name = meeting.getName();
         content = meeting.getContent();
         rule = meeting.getRule();
         location = meeting.getLocation();
         question = meeting.getQuestion();
+        inputDt = meeting.getInputDt();
         category = categoryToFindResponseCategoryModel( meeting.getCategory() );
 
         FindResponseMeetingViewModel findResponseMeetingViewModel = new FindResponseMeetingViewModel( meetingId, name, content, rule, location, question, inputDt, ownerWithMeetingModel, category );
@@ -97,18 +96,18 @@ public class MeetingMapperImpl implements MeetingMapper {
         }
 
         FindResponseMemberWithAcceptListModel memberWithAcceptListModel = null;
-        LocalDate inputDt = null;
         Long acceptId = null;
         Status status = null;
         String aboutMe = null;
         String companionReason = null;
+        LocalDate inputDt = null;
 
         memberWithAcceptListModel = memberToFindResponseMemberWithAcceptListModel( accept.getMember() );
-        inputDt = acceptDateTimeInputDt( accept );
         acceptId = accept.getAcceptId();
         status = accept.getStatus();
         aboutMe = accept.getAboutMe();
         companionReason = accept.getCompanionReason();
+        inputDt = accept.getInputDt();
 
         FindResponseMeetingAppliListModel findResponseMeetingAppliListModel = new FindResponseMeetingAppliListModel( acceptId, status, aboutMe, companionReason, inputDt, memberWithAcceptListModel );
 
@@ -163,21 +162,6 @@ public class MeetingMapperImpl implements MeetingMapper {
         FindResponseOwnerwithMeetingListModel findResponseOwnerwithMeetingListModel = new FindResponseOwnerwithMeetingListModel( memberListModel );
 
         return findResponseOwnerwithMeetingListModel;
-    }
-
-    private LocalDate meetingDateTimeInputDt(Meeting meeting) {
-        if ( meeting == null ) {
-            return null;
-        }
-        DateTime dateTime = meeting.getDateTime();
-        if ( dateTime == null ) {
-            return null;
-        }
-        LocalDate inputDt = dateTime.getInputDt();
-        if ( inputDt == null ) {
-            return null;
-        }
-        return inputDt;
     }
 
     protected FindResponseMemberWithOwnerModel memberToFindResponseMemberWithOwnerModel(Member member) {
@@ -238,12 +222,12 @@ public class MeetingMapperImpl implements MeetingMapper {
         Long categoryId = null;
         String name = null;
         String description = null;
+        LocalDate inputDt = null;
 
         categoryId = category.getCategoryId();
         name = category.getName();
         description = category.getDescription();
-
-        LocalDate inputDt = null;
+        inputDt = category.getInputDt();
 
         FindResponseCategoryModel findResponseCategoryModel = new FindResponseCategoryModel( categoryId, name, description, inputDt );
 
@@ -304,20 +288,5 @@ public class MeetingMapperImpl implements MeetingMapper {
         FindResponseMemberWithAcceptListModel findResponseMemberWithAcceptListModel = new FindResponseMemberWithAcceptListModel( memberId, id, password, nickname, name, email, gender, age, birthday, profileImage, birthyear, mobile, mbtiWithMemberModel );
 
         return findResponseMemberWithAcceptListModel;
-    }
-
-    private LocalDate acceptDateTimeInputDt(Accept accept) {
-        if ( accept == null ) {
-            return null;
-        }
-        DateTime dateTime = accept.getDateTime();
-        if ( dateTime == null ) {
-            return null;
-        }
-        LocalDate inputDt = dateTime.getInputDt();
-        if ( inputDt == null ) {
-            return null;
-        }
-        return inputDt;
     }
 }

@@ -1,22 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;900&display=swap');
+
 @font-face {
     font-family: 'SUITE-Regular';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
 }
-@font-face {
-    font-family: 'KBO-Dia-Gothic_bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
-}
 
-@font-face {
-    font-family: 'WavvePADO-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2404@1.0/WavvePADO-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
 @font-face {
     font-family: 'Freesentation-9Black';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2') format('woff2');
@@ -24,100 +14,156 @@
     font-style: normal;
 }
 
-*{
-    text-decoration: none;
-    list-style: none;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-p {
-    margin-bottom: 1.5%;
-    font-size: 1.2rem;
-    font-family: SUITE-Regular, serif;
-    color: #7c7c7c;
+body {
+    background-color: #f0f2f5;
+    color: #333;
 }
-.formArea {
-    height: 160vh;
-    width: 70%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 2% auto;
 
+.wrap {
+    max-width: 50%;
+    margin: 100px auto 0;
+    padding: 20px;
 }
 
 .title {
-    font-family: Freesentation-9Black;
+    font-family: 'Freesentation-9Black', 'Poppins', sans-serif;
     font-size: 2.5rem;
-    margin-top: 5%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    color: #4a90e2;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.formArea {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px;
 }
 
 .viewArea {
-    padding-bottom: 3%;
-    padding-top: 3%;
-    padding-left: 5%;
-    height:100%;
-    width: 55%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* 요소들을 왼쪽 정렬 */
-    border-radius: 10px;
-
+    width: 100%;
 }
 
-
-.detail {
-    height: 30vh;
-}
-input {
-    height: 4vh; width: 35vw;
-    font-family: SUITE-Regular, serif;
+p {
+    margin-bottom: 10px;
     font-size: 1rem;
-    margin-bottom: 3%;
+    color: #7c7c7c;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
     border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
 }
-.email {
-    width: 25vw;
+
+input:focus {
+    border-color: #4a90e2;
+    outline: none;
 }
-.emailArea ,.emailConfirmArea{
+
+.Btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 50px;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background-color: #4a90e2;
+    display: inline-flex; /* 변경 */
+    align-items: center; /* 추가 */
+    justify-content: center; /* 추가 */
+    text-align: center;
+    margin-bottom: 15px;
+    line-height: 1; /* 추가 */
+}
+
+.Btn:hover {
+    background-color: #357abd;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.emailArea, .emailConfirmArea {
     display: flex;
-    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
     align-items: center;
 }
-.Btn {
-    border-radius: 7px;
-    text-align: center;
-    line-height: 6vh;
-    width: 35.5vw; height: 6vh;
-    color: white;
-    font-size: 1.2rem;
-    font-family: SUITE-Regular;
-    cursor: pointer;
-    margin-bottom: 3%;
+
+.emailArea input, .emailConfirmArea input {
+    flex: 1;
+    margin-bottom: 0;
 }
 
-.updateBtn,.emailBtn, .errorBtn {
-    background: #a2a2a2;
-    transition: all 0.5s;
-}
-.updateBtn:hover {
-    background: #737373;
-}
-.emailBtn:hover {
-    background: #737373;
+.emailBtn {
+    flex: 0 0 auto;
+    white-space: nowrap;
 }
 
+.updateBtn, .errorBtn {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* 버튼 크기 조정 */
+.emailBtn {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+}
+
+/* 이메일 인증 영역 스타일 */
+.email-info {
+    color: #2b48dc;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.field-error {
+    color: #dc3545;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.formArea {
+    animation: fadeIn 0.6s ease-out forwards;
+}
 
 
 .select {
     margin-bottom: 10px;
 }
-.select input[type=radio]{
+
+.select input[type=radio] {
     display: none;
 }
-.select input[type=radio]+label{
+
+.select input[type=radio] + label {
     display: inline-block;
     cursor: pointer;
     height: 5vh;
@@ -125,23 +171,16 @@ input {
     border: 1px solid #333;
     line-height: 5vh;
     text-align: center;
-    font-weight:bold;
-    font-size:1.2rem;
+    font-weight: bold;
+    font-size: 1.2rem;
 }
-.select input[type=radio]+label{
+
+.select input[type=radio] + label {
     background-color: #fff;
     color: #333;
 }
-.select input[type=radio]:checked+label{
+
+.select input[type=radio]:checked + label {
     background-color: #333;
     color: #fff;
-}
-.field-error {
-    border-color: #dc3545;
-    color: #dc3545;
-    margin-bottom: 3%;
-}
-.email-info {
-    color: #2b48dc;
-    margin-bottom: 1%;
 }

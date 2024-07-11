@@ -22,6 +22,8 @@ public class QComment extends EntityPathBase<Comment> {
 
     public static final QComment comment = new QComment("comment");
 
+    public final com.dongyoung.noAlone.common.entity.QBaseTimeEntity _super = new com.dongyoung.noAlone.common.entity.QBaseTimeEntity(this);
+
     public final com.dongyoung.noAlone.board.entity.QBoard board;
 
     public final NumberPath<Long> commentId = createNumber("commentId", Long.class);
@@ -30,9 +32,13 @@ public class QComment extends EntityPathBase<Comment> {
 
     public final StringPath content = createString("content");
 
-    public final com.dongyoung.noAlone.common.entity.QDateTime dateTime;
+    //inherited
+    public final DatePath<java.time.LocalDate> inputDt = _super.inputDt;
 
     public final com.dongyoung.noAlone.member.entity.QMember member;
+
+    //inherited
+    public final DatePath<java.time.LocalDate> updateDt = _super.updateDt;
 
     public QComment(String variable) {
         this(Comment.class, forVariable(variable), INITS);
@@ -53,7 +59,6 @@ public class QComment extends EntityPathBase<Comment> {
     public QComment(Class<? extends Comment> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.board = inits.isInitialized("board") ? new com.dongyoung.noAlone.board.entity.QBoard(forProperty("board"), inits.get("board")) : null;
-        this.dateTime = inits.isInitialized("dateTime") ? new com.dongyoung.noAlone.common.entity.QDateTime(forProperty("dateTime")) : null;
         this.member = inits.isInitialized("member") ? new com.dongyoung.noAlone.member.entity.QMember(forProperty("member"), inits.get("member")) : null;
     }
 

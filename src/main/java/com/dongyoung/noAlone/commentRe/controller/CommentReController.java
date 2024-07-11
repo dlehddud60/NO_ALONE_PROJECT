@@ -1,11 +1,10 @@
 package com.dongyoung.noAlone.commentRe.controller;
 
-import com.dongyoung.noAlone.comment.model.FindResponseCommentListModel;
-import com.dongyoung.noAlone.comment.model.InsertRequestCommentModel;
 import com.dongyoung.noAlone.comment.model.UpdateRequestCommentModel;
 import com.dongyoung.noAlone.commentRe.model.FindResponseCommentReListModel;
 import com.dongyoung.noAlone.commentRe.model.InsertRequestCommentReModel;
 import com.dongyoung.noAlone.commentRe.service.CommentReService;
+import com.dongyoung.noAlone.common.entity.BaseTimeEntity;
 import com.dongyoung.noAlone.member.entity.Member;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/commentRe")
 @Log4j2
-public class CommentReController {
+public class CommentReController extends BaseTimeEntity {
 
     private final CommentReService commentReService;
 

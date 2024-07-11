@@ -3,7 +3,6 @@ package com.dongyoung.noAlone.accept.model.mapper;
 import com.dongyoung.noAlone.accept.entity.Accept;
 import com.dongyoung.noAlone.accept.entity.Status;
 import com.dongyoung.noAlone.accept.model.FindResponseAcceptModel;
-import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.meeting.entity.Meeting;
 import com.dongyoung.noAlone.meeting.model.FindResponseMeetingAndAcceptModel;
 import com.dongyoung.noAlone.member.Model.FindResponseLoginMemberModel;
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-10T21:00:00+0900",
+    date = "2024-07-11T10:51:18+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
@@ -33,7 +32,6 @@ public class AcceptMapperImpl implements AcceptMapper {
         Status status = null;
         String aboutMe = null;
         String companionReason = null;
-        DateTime dateTime = null;
 
         member = memberToFindResponseLoginMemberModel( accept.getMember() );
         meeting = meetingToFindResponseMeetingAndAcceptModel( accept.getMeeting() );
@@ -41,9 +39,8 @@ public class AcceptMapperImpl implements AcceptMapper {
         status = accept.getStatus();
         aboutMe = accept.getAboutMe();
         companionReason = accept.getCompanionReason();
-        dateTime = accept.getDateTime();
 
-        FindResponseAcceptModel findResponseAcceptModel = new FindResponseAcceptModel( acceptId, status, aboutMe, companionReason, dateTime, member, meeting );
+        FindResponseAcceptModel findResponseAcceptModel = new FindResponseAcceptModel( acceptId, status, aboutMe, companionReason, member, meeting );
 
         return findResponseAcceptModel;
     }
@@ -97,6 +94,7 @@ public class AcceptMapperImpl implements AcceptMapper {
         String rule = null;
         String location = null;
         String question = null;
+        LocalDate inputDt = null;
 
         meetingId = meeting.getMeetingId();
         name = meeting.getName();
@@ -104,8 +102,7 @@ public class AcceptMapperImpl implements AcceptMapper {
         rule = meeting.getRule();
         location = meeting.getLocation();
         question = meeting.getQuestion();
-
-        LocalDate inputDt = null;
+        inputDt = meeting.getInputDt();
 
         FindResponseMeetingAndAcceptModel findResponseMeetingAndAcceptModel = new FindResponseMeetingAndAcceptModel( meetingId, name, content, rule, location, question, inputDt );
 

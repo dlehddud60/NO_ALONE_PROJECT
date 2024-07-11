@@ -30,7 +30,7 @@ public class MbtiController {
     @PostMapping("/save")
     public String save(@Validated InsertRequestModel insertModel, BindingResult bindingResult, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            log.info("errors={} ", bindingResult);
+            log.info("MbtiController.save.errors={} ", bindingResult);
             return "redirect:" + request.getHeader("Referer");
         }
         mbtiService.save(insertModel);
@@ -46,7 +46,7 @@ public class MbtiController {
     @PostMapping("/update")
     public String update(@Validated UpdateRequestModel updateModel, BindingResult bindingResult, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            log.info("errors={} ", bindingResult);
+            log.info("MbtiController.update.errors={} ", bindingResult);
             return "redirect:" + request.getHeader("Referer");
         }
         mbtiService.update(updateModel);

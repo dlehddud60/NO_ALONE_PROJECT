@@ -5,13 +5,12 @@
   <meta charset="UTF-8">
   <title>meeting 등록</title>
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <link rel="stylesheet" th:href="@{/css/meeting/view.css}">
+  <link rel="stylesheet" th:href="@{/css/meeting/view.css}">
   <script th:src="@{/js/meeting/view.js}"></script>
 </head>
 <body>
 <th:block th:replace="~{/include/header.html :: headerFragment}"></th:block>
 <div class="wrap">
-  <p th:text="${info.meetingId()}"></p>
   <div class="boardArea">
     <div class="viewArea">
       <table>
@@ -56,17 +55,23 @@
   </div>
   <div class="buttonArea">
     <div class="listBtn Btn"><a th:href="@{/meeting/list}">목록</a></div>
-    <div class="updateBtn Btn" th:if="${not #strings.isEmpty(ownerDTO)}"><a th:href="@{/meeting/update/{meetingId}(meetingId = ${info.meetingId()})}" th:text="수정"></a></div>
+    <div class="updateBtn Btn" th:if="${not #strings.isEmpty(ownerDTO)}"><a
+            th:href="@{/meeting/update/{meetingId}(meetingId = ${info.meetingId()})}" th:text="수정"></a></div>
     <th:block th:if="${#strings.isEmpty(acceptDTO)}">
-      <div class="updateBtn Btn" th:onclick="meetAppli([[${info.meetingId}]])" th:text="모임신청" th:if="${#strings.isEmpty(ownerDTO)}"></div>
+      <div class="updateBtn Btn" th:onclick="meetAppli([[${info.meetingId}]])" th:text="모임신청"
+           th:if="${#strings.isEmpty(ownerDTO)}"></div>
     </th:block>
-    <th:block th:if="${not #strings.isEmpty(acceptDTO)} and ${acceptDTO.status() != null and acceptDTO.status.name() == 'GRANT'}">
-      <div class="updateBtn Btn" th:onclick="meetingBoard([[${info.category().categoryId()}]],[[${info.meetingId()}]])" th:text="커뮤니티" th:if="${#strings.isEmpty(ownerDTO)}"></div>
-      <div class="updateBtn Btn meetingCancel" th:text="탈퇴하기" th:onclick="acceptDelete([[${acceptDTO.acceptId()}]])"></div>
+    <th:block
+            th:if="${not #strings.isEmpty(acceptDTO)} and ${acceptDTO.status() != null and acceptDTO.status.name() == 'GRANT'}">
+      <div class="updateBtn Btn" th:onclick="meetingBoard([[${info.category().categoryId()}]],[[${info.meetingId()}]])"
+           th:text="커뮤니티" th:if="${#strings.isEmpty(ownerDTO)}"></div>
+      <div class="updateBtn Btn meetingCancel" th:text="탈퇴하기"
+           th:onclick="acceptDelete([[${acceptDTO.acceptId()}]])"></div>
     </th:block>
 
-    <div class="updateBtn Btn" th:onclick="meetAppliList([[${info.meetingId}]])" th:text="멤버관리" th:if="${not #strings.isEmpty(ownerDTO)}"></div>
-<!--    <div class="deleteBtn Btn"><a th:href="@{/meeting/delete/{meetingId}(meetingId = ${info.meetingId()})}" th:text="삭제"></a></div>-->
+    <div class="updateBtn Btn" th:onclick="meetAppliList([[${info.meetingId}]])" th:text="멤버관리"
+         th:if="${not #strings.isEmpty(ownerDTO)}"></div>
+    <!--    <div class="deleteBtn Btn"><a th:href="@{/meeting/delete/{meetingId}(meetingId = ${info.meetingId()})}" th:text="삭제"></a></div>-->
   </div>
 </div>
 <th:block th:replace="/include/header.html :: footerFragment"></th:block>

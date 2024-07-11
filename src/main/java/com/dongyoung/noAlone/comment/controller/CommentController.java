@@ -25,8 +25,8 @@ public class CommentController {
     }
 
     @PostMapping("/save")
-    public void save(InsertRequestCommentModel comment, HttpSession session) {
-        Member member = (Member) session.getAttribute("member"); //필터에서 거르기 white리스트 onwer리스트 만들기
+    public void save(InsertRequestCommentModel comment, HttpSession session) {//requestBody
+        Member member = (Member) session.getAttribute("member");
         commentService.save(comment, member.getMemberId());
     }
 

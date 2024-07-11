@@ -1,7 +1,10 @@
 package com.dongyoung.noAlone.member.controller;
 
 import com.dongyoung.noAlone.mbti.service.MbtiService;
-import com.dongyoung.noAlone.member.Model.*;
+import com.dongyoung.noAlone.member.Model.FindResponseMemberWithMbtiModel;
+import com.dongyoung.noAlone.member.Model.InsertRequestMemberModel;
+import com.dongyoung.noAlone.member.Model.LoginRequestModel;
+import com.dongyoung.noAlone.member.Model.UpdateRequestMemberModel;
 import com.dongyoung.noAlone.member.entity.Member;
 import com.dongyoung.noAlone.member.service.MemberService;
 import jakarta.servlet.http.HttpSession;
@@ -11,7 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Log4j2
 @Controller
@@ -34,10 +40,10 @@ public class MemberController {
     @PostMapping("/save")
     public String save(@ModelAttribute("memberDTO") @Validated InsertRequestMemberModel memberDTO, BindingResult bindingResult, HttpSession session) {
         if (bindingResult.hasErrors()) {
-            log.info("errors={} ", bindingResult);
+            log.info("MemberController.save.errors={} ", bindingResult);
             return "/member/register";
         }
-        memberService.save(memberDTO,session);
+        memberService.save(memberDTO, session);
         return "redirect:/mbti/mbtiCheckForm";
     }
 
@@ -58,13 +64,13 @@ public class MemberController {
     }
 
     @GetMapping("/update")
-    public String update(Model model,HttpSession session) {
+    public String update(Model model, HttpSession session) {
 
         Member member = (Member) session.getAttribute("member");
         FindResponseMemberWithMbtiModel memberWithMbtiModel = memberService.find(member.getId());
-        model.addAttribute("memberDTO",memberWithMbtiModel);
-        model.addAttribute("mbtiInfo",memberWithMbtiModel.mbtiWithMemberModel());
-        model.addAttribute("mbtiList",mbtiService.findAll());
+        model.addAttribute("memberDTO", memberWithMbtiModel);
+        model.addAttribute("mbtiInfo", memberWithMbtiModel.mbtiWithMemberModel());
+        model.addAttribute("mbtiList", mbtiService.findAll());
 
 
         return "/member/update";
@@ -74,20 +80,20 @@ public class MemberController {
     public String update(@ModelAttribute("memberDTO") @Validated UpdateRequestMemberModel memberUpdateModel, BindingResult bindingResult, Model model, HttpSession session) {
         Member member = (Member) session.getAttribute("member");
         if (bindingResult.hasErrors()) {
-            log.info("errors={} ", bindingResult);
-            model.addAttribute("mbtiInfo1",member.getMbti().getMbtiId());
-            model.addAttribute("mbtiList1",mbtiService.findAll());
+            log.info("MemberController.update.errors={} ", bindingResult);
+            model.addAttribute("mbtiInfo1", member.getMbti().getMbtiId());
+            model.addAttribute("mbtiList1", mbtiService.findAll());
             return "/member/update";
         }
-        memberService.update(memberUpdateModel,session);
+        memberService.update(memberUpdateModel, session);
         return "redirect:/member/update";
     }
 
     @GetMapping("/myMbti")
-    public String myMbti(Model model,HttpSession session) {
+    public String myMbti(Model model, HttpSession session) {
         Member member = (Member) session.getAttribute("member");
         FindResponseMemberWithMbtiModel memberWithMbtiModel = memberService.find(member.getId());
-        model.addAttribute("memberInfo",memberWithMbtiModel);
+        model.addAttribute("memberInfo", memberWithMbtiModel);
         return "/mbti/myMbti";
     }
 }

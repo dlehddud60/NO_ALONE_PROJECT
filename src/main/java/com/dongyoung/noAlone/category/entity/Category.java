@@ -1,9 +1,8 @@
 package com.dongyoung.noAlone.category.entity;
 
 import com.dongyoung.noAlone.board.entity.Board;
-import com.dongyoung.noAlone.common.entity.DateTime;
+import com.dongyoung.noAlone.common.entity.BaseTimeEntity;
 import com.dongyoung.noAlone.meeting.entity.Meeting;
-import com.dongyoung.noAlone.owner.entity.Owner;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class Category {
+public class Category extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,13 +29,11 @@ public class Category {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @Embedded
-    private DateTime dateTime;
 
-    @OneToMany(mappedBy = "category",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.PERSIST)
     private final List<Board> boards = new ArrayList<>();
 
-    @OneToOne(mappedBy = "category",cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "category", cascade = CascadeType.PERSIST)
     private Meeting meeting;
 
 }

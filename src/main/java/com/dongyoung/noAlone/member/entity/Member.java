@@ -4,7 +4,8 @@ import com.dongyoung.noAlone.accept.entity.Accept;
 import com.dongyoung.noAlone.board.entity.Board;
 import com.dongyoung.noAlone.comment.entity.Comment;
 import com.dongyoung.noAlone.commentRe.entity.CommentRe;
-import com.dongyoung.noAlone.common.entity.DateTime;
+import com.dongyoung.noAlone.common.entity.BaseTimeEntity;
+import com.dongyoung.noAlone.like.entity.Like;
 import com.dongyoung.noAlone.mbti.entity.Mbti;
 import com.dongyoung.noAlone.owner.entity.Owner;
 import jakarta.persistence.*;
@@ -20,14 +21,14 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class Member {
+public class Member extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "MEMBER_ID")
     private Long memberId;
 
-    @Column(name = "ID",unique = true)
+    @Column(name = "ID", unique = true)
     private String id;
 
     @Column(name = "PASSWORD")
@@ -39,7 +40,7 @@ public class Member {
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "EMAIL" ,unique = true)
+    @Column(name = "EMAIL", unique = true)
     private String email;
 
     @Column(name = "GENDER")
@@ -63,27 +64,28 @@ public class Member {
     @Enumerated(EnumType.STRING)
     @Column(name = "ROLE")
     private Role role;
-
-    @Embedded
-    private DateTime dateTime;
-
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MBTI_ID")
     private Mbti mbti;
 
-    @OneToMany(mappedBy = "member",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
     private final List<Owner> owners = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
     private final List<Accept> accepts = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
     private final List<Board> boards = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
     private final List<Comment> comments = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
     private final List<CommentRe> commentRes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.PERSIST)
+    private List<Like> likes = new ArrayList<>();
+
 
 }

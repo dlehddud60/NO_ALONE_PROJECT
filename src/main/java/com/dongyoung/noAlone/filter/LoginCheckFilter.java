@@ -11,7 +11,7 @@ import java.io.IOException;
 
 @Log4j2
 public class LoginCheckFilter implements Filter {
-    private static final String[] whitelist = {"/com/*", "/error", "*.ico", "/css/*", "/js/*", "/img/*", "/scss/*", "/vendor/*","/member/*","/api/*","/comment/*","/commentRe/*"};
+    private static final String[] whitelist = {"/com/*", "/error", "*.ico", "/css/*", "/js/*", "/img/*", "/scss/*", "/vendor/*","/member/*","/api/*","/like/*"};
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

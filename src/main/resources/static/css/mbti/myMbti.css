@@ -1,140 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;900&display=swap');
+
 @font-face {
     font-family: 'SUITE-Regular';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
 }
-@font-face {
-    font-family: 'KBO-Dia-Gothic_bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
-}
 
-@font-face {
-    font-family: 'WavvePADO-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2404@1.0/WavvePADO-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'HSSanTokki20-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405@1.0/HSSanTokki20-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face{
-    font-family:'DNFBitBitv2';
-    font-style:normal;font-weight:400;src:url('//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf')format('opentype')}
-@font-face {
-    font-family: 'TTLaundryGothicB';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2403-2@1.0/TTLaundryGothicB.woff2') format('woff2');
-    font-weight: 700;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'BagelFatOne-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_JAMO@1.0/BagelFatOne-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'MoiraiOne-Regular';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_JAMO@1.0/MoiraiOne-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Giants-Inline';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/Giants-Inline.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'Gisangchung Dalcomgihu';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2405@1.0/Gisangchung Dalcomgihu.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'omyu_pretty';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Tenada';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2210-2@1.0/Tenada.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'GongGothicMedium';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/GongGothicMedium.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
 @font-face {
     font-family: 'Freesentation-9Black';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2404@1.0/Freesentation-9Black.woff2') format('woff2');
     font-weight: 900;
     font-style: normal;
 }
-*{
-    text-decoration: none;
-    list-style: none;
-}
-a {
-    color: white;
-    font-family: SUITE-Regular;
-}
-p{
-    font-family: SUITE-Regular;
-}
-.wrap {
-    height: 100vh;
-    width: 65%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 1% auto auto;
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'SUITE-Regular', 'Poppins', sans-serif;
 }
-.mbtiArea {
+
+body {
+    background-color: #f0f2f5;
+    color: #333;
+    line-height: 1.6;
+}
+
+.wrap {
+    min-height: 100vh;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    /*border: 1px solid black;*/
-    height: 90%;
-    width: 80%;
+    padding: 20px;
 }
 
 .mbtiResult {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 80%;
-    height: 60%;
-    text-align: center;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
     border-radius: 20px;
-    background: rgb(162, 162, 162);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    text-align: center;
+    max-width: 800px;
+    width: 100%;
 }
-.mbtiResult .mbtiResultText{
+
+.mbtiResultText {
+    font-family: 'Freesentation-9Black', 'Poppins', sans-serif;
+    font-size: 2.5rem;
     color: white;
-    font-size: 3rem;
-    font-family:Freesentation-9Black;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.mbtiResult .description {
-    margin-top: 5%;
-    color : white;
-    font-size: 1.2rem;
-    width: 90%;
+.description {
+    color: white;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-top: 20px;
 }
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
+.mbtiResult {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+@media (max-width: 768px) {
+    .mbtiResult {
+        padding: 30px;
+    }
+
+    .mbtiResultText {
+        font-size: 2rem;
+    }
+
+    .description {
+        font-size: 1rem;
+    }
+}

@@ -8,14 +8,12 @@ import com.dongyoung.noAlone.comment.model.UpdateRequestCommentModel;
 import com.dongyoung.noAlone.comment.model.mapper.CommentMapper;
 import com.dongyoung.noAlone.comment.repository.CommentRepository;
 import com.dongyoung.noAlone.comment.service.CommentService;
-import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.member.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,10 +36,7 @@ public class CommentServiceImpl implements CommentService {
     public void save(InsertRequestCommentModel comment, Long memberId) {
         Comment commentEntity = Comment.builder()
                 .content(comment.content())
-                .dateTime(DateTime.builder()
-                        .inputDt(LocalDate.now())
-                        .build())
-                .board(boardRepository.findByBoardId(Long.parseLong(comment.boardId())))
+                .board(boardRepository.findByBoardId(comment.boardId()))
                 .member(memberRepository.findByMemberId(memberId))
                 .build();
         commentRepository.save(commentEntity);
@@ -51,8 +46,6 @@ public class CommentServiceImpl implements CommentService {
     public void update(UpdateRequestCommentModel commentModel, Long commentId) {
         Comment comment = commentRepository.findByCommentId(commentId);
         comment.setContent(commentModel.content());
-        comment.getDateTime().setUpdateDt(LocalDate.now());
-
     }
 
     @Override

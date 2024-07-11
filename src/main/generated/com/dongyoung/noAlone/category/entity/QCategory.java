@@ -22,17 +22,23 @@ public class QCategory extends EntityPathBase<Category> {
 
     public static final QCategory category = new QCategory("category");
 
+    public final com.dongyoung.noAlone.common.entity.QBaseTimeEntity _super = new com.dongyoung.noAlone.common.entity.QBaseTimeEntity(this);
+
     public final ListPath<com.dongyoung.noAlone.board.entity.Board, com.dongyoung.noAlone.board.entity.QBoard> boards = this.<com.dongyoung.noAlone.board.entity.Board, com.dongyoung.noAlone.board.entity.QBoard>createList("boards", com.dongyoung.noAlone.board.entity.Board.class, com.dongyoung.noAlone.board.entity.QBoard.class, PathInits.DIRECT2);
 
     public final NumberPath<Long> categoryId = createNumber("categoryId", Long.class);
 
-    public final com.dongyoung.noAlone.common.entity.QDateTime dateTime;
-
     public final StringPath description = createString("description");
+
+    //inherited
+    public final DatePath<java.time.LocalDate> inputDt = _super.inputDt;
 
     public final com.dongyoung.noAlone.meeting.entity.QMeeting meeting;
 
     public final StringPath name = createString("name");
+
+    //inherited
+    public final DatePath<java.time.LocalDate> updateDt = _super.updateDt;
 
     public QCategory(String variable) {
         this(Category.class, forVariable(variable), INITS);
@@ -52,7 +58,6 @@ public class QCategory extends EntityPathBase<Category> {
 
     public QCategory(Class<? extends Category> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.dateTime = inits.isInitialized("dateTime") ? new com.dongyoung.noAlone.common.entity.QDateTime(forProperty("dateTime")) : null;
         this.meeting = inits.isInitialized("meeting") ? new com.dongyoung.noAlone.meeting.entity.QMeeting(forProperty("meeting"), inits.get("meeting")) : null;
     }
 

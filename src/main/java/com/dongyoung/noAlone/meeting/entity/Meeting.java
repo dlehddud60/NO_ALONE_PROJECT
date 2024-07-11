@@ -2,7 +2,7 @@ package com.dongyoung.noAlone.meeting.entity;
 
 import com.dongyoung.noAlone.accept.entity.Accept;
 import com.dongyoung.noAlone.category.entity.Category;
-import com.dongyoung.noAlone.common.entity.DateTime;
+import com.dongyoung.noAlone.common.entity.BaseTimeEntity;
 import com.dongyoung.noAlone.owner.entity.Owner;
 import jakarta.persistence.*;
 import lombok.*;
@@ -17,7 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class Meeting {
+public class Meeting extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,13 +39,10 @@ public class Meeting {
     @Column(name = "QUESTION")
     private String question;
 
-    @Embedded
-    private DateTime dateTime;
-
-    @OneToOne(mappedBy = "meeting",cascade = CascadeType.PERSIST)
+    @OneToOne(mappedBy = "meeting", cascade = CascadeType.PERSIST)
     private Owner owner;
 
-    @OneToMany(mappedBy = "meeting",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "meeting", cascade = CascadeType.PERSIST)
     private final List<Accept> accepts = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)

@@ -6,7 +6,6 @@ import com.dongyoung.noAlone.board.model.FindResponseBoardModel;
 import com.dongyoung.noAlone.category.entity.Category;
 import com.dongyoung.noAlone.category.model.FindResponseCategoryListModel;
 import com.dongyoung.noAlone.category.model.FindResponseCategoryModel;
-import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.member.Model.FindResponseMemberWithMemberListModel;
 import com.dongyoung.noAlone.member.Model.FindResponseMemberWithMemberModel;
 import com.dongyoung.noAlone.member.entity.Member;
@@ -16,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-10T21:00:00+0900",
+    date = "2024-07-11T10:51:19+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
@@ -30,19 +29,19 @@ public class BoardMapperImpl implements BoardMapper {
 
         FindResponseCategoryListModel category = null;
         FindResponseMemberWithMemberListModel member = null;
-        LocalDate inputDt = null;
         Long boardId = null;
         String title = null;
         String content = null;
         Integer views = null;
+        LocalDate inputDt = null;
 
         category = categoryToFindResponseCategoryListModel( board.getCategory() );
         member = memberToFindResponseMemberWithMemberListModel( board.getMember() );
-        inputDt = boardDateTimeInputDt( board );
         boardId = board.getBoardId();
         title = board.getTitle();
         content = board.getContent();
         views = board.getViews();
+        inputDt = board.getInputDt();
 
         FindResponseBoardListModel findResponseBoardListModel = new FindResponseBoardListModel( boardId, title, content, views, inputDt, member, category );
 
@@ -57,19 +56,19 @@ public class BoardMapperImpl implements BoardMapper {
 
         FindResponseCategoryModel category = null;
         FindResponseMemberWithMemberModel member = null;
-        LocalDate inputDt = null;
         Long boardId = null;
         String title = null;
         String content = null;
         Integer views = null;
+        LocalDate inputDt = null;
 
         category = categoryToFindResponseCategoryModel( board.getCategory() );
         member = memberToFindResponseMemberWithMemberModel( board.getMember() );
-        inputDt = boardDateTimeInputDt( board );
         boardId = board.getBoardId();
         title = board.getTitle();
         content = board.getContent();
         views = board.getViews();
+        inputDt = board.getInputDt();
 
         FindResponseBoardModel findResponseBoardModel = new FindResponseBoardModel( boardId, title, content, views, inputDt, member, category );
 
@@ -84,12 +83,12 @@ public class BoardMapperImpl implements BoardMapper {
         Long categoryId = null;
         String name = null;
         String description = null;
+        LocalDate inputDt = null;
 
         categoryId = category.getCategoryId();
         name = category.getName();
         description = category.getDescription();
-
-        LocalDate inputDt = null;
+        inputDt = category.getInputDt();
 
         FindResponseCategoryListModel findResponseCategoryListModel = new FindResponseCategoryListModel( categoryId, name, description, inputDt );
 
@@ -132,21 +131,6 @@ public class BoardMapperImpl implements BoardMapper {
         return findResponseMemberWithMemberListModel;
     }
 
-    private LocalDate boardDateTimeInputDt(Board board) {
-        if ( board == null ) {
-            return null;
-        }
-        DateTime dateTime = board.getDateTime();
-        if ( dateTime == null ) {
-            return null;
-        }
-        LocalDate inputDt = dateTime.getInputDt();
-        if ( inputDt == null ) {
-            return null;
-        }
-        return inputDt;
-    }
-
     protected FindResponseCategoryModel categoryToFindResponseCategoryModel(Category category) {
         if ( category == null ) {
             return null;
@@ -155,12 +139,12 @@ public class BoardMapperImpl implements BoardMapper {
         Long categoryId = null;
         String name = null;
         String description = null;
+        LocalDate inputDt = null;
 
         categoryId = category.getCategoryId();
         name = category.getName();
         description = category.getDescription();
-
-        LocalDate inputDt = null;
+        inputDt = category.getInputDt();
 
         FindResponseCategoryModel findResponseCategoryModel = new FindResponseCategoryModel( categoryId, name, description, inputDt );
 

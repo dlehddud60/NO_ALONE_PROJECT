@@ -22,9 +22,21 @@ public class QLike extends EntityPathBase<Like> {
 
     public static final QLike like = new QLike("like1");
 
-    public final com.dongyoung.noAlone.common.entity.QDateTime dateTime;
+    public final com.dongyoung.noAlone.common.entity.QBaseTimeEntity _super = new com.dongyoung.noAlone.common.entity.QBaseTimeEntity(this);
+
+    public final com.dongyoung.noAlone.comment.entity.QComment comment;
+
+    public final com.dongyoung.noAlone.commentRe.entity.QCommentRe commentRe;
+
+    //inherited
+    public final DatePath<java.time.LocalDate> inputDt = _super.inputDt;
 
     public final NumberPath<Long> likesId = createNumber("likesId", Long.class);
+
+    public final com.dongyoung.noAlone.member.entity.QMember member;
+
+    //inherited
+    public final DatePath<java.time.LocalDate> updateDt = _super.updateDt;
 
     public QLike(String variable) {
         this(Like.class, forVariable(variable), INITS);
@@ -44,7 +56,9 @@ public class QLike extends EntityPathBase<Like> {
 
     public QLike(Class<? extends Like> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.dateTime = inits.isInitialized("dateTime") ? new com.dongyoung.noAlone.common.entity.QDateTime(forProperty("dateTime")) : null;
+        this.comment = inits.isInitialized("comment") ? new com.dongyoung.noAlone.comment.entity.QComment(forProperty("comment"), inits.get("comment")) : null;
+        this.commentRe = inits.isInitialized("commentRe") ? new com.dongyoung.noAlone.commentRe.entity.QCommentRe(forProperty("commentRe"), inits.get("commentRe")) : null;
+        this.member = inits.isInitialized("member") ? new com.dongyoung.noAlone.member.entity.QMember(forProperty("member"), inits.get("member")) : null;
     }
 
 }

@@ -1,174 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 @font-face {
     font-family: 'SUITE-Regular';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
     font-weight: 400;
     font-style: normal;
 }
-@font-face {
-    font-family: 'KBO-Dia-Gothic_bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/KBO-Dia-Gothic_bold.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'SUITE-Regular', 'Poppins', sans-serif;
 }
 
-@font-face {
-    font-family: 'WavvePADO-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2404@1.0/WavvePADO-Regular.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
-
-
-*{
-    text-decoration: none;
-    list-style: none;
+body {
+    background-color: #f0f2f5;
+    color: #333;
 }
 
 .wrap {
-    /*background: #484e6e;*/
-    height: 100%;
-    margin-top: 100px;
+    max-width: 1000px;
+    margin: 100px auto 0;
+    padding: 20px;
 }
-
-
 
 .boardArea {
-    height: 40vh;
-    width: 70%;
-    margin: auto auto 1%;
-    display: flex;
-    justify-content:center;
-    align-items : center;
-
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin-bottom: 30px;
 }
+
 .viewArea {
-    padding-top: 3%;
-    padding-bottom: 3%;
-    height: 60%;
-    width: 90%;
-    display: flex;
-    justify-content:center;
-    align-items : center;
+    width: 100%;
 }
 
 table {
-    font-family: SUITE-Regular;
-    width: 80%;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 15px;
 }
 
-
-table tr th {
-    background: #ffc5ed;
-    height: 6vh;
-    width: 10%;
-}
-table tbody tr td {
-    background: #ffc5ed;
-    height: 4vh;
-    text-indent: 15px;
+table th {
+    text-align: left;
+    padding: 15px;
+    background: #4a90e2;
+    color: white;
+    border-radius: 10px 0 0 10px;
+    font-weight: 600;
+    width: 20%;
 }
 
-
-.detail {
-    height: 30vh;
+table td {
+    padding: 15px;
+    background: #f7f9fc;
+    border-radius: 0 10px 10px 0;
 }
 
 .buttonArea {
-    margin: auto auto 5%;
-    width: 50%;height: 5vh;
     display: flex;
-    justify-content: right;
-    align-items: center;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
 
-}
 .Btn {
-    border-radius: 7px;
-    text-align: center;
-    line-height: 4vh;
-    width: 4vw; height: 4vh;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 50px;
     color: white;
-    font-family: SUITE-Regular;
+    font-weight: 600;
     cursor: pointer;
+    transition: all 0.3s ease;
+    margin-left: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
+
 .listBtn {
-    background: #2b48dc;
+    background-color: #34495e;
 }
-.listBtn:hover{
-    background: #516eff;
+
+.listBtn:hover {
+    background-color: #2c3e50;
+    transform: translateY(-3px);
 }
+
 .updateBtn {
-    background: #56a654;
+    background-color: #2ecc71;
 }
+
 .updateBtn:hover {
-    background: #95de94;
+    background-color: #27ae60;
+    transform: translateY(-3px);
 }
 
 .deleteBtn {
-    background: #ff6b6b;
+    background-color: #e74c3c;
 }
+
 .deleteBtn:hover {
-    background: #ffacac;
+    background-color: #c0392b;
+    transform: translateY(-3px);
 }
-.meetingCancelArea {
-}
+
 .meetingCancel {
-    background: #dc3545;
+    background-color: #dc3545;
 }
-.commentArea{
-    border: 1px solid black;
-    width: 50%;
-    height: 20vh;
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center;    /* Center vertically */
-    margin: 0 auto;
+
+.meetingCancel:hover {
+    background-color: #c82333;
+    transform: translateY(-3px);
 }
-.commentReArea{
-    border-bottom: 1px solid black;
-    width: 99%;
-    height: 20vh;
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center;    /* Center vertically */
-    margin: 0 auto;
+
+.commentArea {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 30px auto;
+    width: 80%;
 }
+
+.commentReArea {
+    border-top: 1px solid #e0e0e0;
+    padding: 20px 0;
+    margin-top: 20px;
+}
+
 .inputCommnet {
-    height: 20vh;
-    width: 95%;
     display: flex;
-    justify-content: center; /* Center horizontally */
+    justify-content: space-between;
     align-items: center;
 }
+
 textarea[name=content] {
+    border: 1px solid #e0e0e0;
     border-radius: 10px;
-    margin-right: 1.5%;
+    padding: 15px;
     width: 85%;
-    height: 80%;
+    height: 100px;
+    resize: vertical;
 }
 
 .commentListArea {
-    border-top: 1px solid black;
-
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    overflow-y: auto;
-    padding-bottom: 3%;
-    margin: 5% auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 30px auto;
+    width: 80%;
 }
 
 .commentView {
-    border-bottom: 1px solid black;
-    width: 100%;
-    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 15px 0;
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1px;
+    align-items: center;
 }
 
-/*.commentUpdateFormBtn,.commentDeleteFormBtn {*/
-/*    float: right;*/
-/*}*/
+.commentViewList p {
+    margin: 5px 0;
+}
 
+.commentBtnArea {
+    display: flex;
+}
+
+.commentBtnArea .Btn {
+    padding: 8px 15px;
+    font-size: 0.9em;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.boardArea, .commentArea, .commentListArea {
+    animation: fadeIn 0.6s ease-out forwards;
+}

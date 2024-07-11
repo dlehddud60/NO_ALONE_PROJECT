@@ -1,16 +1,10 @@
 package com.dongyoung.noAlone.meeting.service.impl;
 
-import com.dongyoung.noAlone.accept.entity.Accept;
-import com.dongyoung.noAlone.accept.entity.Status;
-import com.dongyoung.noAlone.accept.model.InsertRequestApplicationModel;
-import com.dongyoung.noAlone.accept.repository.AcceptRepository;
 import com.dongyoung.noAlone.category.entity.Category;
 import com.dongyoung.noAlone.category.repository.CategoryRepository;
-import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.meeting.entity.Meeting;
 import com.dongyoung.noAlone.meeting.model.*;
 import com.dongyoung.noAlone.meeting.model.mapper.MeetingMapper;
-import com.dongyoung.noAlone.meeting.repository.MeetingQueryReposity;
 import com.dongyoung.noAlone.meeting.repository.MeetingRepository;
 import com.dongyoung.noAlone.meeting.service.MeetingService;
 import com.dongyoung.noAlone.member.repository.MemberRepository;
@@ -23,7 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,8 +29,6 @@ public class MeetingServiceImpl implements MeetingService {
     private final MemberRepository memberRepository;
     private final OwnerRepository ownerRepository;
     private final MeetingMapper meetingMapper;
-    private final AcceptRepository acceptRepository;
-    private final MeetingQueryReposity meetingQueryReposity;
     private final CategoryRepository categoryRepository;
 
     @Override
@@ -47,7 +38,7 @@ public class MeetingServiceImpl implements MeetingService {
 
     @Override
     public Page<FindResponseMeetingAndOwnerListModel> findAllByQueryDsl(SearchCondition search, Pageable pageable) {
-        return meetingQueryReposity.findAllByQueryDsl(search, pageable);
+        return meetingRepository.findAllByQueryDsl(search, pageable);
     }
 
     @Override
@@ -60,9 +51,6 @@ public class MeetingServiceImpl implements MeetingService {
         Category category = Category.builder()
                 .name(meetingModel.name())
                 .description(meetingModel.name())
-                .dateTime(DateTime.builder()
-                        .inputDt(LocalDate.now())
-                        .build())
                 .build();
         categoryRepository.save(category);
 
@@ -72,10 +60,6 @@ public class MeetingServiceImpl implements MeetingService {
                 .rule(meetingModel.rule())
                 .question(meetingModel.question())
                 .location(meetingModel.location())
-                .dateTime(
-                        DateTime.builder()
-                                .inputDt(LocalDate.now())
-                                .build())
                 .category(category)
                 .build();
         meetingRepository.save(meeting);
@@ -83,9 +67,6 @@ public class MeetingServiceImpl implements MeetingService {
         Owner owner = Owner.builder()
                 .member(memberRepository.findByMemberId(meetingModel.memberId()))
                 .meeting(meeting)
-                .dateTime(DateTime.builder()
-                        .inputDt(LocalDate.now())
-                        .build())
                 .build();
         ownerRepository.save(owner);
     }
@@ -100,40 +81,12 @@ public class MeetingServiceImpl implements MeetingService {
         meeting.setRule(meetingModel.rule());
         meeting.setLocation(meetingModel.location());
         meeting.setQuestion(meetingModel.question());
-        meeting.getDateTime().setUpdateDt(LocalDate.now());
     }
 
     @Override
     public void delete(Long meetingId) {
         ownerRepository.deleteById(meetingRepository.findByMeetingId(meetingId).getOwner().getOwnerId());
         meetingRepository.deleteById(meetingId);
-    }
-
-    @Override
-    public void application(InsertRequestApplicationModel appliModel) {
-
-        Accept accept = Accept.builder()
-                .meeting(meetingRepository.findByMeetingId(appliModel.meetingId()))
-                .member(memberRepository.findByMemberId(appliModel.memberId()))
-                .aboutMe(appliModel.aboutMe())
-                .companionReason(appliModel.companionReason())
-                .status(Status.APPLY)
-                .dateTime(DateTime.builder()
-                        .inputDt(LocalDate.now())
-                        .build())
-                .build();
-        acceptRepository.save(accept);
-    }
-
-    @Override
-    public List<FindResponseMeetingAppliListModel> applicationList(Long meetingId) {
-        return acceptRepository.findAllByMeeting_MeetingId(meetingId).stream().map(meetingMapper::toMeetingAppliListModel).collect(Collectors.toList());
-    }
-
-    @Override
-    public void changeStatus(ChangeStatusRequestModel statusModel) {
-        Accept accept = acceptRepository.findByAcceptId(statusModel.acceptId());
-        accept.setStatus(statusModel.status());
     }
 
 

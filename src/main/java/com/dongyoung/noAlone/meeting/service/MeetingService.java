@@ -1,6 +1,5 @@
 package com.dongyoung.noAlone.meeting.service;
 
-import com.dongyoung.noAlone.accept.model.InsertRequestApplicationModel;
 import com.dongyoung.noAlone.meeting.model.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,11 +17,6 @@ public interface MeetingService {
 
     void delete(Long meetingId);
 
-    void application(InsertRequestApplicationModel applicationModel);
-
-    List<FindResponseMeetingAppliListModel> applicationList(Long meetingId);
-
-    void changeStatus(ChangeStatusRequestModel statusModel);
 
     Page<FindResponseMeetingAndOwnerListModel> findAllByQueryDsl(SearchCondition search, Pageable pageable);
 }

@@ -4,7 +4,6 @@ import com.dongyoung.noAlone.board.entity.Board;
 import com.dongyoung.noAlone.board.model.FindResponseBoardCommentListModel;
 import com.dongyoung.noAlone.comment.entity.Comment;
 import com.dongyoung.noAlone.comment.model.FindResponseCommentListModel;
-import com.dongyoung.noAlone.common.entity.DateTime;
 import com.dongyoung.noAlone.member.Model.FindResponseMemberWithCommentListModel;
 import com.dongyoung.noAlone.member.entity.Member;
 import java.time.LocalDate;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-06-10T21:48:19+0900",
+    date = "2024-07-11T10:51:18+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 21.0.2 (Oracle Corporation)"
 )
 @Component
@@ -27,15 +26,15 @@ public class CommentMapperImpl implements CommentMapper {
 
         FindResponseBoardCommentListModel board = null;
         FindResponseMemberWithCommentListModel member = null;
-        LocalDate inputDt = null;
         Long commentId = null;
         String content = null;
+        LocalDate inputDt = null;
 
         board = boardToFindResponseBoardCommentListModel( comment.getBoard() );
         member = memberToFindResponseMemberWithCommentListModel( comment.getMember() );
-        inputDt = commentDateTimeInputDt( comment );
         commentId = comment.getCommentId();
         content = comment.getContent();
+        inputDt = comment.getInputDt();
 
         FindResponseCommentListModel findResponseCommentListModel = new FindResponseCommentListModel( commentId, content, inputDt, board, member );
 
@@ -51,13 +50,14 @@ public class CommentMapperImpl implements CommentMapper {
         String title = null;
         String content = null;
         Integer views = null;
+        LocalDate inputDt = null;
 
         boardId = board.getBoardId();
         title = board.getTitle();
         content = board.getContent();
         views = board.getViews();
+        inputDt = board.getInputDt();
 
-        LocalDate inputDt = null;
         FindResponseCommentListModel comment = null;
 
         FindResponseBoardCommentListModel findResponseBoardCommentListModel = new FindResponseBoardCommentListModel( boardId, title, content, views, inputDt, comment );
@@ -99,20 +99,5 @@ public class CommentMapperImpl implements CommentMapper {
         FindResponseMemberWithCommentListModel findResponseMemberWithCommentListModel = new FindResponseMemberWithCommentListModel( memberId, id, password, nickname, name, email, gender, age, birthday, profileImage, birthyear, mobile );
 
         return findResponseMemberWithCommentListModel;
-    }
-
-    private LocalDate commentDateTimeInputDt(Comment comment) {
-        if ( comment == null ) {
-            return null;
-        }
-        DateTime dateTime = comment.getDateTime();
-        if ( dateTime == null ) {
-            return null;
-        }
-        LocalDate inputDt = dateTime.getInputDt();
-        if ( inputDt == null ) {
-            return null;
-        }
-        return inputDt;
     }
 }

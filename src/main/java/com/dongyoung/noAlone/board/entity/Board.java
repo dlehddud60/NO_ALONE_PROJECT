@@ -2,11 +2,11 @@ package com.dongyoung.noAlone.board.entity;
 
 import com.dongyoung.noAlone.category.entity.Category;
 import com.dongyoung.noAlone.comment.entity.Comment;
-import com.dongyoung.noAlone.common.entity.DateTime;
+import com.dongyoung.noAlone.common.entity.BaseTimeEntity;
 import com.dongyoung.noAlone.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,8 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-public class Board {
+@DynamicInsert // 공부하기
+public class Board extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,14 +29,11 @@ public class Board {
     @Column(name = "TITLE")
     private String title;
 
-    @Column(name = "CONTENT",length = 3000)
+    @Column(name = "CONTENT", length = 3000)
     private String content;
 
-    @Column(name = "VIEWS", columnDefinition = "integer default 0",nullable = false)
-    private Integer views = 0; //조회수
-
-    @Embedded
-    private DateTime dateTime;
+    @Column(name = "VIEWS")
+    private Integer views; //조회수
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberId")
@@ -45,6 +43,6 @@ public class Board {
     @JoinColumn(name = "categoryId")
     private Category category;
 
-    @OneToMany(mappedBy = "board",cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "board", cascade = CascadeType.PERSIST)
     private final List<Comment> comments = new ArrayList<>();
 }

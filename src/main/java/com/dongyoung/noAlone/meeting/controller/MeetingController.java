@@ -14,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,7 +32,7 @@ public class MeetingController {
 
 
     @GetMapping("/list")
-    public String findAll(Model model, SearchCondition search, @PageableDefault(size = 5) Pageable pageable) {
+    public String findAll(Model model, SearchCondition search, Pageable pageable) {
         Page<FindResponseMeetingAndOwnerListModel> allByQueryDsl = meetingService.findAllByQueryDsl(search, pageable);
         model.addAttribute("list", allByQueryDsl);
         model.addAttribute("maxPage", 10);
@@ -62,7 +61,7 @@ public class MeetingController {
     @PostMapping("/save")
     public String save(@Validated InsertRequestMeetingModel meetingModel, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            log.info("errors={} ", bindingResult);
+            log.info("MeetingController.save.errors={} ", bindingResult);
             return "/meeting/saveForm";
         }
         meetingService.save(meetingModel);
@@ -70,10 +69,10 @@ public class MeetingController {
     }
 
     @GetMapping("/update/{meetingId}")
-    public String update(@PathVariable(value = "meetingId") Long meetingId, Model model,HttpSession session) {
+    public String update(@PathVariable(value = "meetingId") Long meetingId, Model model, HttpSession session) {
         FindResponseMeetingViewModel owner = meetingService.find(meetingId);
         Member member = (Member) session.getAttribute("member");
-        if(!owner.ownerWithMeetingModel().memberModel().memberId().equals(member.getMemberId())) {
+        if (!owner.ownerWithMeetingModel().memberModel().memberId().equals(member.getMemberId())) {
             return "redirect:/meeting/list";
         }
         model.addAttribute("info", owner);
@@ -83,7 +82,7 @@ public class MeetingController {
     @PostMapping("/update")
     public String update(@Validated UpdateRequestMeetingModel meetingModel, BindingResult bindingResult, HttpServletRequest request) {
         if (bindingResult.hasErrors()) {
-            log.info("errors={} ", bindingResult);
+            log.info("MeetingController.update.errors={} ", bindingResult);
             return "redirect:" + request.getHeader("Referer");
         }
         meetingService.update(meetingModel);
@@ -112,14 +111,15 @@ public class MeetingController {
     @PostMapping("/application")
     public String application(@ModelAttribute @Validated InsertRequestApplicationModel applicationModel, BindingResult bindingResult, HttpServletRequest request, RedirectAttributes rttr) {
         if (bindingResult.hasErrors()) {
-            log.info("errors={} ", bindingResult);
+//            System.out.println("MeetingController.application");
+            log.info("MeetingController.application.errors={} ", bindingResult);
             rttr.addFlashAttribute("aboutMe", applicationModel.aboutMe());
             rttr.addFlashAttribute("companionReason", applicationModel.companionReason());
             //검증 시 데이터 유지위한 코드
             return "redirect:" + request.getHeader("Referer");
         }
         rttr.addFlashAttribute("insertMsg", "이미 가입하셨습니다.");
-        meetingService.application(applicationModel);
+        acceptService.application(applicationModel);
         return "redirect:/meeting/list";
     }
 
@@ -127,7 +127,7 @@ public class MeetingController {
     public String applicationList(Model model, @PathVariable(value = "meetingId") Long meetingId, HttpSession session) {
         Member member = (Member) session.getAttribute("member"); //필터에서 거르기 white리스트 onwer리스트 만들기
         FindResponseOwnerModel owner = ownerService.find(meetingId, member.getMemberId());
-        model.addAttribute("list", meetingService.applicationList(meetingId));
+        model.addAttribute("list", acceptService.applicationList(meetingId));
 
         if (owner != null) {
             return "meeting/applicationList";
@@ -141,7 +141,7 @@ public class MeetingController {
         if (bindingResult.hasErrors()) {
             return "redirect:" + request.getHeader("Referer");
         }
-        meetingService.changeStatus(statusModel);
+        acceptService.changeStatus(statusModel);
         return "redirect:" + request.getHeader("Referer");
     }
 }

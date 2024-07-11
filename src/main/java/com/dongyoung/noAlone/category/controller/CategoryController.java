@@ -25,15 +25,15 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping("list")
-    public String list(Model model, @PageableDefault(size = 10) Pageable pageable, SearchCondition search) {
+    public String list(Model model, Pageable pageable, SearchCondition search) {
         model.addAttribute("maxPage", 10);
-        model.addAttribute("list",categoryService.findAllbyQueryDsl(search,pageable));
+        model.addAttribute("list", categoryService.findAllbyQueryDsl(search, pageable));
         return "category/list";
     }
 
     @GetMapping("/find/{categoryId}")
-    public String find(@PathVariable(value="categoryId") Long categoryId, Model model) {
-        model.addAttribute("info",categoryService.find(categoryId));
+    public String find(@PathVariable(value = "categoryId") Long categoryId, Model model) {
+        model.addAttribute("info", categoryService.find(categoryId));
         return "category/view";
     }
 
@@ -49,8 +49,8 @@ public class CategoryController {
     }
 
     @GetMapping("/update/{categoryId}")
-    public String updateForm(@PathVariable(value="categoryId") Long categoryId, Model model) {
-        model.addAttribute("info",categoryService.find(categoryId));
+    public String updateForm(@PathVariable(value = "categoryId") Long categoryId, Model model) {
+        model.addAttribute("info", categoryService.find(categoryId));
         return "category/updateForm";
     }
 
@@ -61,7 +61,7 @@ public class CategoryController {
     }
 
     @GetMapping("/delete/{categoryId}")
-    public String delete(@PathVariable(value="categoryId") Long categoryId) {
+    public String delete(@PathVariable(value = "categoryId") Long categoryId) {
         categoryService.delete(categoryId);
         return "redirect:/category/list";
     }
