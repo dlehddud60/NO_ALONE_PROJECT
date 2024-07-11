@@ -29,8 +29,6 @@ const findAll = (boardId) => {
     success: function (data) {
       $(".commentListArea").html("");
       $.map(data, function (comment) {
-        console.log(comment.commentId);
-
         // 각 댓글을 나타내는 HTML 구조
         let commentHtml = `
                     <div class="commentView" id="comment-${comment.commentId}">
@@ -61,9 +59,7 @@ const findAll = (boardId) => {
           url: '/commentRe/list/' + comment.commentId,
           type: 'get',
           success: function (data) {
-            console.log(data);
             $.map(data, function (commentRe) {
-
               // 대댓글을 나타내는 HTML 구조
               let commentReHtml = `
                                 <div class="commentView" id="commentRe-${commentRe.commentReId}">
@@ -87,6 +83,7 @@ const findAll = (boardId) => {
               // 각 대댓글의 좋아요 수를 불러오기 위한 AJAX 요청
               listCount(commentRe.commentReId, 'COMMENT_RE');
               myLike(commentRe.commentReId, 'COMMENT_RE');
+
             });
           },
           error: function (err) {
@@ -171,7 +168,6 @@ const commentReFunc = (param, obj) => {
 
 const commentReSave = (commentId) => {
   const commentContent = $(".commentReForm").val();
-  console.log(commentId)
   $.ajax({
     url: '/commentRe/save',
     type: 'post',
@@ -274,13 +270,12 @@ const listCount = (id, likeDivision) => {
 }
 
 const likeSave = (id, likeDivision, element) => {
-
   var idName;
 
   if (likeDivision === 'COMMENT') {
-    idName = 'commentId'
+    idName = 'commentId';
   } else if (likeDivision === 'COMMENT_RE') {
-    idName = 'commentReId'
+    idName = 'commentReId';
   }
 
   // 클릭된 요소의 클래스를 가져옴
@@ -289,20 +284,51 @@ const likeSave = (id, likeDivision, element) => {
   // listBtn 클래스가 있는지 확인
   const hasListBtnClass = classes.includes('listBtn');
 
-  // listBtn 클래스가 있는 경우에만 실행
+  // 요소의 클래스에 따라 다른 동작 수행
   if (hasListBtnClass) {
-    // ajax 호출 및 이후 동작
+    // 좋아요 저장
     $.ajax({
       url: '/like/save',
       type: 'post',
       data: {
         [idName]: id,
-        'likeDivision': likeDivision
+        'likeDivision': likeDivision,
+        'memberId': $("input[name=memberId]").val()
       },
       success: function (data) {
         if (data) {
           // 좋아요를 했을 경우 버튼 클래스를 변경
-          $(element).removeClass('listBtn').addClass('deleteBtn');
+          if (likeDivision === 'COMMENT') {
+            $(`#comment-${id} .commentCount`).removeClass('listBtn').addClass('deleteBtn');
+          } else if (likeDivision === 'COMMENT_RE') {
+            $(`#commentRe-${id} .commentCount`).removeClass('listBtn').addClass('deleteBtn');
+          }
+        }
+        $(".commentListArea").html("");
+        findAll($("input[name=boardId]").val());
+      },
+      error: function (err) {
+        console.error('AJAX 실패:', err);
+      }
+    });
+  } else if (classes.includes('deleteBtn')) {
+    // 좋아요 취소
+    $.ajax({
+      url: '/like/delete',
+      type: 'delete',
+      data: {
+        [idName]: id,
+        'likeDivision': likeDivision,
+        'memberId': $("input[name=memberId]").val()
+      },
+      success: function (data) {
+        if (data) {
+          // 좋아요가 취소되었을 경우 버튼 클래스를 변경
+          if (likeDivision === 'COMMENT') {
+            $(`#comment-${id} .commentCount`).removeClass('deleteBtn').addClass('listBtn');
+          } else if (likeDivision === 'COMMENT_RE') {
+            $(`#commentRe-${id} .commentCount`).removeClass('deleteBtn').addClass('listBtn');
+          }
         }
         $(".commentListArea").html("");
         findAll($("input[name=boardId]").val());
@@ -313,7 +339,6 @@ const likeSave = (id, likeDivision, element) => {
     });
   }
 };
-
 
 const myLike = (id, likeDivision) => {
   var idName;
@@ -332,10 +357,12 @@ const myLike = (id, likeDivision) => {
       'likeDivision': likeDivision
     },
     success: function (data) {
+      // 좋아요를 했을 경우 버튼 클래스를 변경
       if (data) {
-        // 좋아요를 했을 경우 버튼 클래스를 변경
-        if (data) {
+        if (likeDivision === 'COMMENT') {
           $(`#comment-${id} .commentCount`).removeClass('listBtn').addClass('deleteBtn');
+        } else if (likeDivision === 'COMMENT_RE') {
+          $(`#commentRe-${id} .commentCount`).removeClass('listBtn').addClass('deleteBtn');
         }
       }
     },
